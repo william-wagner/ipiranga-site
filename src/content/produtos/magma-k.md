@@ -1,7 +1,8 @@
 ---
 titulo: "Magma K"
 tipo: "Coroa e rosca sem-fim"
-resumo: "Redutor Cestari de coroa e rosca sem-fim com saída a 90°, para cargas pesadas. Muito presente no parque industrial e no mercado de usados."
+condicao: "Usado"
+resumo: "Redutor Cestari de coroa e rosca sem-fim com saída a 90°, para cargas pesadas. Linha antiga, que trabalhamos usada e com peças."
 imagem: "/images/produtos/foto-magma-k.jpg"
 ordem: 30
 especificacoes:

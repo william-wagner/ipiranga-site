@@ -26,6 +26,9 @@ content:
         label: Tipo (agrupa os produtos na página)
         type: string
         required: true
+      - name: condicao
+        label: Condição (ex. Novo e usado, Usado)
+        type: string
       - name: resumo
         label: Resumo (aparece no Google e no topo da página)
         type: text

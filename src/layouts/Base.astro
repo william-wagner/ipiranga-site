@@ -11,20 +11,28 @@ const tituloCompleto = titulo === site.nome ? `${site.nome} – Redutores de vel
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const atual = Astro.url.pathname;
 
+// O menu leva às seções da página inicial. Em outras páginas, marca a seção do assunto.
 const menu = [
-  { href: '/', label: 'Início' },
+  { secao: 'inicio', label: 'Início', pagina: '' },
+  { secao: 'novos-e-usados', label: 'Novos e usados', pagina: '/usados/' },
+  { secao: 'produtos', label: 'Produtos', pagina: '/produtos/' },
+  { secao: 'manutencao', label: 'Manutenção', pagina: '/manutencao/' },
+  { secao: 'pecas', label: 'Peças', pagina: '/pecas-e-acoplamentos/' },
+  { secao: 'empresa', label: 'A empresa', pagina: '/empresa/' },
+  { secao: 'contato', label: 'Contato', pagina: '/contato/' },
+];
+const paginasRodape = [
+  { href: '/usados/', label: 'Redutores usados' },
   { href: '/produtos/', label: 'Produtos' },
-  { href: '/usados/', label: 'Usados' },
   { href: '/manutencao/', label: 'Manutenção' },
   { href: '/pecas-e-acoplamentos/', label: 'Peças e acoplamentos' },
   { href: '/empresa/', label: 'A empresa' },
   { href: '/contato/', label: 'Contato' },
-];
-const maisLinks = [
   { href: '/aplicacoes/', label: 'Aplicações e tipos de redutor' },
   { href: '/o-que-e-um-redutor-de-velocidade/', label: 'O que é um redutor de velocidade' },
 ];
-const ativo = (href: string) => (href === '/' ? atual === '/' : atual.startsWith(href));
+const naHome = atual === '/';
+const ativo = (m: (typeof menu)[number]) => (naHome ? m.secao === 'inicio' : !!m.pagina && atual.startsWith(m.pagina));
 
 const schema = {
   '@context': 'https://schema.org',
@@ -84,7 +92,7 @@ const schema = {
         <nav id="menu-principal" aria-label="Principal">
           <ul>
             {menu.map((m) => (
-              <li><a href={m.href} aria-current={ativo(m.href) ? 'page' : undefined}>{m.label}</a></li>
+              <li><a href={naHome ? `#${m.secao}` : `/#${m.secao}`} data-secao={m.secao} aria-current={ativo(m) ? 'true' : undefined}>{m.label}</a></li>
             ))}
           </ul>
         </nav>
@@ -106,7 +114,7 @@ const schema = {
       <div>
         <h2>Site</h2>
         <ul class="lista-links">
-          {[...menu.slice(1), ...maisLinks].map((m) => <li><a href={m.href}>{m.label}</a></li>)}
+          {paginasRodape.map((m) => <li><a href={m.href}>{m.label}</a></li>)}
         </ul>
       </div>
       <div>
@@ -139,9 +147,37 @@ const schema = {
 
   <script>
     const botao = document.querySelector<HTMLButtonElement>('.menu-botao');
+    const fecharMenu = () => botao?.setAttribute('aria-expanded', 'false');
     botao?.addEventListener('click', () => {
       botao.setAttribute('aria-expanded', String(botao.getAttribute('aria-expanded') !== 'true'));
     });
+
+    // Marca no menu a seção que está na tela (só na página inicial)
+    const links = [...document.querySelectorAll<HTMLAnchorElement>('#menu-principal a[data-secao]')];
+    links.forEach((a) => a.addEventListener('click', fecharMenu));
+    const secoes = links
+      .map((a) => document.getElementById(a.dataset.secao!))
+      .filter((s): s is HTMLElement => !!s);
+    if (secoes.length > 1) {
+      const topo = document.querySelector<HTMLElement>('.topo');
+      let pendente = false;
+      const marcar = () => {
+        pendente = false;
+        const linha = (topo?.offsetHeight ?? 0) + window.innerHeight * 0.3;
+        let atual = secoes[0];
+        for (const s of secoes) if (s.getBoundingClientRect().top <= linha) atual = s;
+        // No fim da página, a última seção é a atual
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) atual = secoes[secoes.length - 1];
+        for (const a of links) {
+          if (a.dataset.secao === atual.id) a.setAttribute('aria-current', 'true');
+          else a.removeAttribute('aria-current');
+        }
+      };
+      window.addEventListener('scroll', () => {
+        if (!pendente) { pendente = true; requestAnimationFrame(marcar); }
+      }, { passive: true });
+      marcar();
+    }
   </script>
 </body>
 </html>
@@ -156,9 +192,9 @@ const schema = {
   .menu { margin-left: auto; }
   .menu-botao { display: none; }
   .menu ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.35rem; }
-  .menu a { color: #dbe4fb; text-decoration: none; font-weight: 500; padding-block: 0.35rem; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .menu a { color: #dbe4fb; text-decoration: none; font-weight: 500; padding-block: 0.35rem; border-bottom: 2px solid transparent; white-space: nowrap; transition: color .2s, border-color .2s; }
   .menu a:hover { color: #fff; border-color: var(--azul-claro); }
-  .menu a[aria-current='page'] { color: #fff; border-color: var(--laranja); }
+  .menu a[aria-current] { color: #fff; border-color: var(--laranja); }
   .topo :global(.topo-wa) { padding: 0.65rem 1rem; font-size: 0.98rem; white-space: nowrap; }
 
   @media (max-width: 78rem) {
@@ -173,7 +209,7 @@ const schema = {
     .menu-botao[aria-expanded='true'] + nav { display: block; }
     .menu ul { flex-direction: column; gap: 0; }
     .menu a { display: block; padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,.1); }
-    .menu a[aria-current='page'] { color: var(--laranja); border-bottom-color: rgba(255,255,255,.1); }
+    .menu a[aria-current] { color: var(--laranja); border-bottom-color: rgba(255,255,255,.1); }
   }
   @media (max-width: 40rem) {
     .topo :global(.topo-wa) { display: none; }

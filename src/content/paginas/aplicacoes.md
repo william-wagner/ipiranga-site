@@ -18,15 +18,15 @@ O redutor de velocidade diminui a rotação do acionamento para que o equipament
 
 ## Tipos de redutores
 
-**Coroa e rosca sem-fim.** Para saídas a 90°. Linhas WCR e Magma.
+**Coroa e rosca sem-fim.** Para saídas a 90°. Linhas WCR, WCG01 e Magma.
 
-**Eixos paralelos (helicoidais).** Para altas reduções, com funcionamento silencioso. Linha WCG20, versão de eixos paralelos.
+**Eixos paralelos (helicoidais).** Para altas reduções, com funcionamento silencioso.
 
-**Pares cônicos.** Saída a 90° com alto rendimento. Linha WCG20, versão ortogonal.
+**Pares cônicos.** Saída a 90° com alto rendimento.
 
 **Pendular.** Para correias transportadoras e movimentação de cargas, com baixo atrito e pouca vibração. Montado com braço de torção.
 
-**Coaxial.** Compacto, com saída em linha e várias opções de redução. Linha WCG20, versão coaxial.
+**Coaxial.** Compacto, com saída em linha e várias opções de redução.
 
 **Motorredutores.** Disponíveis em todas as linhas, com motores de diversas potências.
 

@@ -34,7 +34,7 @@
 }
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: 5.5rem; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 4.75rem; scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: var(--fonte);
@@ -63,17 +63,13 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 
 .container { width: min(var(--largura), 100% - 2 * var(--gutter)); margin-inline: auto; }
 
-/* Fundo de prancha técnica (grade azul) para as áreas escuras */
-.prancha {
+/* Áreas escuras: azul da fachada, com uma luz suave vinda do alto */
+.escuro {
   background-color: var(--azul-escuro);
-  background-image:
-    linear-gradient(var(--azul-linha) 1px, transparent 1px),
-    linear-gradient(90deg, var(--azul-linha) 1px, transparent 1px);
-  background-size: 24px 24px;
-  background-position: -1px -1px;
+  background-image: radial-gradient(120% 90% at 85% 0%, #24397e 0%, transparent 60%);
   color: #fff;
 }
-.prancha a:not(.btn) { color: #fff; }
+.escuro a:not(.btn) { color: #fff; }
 
 /* Desenhos técnicos em SVG (ilustrações do redutor) */
 .desenho-tecnico { width: 100%; height: auto; display: block; overflow: visible; }

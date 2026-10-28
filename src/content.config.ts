@@ -7,6 +7,7 @@ const produtos = defineCollection({
   schema: z.object({
     titulo: z.string(),
     tipo: z.string(),
+    condicao: z.string().optional(),
     resumo: z.string(),
     imagem: z.string().optional(),
     ordem: z.number().default(100),

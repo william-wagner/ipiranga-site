@@ -6,11 +6,11 @@ imagem: "/images/empresa/estoque.jpg"
 
 A Ipiranga Redutores trabalha com redutores de velocidade desde **1980**, no bairro Carlos Prates, em Belo Horizonte. Faz parte do Grupo Ipiranga Redutores de Velocidade e Acoplamentos.
 
-Somos **assistência técnica autorizada WEG** e vendemos redutores, motorredutores, acoplamentos e peças de reposição, novos e usados.
+Somos **assistência técnica autorizada WEG**. Vendemos redutores, motorredutores, acoplamentos e peças de reposição: novos, só da WEG; usados, de todas as marcas.
 
 ## Novos e usados
 
-Boa parte dos nossos clientes procura equipamento usado: um redutor igual ao que parou, um modelo que saiu de linha ou uma opção mais em conta para uma máquina que não pode esperar. Por isso mantemos estoque de usados ao lado dos novos, e a oficina para revisá-los.
+Boa parte dos nossos clientes procura equipamento usado: um redutor igual ao que parou, um modelo que saiu de linha ou uma opção mais em conta para uma máquina que não pode esperar. Por isso trabalhamos com usados de qualquer marca ao lado dos novos WEG, e temos a oficina para revisá-los.
 
 ## Equipe treinada na fábrica
 

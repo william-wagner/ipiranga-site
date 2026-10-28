@@ -11,7 +11,7 @@ const {
 } = Astro.props;
 const H = nivel;
 ---
-<section class="contato prancha" id="contato">
+<section class="contato escuro" id="contato">
   <div class="container contato-grade">
     <div>
       <H>{titulo}</H>
@@ -20,7 +20,6 @@ const H = nivel;
         <BotaoWhatsapp grande />
         <a class="btn btn-contorno btn-grande" href={linkTelefone}><Icone nome="telefone" />Ligar {site.telefone}</a>
       </div>
-      <p class="aviso">O WhatsApp e o telefone são o mesmo número: {site.telefone}. O botão verde abre a conversa direto, sem formulário.</p>
       <ul class="dados">
         <li><Icone nome="email" /><a href={`mailto:${site.email}`}>{site.email}</a></li>
         <li><Icone nome="local" /><a href={linkMapa} target="_blank" rel="noopener">{enderecoCompleto}</a></li>
@@ -42,8 +41,7 @@ const H = nivel;
   .contato-grade { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
   .contato :is(h1, h2) { max-width: 16ch; }
   .intro { color: #dbe4fb; font-size: 1.15rem; max-width: 32rem; }
-  .acoes { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 1.6rem 0 0.8rem; }
-  .aviso { font-size: 0.95rem; color: var(--azul-claro); max-width: 32rem; margin-bottom: 2rem; }
+  .acoes { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 1.6rem 0 2rem; }
   .dados { list-style: none; padding: 1.5rem 0 0; margin: 0; display: grid; gap: 1rem; border-top: 1px solid var(--azul-linha); }
   .dados > li { display: flex; gap: 0.8rem; align-items: flex-start; }
   .dados > li > :global(svg) { width: 1.25rem; height: 1.25rem; flex: none; margin-top: 0.2rem; color: var(--laranja); }

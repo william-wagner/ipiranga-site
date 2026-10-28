@@ -2,7 +2,7 @@
 interface Props { titulo: string; resumo?: string; trilha?: { href: string; label: string } }
 const { titulo, resumo, trilha } = Astro.props;
 ---
-<div class="cabecalho prancha">
+<div class="cabecalho escuro">
   <div class="container">
     {trilha && <a class="trilha" href={trilha.href}>{trilha.label}</a>}
     <h1>{titulo}</h1>

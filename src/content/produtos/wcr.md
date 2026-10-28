@@ -1,6 +1,7 @@
 ---
 titulo: "WCR"
 tipo: "Coroa e rosca sem-fim"
+condicao: "Novo e usado"
 resumo: "Redutor WEG de coroa e rosca sem-fim com eixos a 90°, carcaça aletada e versões de um ou dois estágios. Para máquinas de pequeno e médio porte."
 imagem: "/images/empresa/redutor.jpg"
 ordem: 10

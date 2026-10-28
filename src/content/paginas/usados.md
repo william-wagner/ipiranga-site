@@ -1,10 +1,10 @@
 ---
 titulo: "Redutores usados"
-descricao: "Redutores, motorredutores e acoplamentos usados em Belo Horizonte. Consulte modelos e disponibilidade pelo WhatsApp. Ipiranga Redutores, desde 1980."
+descricao: "Redutores, motorredutores e acoplamentos usados de todas as marcas em Belo Horizonte. Consulte modelos e disponibilidade pelo WhatsApp. Ipiranga Redutores, desde 1980."
 imagem: "/images/empresa/estoque.jpg"
 ---
 
-Além dos equipamentos novos, trabalhamos com **redutores, motorredutores e acoplamentos usados**. É uma parte grande do nosso negócio: muitas vezes o usado é o caminho mais rápido e econômico para pôr a máquina para rodar de novo.
+Nos novos, trabalhamos só com WEG. Nos usados, com **redutores, motorredutores e acoplamentos de todas as marcas**. É uma parte grande do nosso negócio: muitas vezes o usado é o caminho mais rápido e econômico para pôr a máquina para rodar de novo.
 
 ## Quando o usado faz sentido
 

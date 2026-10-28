@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 interface Props { produto: CollectionEntry<'produtos'>; destaques?: number }
 const { produto, destaques = 0 } = Astro.props;
-const { titulo, tipo, imagem, resumo, especificacoes } = produto.data;
+const { titulo, tipo, condicao, imagem, resumo, especificacoes } = produto.data;
 const specs = especificacoes.filter((e) => /redu|torque|potên/i.test(e.item)).slice(0, destaques);
 ---
 <a class="card" href={`/produtos/${produto.id}/`}>
@@ -10,7 +10,7 @@ const specs = especificacoes.filter((e) => /redu|torque|potên/i.test(e.item)).s
     {imagem && <img src={imagem} alt={`Redutor ${titulo}`} loading="lazy" width="400" height="300" />}
   </div>
   <div class="corpo">
-    <span class="tipo">{tipo}</span>
+    <span class="tipo">{tipo}{condicao && <span class="condicao">{condicao}</span>}</span>
     <span class="nome">{titulo}</span>
     {destaques > 0 && <p class="resumo">{resumo}</p>}
     {specs.length > 0 && (
@@ -29,7 +29,8 @@ const specs = especificacoes.filter((e) => /redu|torque|potên/i.test(e.item)).s
   .foto { position: relative; aspect-ratio: 4 / 3; background: #fff; border-bottom: 1px solid var(--linha); }
   .foto img { position: absolute; inset: 1.2rem; width: calc(100% - 2.4rem); height: calc(100% - 2.4rem); object-fit: contain; }
   .corpo { display: flex; flex-direction: column; flex: 1; padding: 1.1rem 1.25rem 1.25rem; }
-  .tipo { font-size: 0.92rem; color: var(--cinza); }
+  .tipo { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; font-size: 0.92rem; color: var(--cinza); }
+  .condicao { font-size: 0.82rem; font-weight: 600; color: var(--azul-escuro); background: var(--aco); padding: 0.15rem 0.6rem; border-radius: 999px; white-space: nowrap; }
   .nome { font: 700 2rem/1 var(--fonte-titulo); color: var(--azul-escuro); margin: 0.15rem 0 0.6rem; }
   .resumo { font-size: 0.98rem; color: var(--cinza); }
   .specs { margin: 0 0 1rem; display: grid; gap: 0; border-top: 1px solid var(--linha); }

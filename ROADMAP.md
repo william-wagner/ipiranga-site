@@ -6,8 +6,9 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
 ## Novo visual (branch `redesign-2026`)
 
 - [ ] **Aprovar o novo visual** e juntar a branch na `main` (isso publica o site).
-- [ ] **Fotos reais**: oficina, técnico na bancada, redutor desmontado, fachada e equipe. Hoje o site usa a foto
-  antiga do estoque, fotos de catálogo nos produtos e desenhos técnicos no lugar das fotos da oficina.
+- [ ] **Fotos**: gerar as fotos pelos prompts do documento "Prompts das fotos do site" e salvar em
+  `public/images/fotos/` com os nomes de `public/images/fotos/LEIA-ME.md`. Cada foto entra sozinha no site.
+  A da fachada (`empresa`) deve ser real.
 - [ ] **Fotos de produto melhores**: a do Magma K é pequena (221 px) e a do WCR é provisória.
 - [ ] **Logo em alta resolução** (vetor ou PNG grande, fundo transparente).
 - [ ] **Conferir textos que assumem coisas** sobre os usados: "revisão na nossa oficina" antes da entrega e
