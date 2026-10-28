@@ -1,0 +1,55 @@
+---
+// Faixa de logos de clientes que passa sozinha na tela.
+// Cliente sem logo aparece como espaço reservado, com o nome.
+interface Cliente { nome: string; logo?: string }
+interface Props { clientes: Cliente[]; minimo?: number }
+const { clientes, minimo = 8 } = Astro.props;
+
+// Espaços extras só para dar volume enquanto não há logos suficientes
+const extras = Math.max(0, minimo - clientes.length);
+const itens: (Cliente & { reservado?: boolean })[] = [
+  ...clientes,
+  ...Array.from({ length: extras }, () => ({ nome: 'Logo de cliente', reservado: true })),
+];
+---
+<div class="faixa" role="region" aria-label="Empresas que já atendemos">
+  <div class="trilho">
+    {[0, 1].map((copia) => (
+      <ul aria-hidden={copia === 1 ? 'true' : undefined}>
+        {itens.map((c) => (
+          <li class:list={{ reservado: c.reservado || !c.logo }}>
+            {c.logo
+              ? <img src={c.logo} alt={copia === 0 ? c.nome : ''} loading="lazy" />
+              : <span>{c.nome}</span>}
+          </li>
+        ))}
+      </ul>
+    ))}
+  </div>
+</div>
+
+<style>
+  .faixa {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .trilho { display: flex; width: max-content; animation: passar 40s linear infinite; }
+  .faixa:hover .trilho { animation-play-state: paused; }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.25rem; padding-right: 1.25rem; }
+  li {
+    flex: none; width: 12rem; height: 5.5rem; display: grid; place-items: center;
+    padding: 0.9rem 1.2rem; background: #fff; border: 1px solid var(--linha); border-radius: var(--raio);
+  }
+  li img { max-width: 100%; max-height: 100%; object-fit: contain; filter: grayscale(1); opacity: 0.75; transition: filter .3s, opacity .3s; }
+  li:hover img { filter: none; opacity: 1; }
+  li.reservado { border-style: dashed; background: var(--aco); }
+  li.reservado span { font: 600 1.15rem/1.15 var(--fonte-titulo); color: #8a95aa; text-align: center; }
+  @keyframes passar { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .faixa { mask-image: none; -webkit-mask-image: none; }
+    .trilho { width: auto; animation: none; }
+    ul { flex-wrap: wrap; padding-right: 0; }
+    ul[aria-hidden] { display: none; }
+  }
+</style>

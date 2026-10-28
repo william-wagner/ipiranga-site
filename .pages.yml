@@ -97,9 +97,12 @@ content:
           - { name: nome, label: Serviço, type: string }
           - { name: detalhe, label: Explicação curta, type: string }
       - name: clientes
-        label: Clientes que podem ser citados
-        type: string
+        label: Clientes na faixa de logos (página inicial)
+        type: object
         list: true
+        fields:
+          - { name: nome, label: Nome da empresa, type: string }
+          - { name: logo, label: "Logo (PNG transparente ou SVG; vazio mostra o espaço reservado)", type: image }
       - name: setores
         label: Setores atendidos
         type: string
