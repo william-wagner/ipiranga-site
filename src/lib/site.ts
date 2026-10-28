@@ -17,7 +17,8 @@ export const horarios = [
   { dias: 'Domingo', horas: faixa(site.horario.domingo) },
 ];
 
-export const linkWhatsapp = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(site.mensagemWhatsapp)}`;
+export const whatsappCom = (mensagem: string) => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(mensagem)}`;
+export const linkWhatsapp = whatsappCom(site.mensagemWhatsapp);
 export const linkTelefone = `tel:+55${site.telefone.replace(/\D/g, '')}`;
 export const enderecoCompleto = `${site.endereco} – ${site.bairro}, ${site.cidade}, ${site.cep}`;
 export const linkMapa = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`Ipiranga Redutores, ${enderecoCompleto}`)}`;

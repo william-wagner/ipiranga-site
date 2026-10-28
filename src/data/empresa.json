@@ -1,0 +1,12 @@
+{
+  "fundacao": 1980,
+  "servicos": [
+    { "nome": "Troca de rolamento", "detalhe": "Quando o redutor esquenta, faz barulho ou tem folga no eixo." },
+    { "nome": "Troca de retentor", "detalhe": "Para acabar com o vazamento de óleo." },
+    { "nome": "Troca de óleo", "detalhe": "Lubrificante e quantidade indicados para o modelo." },
+    { "nome": "Troca de peças", "detalhe": "Coroa, rosca sem-fim, engrenagens, eixos e tampas." },
+    { "nome": "Pintura", "detalhe": "O redutor revisado volta com acabamento novo." }
+  ],
+  "clientes": ["Vale", "Ambev", "Votorantim Cimentos", "Pachá Alimentos", "Xodó de Minas"],
+  "setores": ["Mineração e siderurgia", "Cimento", "Alimentos e bebidas", "Metalurgia", "Sucroalcooleiro e agronegócio", "Petroquímico, óleo e gás", "Plásticos e borracha", "Movimentação de cargas"]
+}

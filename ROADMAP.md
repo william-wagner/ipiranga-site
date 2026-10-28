@@ -3,6 +3,17 @@
 Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.com.br, servido pela AWS
 (S3 + CloudFront). O endereço de teste https://dpg3ehvdwvrru.cloudfront.net continua funcionando.
 
+## Novo visual (branch `redesign-2026`)
+
+- [ ] **Aprovar o novo visual** e juntar a branch na `main` (isso publica o site).
+- [ ] **Fotos reais**: oficina, técnico na bancada, redutor desmontado, fachada e equipe. Hoje o site usa a foto
+  antiga do estoque, fotos de catálogo nos produtos e desenhos técnicos no lugar das fotos da oficina.
+- [ ] **Fotos de produto melhores**: a do Magma K é pequena (221 px) e a do WCR é provisória.
+- [ ] **Logo em alta resolução** (vetor ou PNG grande, fundo transparente).
+- [ ] **Conferir textos que assumem coisas** sobre os usados: "revisão na nossa oficina" antes da entrega e
+  que o estoque de usados muda com frequência (`src/content/paginas/usados.md` e página inicial).
+- [ ] **Regras do selo WEG**: conferir com a WEG como o selo de autorizada pode aparecer.
+
 ## Antes da virada
 
 - [ ] **Revisar o site novo** com a Ipiranga: fotos, contatos e navegação, também pelo celular.

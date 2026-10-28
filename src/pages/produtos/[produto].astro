@@ -2,9 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import CabecalhoPagina from '../../components/CabecalhoPagina.astro';
 import CardProduto from '../../components/CardProduto.astro';
-import Icone from '../../components/Icone.astro';
+import BotaoWhatsapp from '../../components/BotaoWhatsapp.astro';
+import Contato from '../../components/Contato.astro';
 import { getCollection, render } from 'astro:content';
-import { site } from '../../lib/site';
 
 export async function getStaticPaths() {
   const produtos = await getCollection('produtos');
@@ -13,10 +13,9 @@ export async function getStaticPaths() {
 const { p, todos } = Astro.props;
 const { Content } = await render(p);
 const relacionados = todos.filter((o) => o.id !== p.id).sort((a, b) => (b.data.tipo === p.data.tipo ? 1 : 0) - (a.data.tipo === p.data.tipo ? 1 : 0) || a.data.ordem - b.data.ordem).slice(0, 3);
-const msg = `Olá! Vim pelo site e gostaria de um orçamento do redutor ${p.data.titulo}.`;
-const linkWa = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(msg)}`;
+const msg = `Olá! Vim pelo site e gostaria de um orçamento do ${p.data.titulo}.`;
 ---
-<Base titulo={`Redutor ${p.data.titulo}`} descricao={p.data.resumo} imagem={p.data.imagem}>
+<Base titulo={`${p.data.titulo} – ${p.data.tipo}`} descricao={p.data.resumo} imagem={p.data.imagem}>
   <CabecalhoPagina titulo={p.data.titulo} resumo={p.data.tipo} trilha={{ href: '/produtos/', label: 'Produtos' }} />
   <div class="container produto">
     {p.data.imagem && <div class="foto"><img src={p.data.imagem} alt={`Redutor ${p.data.titulo}`} /></div>}
@@ -31,7 +30,10 @@ const linkWa = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(msg)}`;
           </tbody>
         </table>
       )}
-      <a class="btn btn-acao" href={linkWa}><Icone nome="whatsapp" />Pedir orçamento do {p.data.titulo}</a>
+      <div class="acoes">
+        <BotaoWhatsapp texto={`Orçamento do ${p.data.titulo} pelo WhatsApp`} mensagem={msg} grande aviso />
+      </div>
+      {p.data.catalogo && <p class="catalogo"><a href={p.data.catalogo} target="_blank" rel="noopener">Catálogo do fabricante (PDF)</a></p>}
     </div>
   </div>
   <section class="relacionados">
@@ -40,6 +42,7 @@ const linkWa = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(msg)}`;
       <ul>{relacionados.map((r) => <li><CardProduto produto={r} /></li>)}</ul>
     </div>
   </section>
+  <Contato />
 </Base>
 
 <style>
@@ -53,7 +56,9 @@ const linkWa = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(msg)}`;
   .ficha th, .ficha td { text-align: left; vertical-align: top; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--linha); }
   .ficha th { font-weight: 600; width: 45%; background: var(--aco); }
   .ficha tr:first-child th, .ficha tr:first-child td { border-top: 2px solid var(--azul); }
+  .acoes { margin-bottom: 1rem; }
+  .catalogo { font-weight: 600; }
   .relacionados { background: var(--aco); padding-block: clamp(2.5rem, 6vw, 4rem); }
-  .relacionados ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(15rem, 44%), 1fr)); gap: 1.25rem; }
+  .relacionados ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(19rem, 100%), 1fr)); gap: 1.25rem; }
   @media (max-width: 52rem) { .produto { grid-template-columns: 1fr; } }
 </style>

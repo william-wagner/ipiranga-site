@@ -10,6 +10,7 @@ const produtos = defineCollection({
     resumo: z.string(),
     imagem: z.string().optional(),
     ordem: z.number().default(100),
+    catalogo: z.string().optional(),
     especificacoes: z.array(z.object({ item: z.string(), valor: z.string() })).default([]),
   }),
 });

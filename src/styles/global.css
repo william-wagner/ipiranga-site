@@ -1,80 +1,120 @@
 @import '@fontsource/barlow/400.css';
 @import '@fontsource/barlow/500.css';
 @import '@fontsource/barlow/600.css';
+@import '@fontsource/barlow-condensed/500.css';
 @import '@fontsource/barlow-condensed/600.css';
 @import '@fontsource/barlow-condensed/700.css';
 
 :root {
-  --azul: #22387a;          /* azul da fachada */
-  --azul-escuro: #16255a;
-  --azul-claro: #c9d3ee;
-  --aco: #eef1f6;           /* fundo cinza-aço */
-  --linha: #d5dbe6;
-  --grafite: #1c2333;
-  --cinza: #556079;
-  --laranja: #f07f1d;       /* laranja do banner antigo, só para ações */
-  --laranja-escuro: #c9650d;
-  --branco: #ffffff;
+  /* Azul da fachada, em três tons */
+  --azul: #22387a;
+  --azul-escuro: #14214a;
+  --azul-noite: #0f1938;
+  --azul-linha: #2b4386;     /* grade do desenho técnico */
+  --azul-traco: #cfe0ff;     /* traço do desenho técnico */
+  --azul-claro: #9db8f0;
+
+  --aco: #eef1f5;            /* fundo cinza-aço */
+  --aco-escuro: #dde3ec;
+  --linha: #d3dae5;
+  --grafite: #161c2b;
+  --cinza: #4f5a70;
+
+  --laranja: #f07f1d;        /* detalhes: linhas de centro, foco, marcador */
+  --verde-wa: #1f8f4e;       /* só para o botão do WhatsApp */
+  --verde-wa-escuro: #17723d;
 
   --fonte: 'Barlow', system-ui, sans-serif;
   --fonte-titulo: 'Barlow Condensed', 'Barlow', system-ui, sans-serif;
 
-  --largura: 72rem;
+  --largura: 76rem;
   --gutter: clamp(1rem, 4vw, 2rem);
+  --secao: clamp(3.5rem, 8vw, 6rem);
+  --raio: 6px;
 }
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 5.5rem; }
 body {
   margin: 0;
   font-family: var(--fonte);
   font-size: 1.0625rem;
   line-height: 1.6;
   color: var(--grafite);
-  background: var(--branco);
+  background: #fff;
 }
 img { max-width: 100%; height: auto; display: block; }
-a { color: var(--azul); }
+a { color: var(--azul); text-underline-offset: 0.18em; }
 a:hover { color: var(--azul-escuro); }
 :focus-visible { outline: 3px solid var(--laranja); outline-offset: 3px; }
 
 h1, h2, h3 {
   font-family: var(--fonte-titulo);
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.005em;
-  margin: 0 0 0.5em;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.45em;
+  text-wrap: balance;
 }
-h1 { font-size: clamp(2.4rem, 5.5vw, 3.75rem); }
-h2 { font-size: clamp(1.75rem, 3.5vw, 2.4rem); }
-h3 { font-size: 1.45rem; font-weight: 600; }
-p { margin: 0 0 1em; }
+h1 { font-size: clamp(2.7rem, 6.4vw, 4.9rem); }
+h2 { font-size: clamp(2rem, 4.2vw, 3.1rem); }
+h3 { font-size: 1.55rem; font-weight: 600; line-height: 1.1; }
+p { margin: 0 0 1em; text-wrap: pretty; }
 
 .container { width: min(var(--largura), 100% - 2 * var(--gutter)); margin-inline: auto; }
 
+/* Fundo de prancha técnica (grade azul) para as áreas escuras */
+.prancha {
+  background-color: var(--azul-escuro);
+  background-image:
+    linear-gradient(var(--azul-linha) 1px, transparent 1px),
+    linear-gradient(90deg, var(--azul-linha) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+  color: #fff;
+}
+.prancha a:not(.btn) { color: #fff; }
+
+/* Desenhos técnicos em SVG (ilustrações do redutor) */
+.desenho-tecnico { width: 100%; height: auto; display: block; overflow: visible; }
+.desenho-tecnico .grade { fill: none; stroke: none; }
+.desenho-tecnico .ln { fill: none; stroke: var(--azul-traco); stroke-width: 2; }
+.desenho-tecnico .ln-fino { fill: none; stroke: var(--azul-claro); stroke-width: 1.2; }
+.desenho-tecnico .eixo { fill: none; stroke: var(--laranja); stroke-width: 1; stroke-dasharray: 14 4 2 4; }
+.desenho-tecnico .cota { fill: none; stroke: var(--azul-claro); stroke-width: 1; }
+.desenho-tecnico .seta { fill: var(--azul-claro); }
+.desenho-tecnico .ponto { fill: var(--laranja); }
+.desenho-tecnico .txt { fill: #dfe8ff; font: 500 19px var(--fonte); }
+.desenho-tecnico .forte { font: 600 23px var(--fonte-titulo); fill: #fff; }
+
 /* Botões */
 .btn {
-  display: inline-flex; align-items: center; gap: 0.55rem;
-  padding: 0.8rem 1.35rem;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+  padding: 0.85rem 1.4rem;
   font: 600 1.05rem/1.2 var(--fonte);
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: var(--raio);
   border: 2px solid transparent;
   cursor: pointer;
 }
-.btn svg { width: 1.2em; height: 1.2em; flex: none; }
-.btn-acao { background: var(--laranja); color: #fff; }
-.btn-acao:hover { background: var(--laranja-escuro); color: #fff; }
+.btn svg { width: 1.3em; height: 1.3em; flex: none; }
+.btn-wa { background: var(--verde-wa); color: #fff; }
+.btn-wa:hover { background: var(--verde-wa-escuro); color: #fff; }
 .btn-contorno { border-color: currentColor; color: inherit; }
-.btn-contorno:hover { background: rgba(255,255,255,.12); color: inherit; }
+.btn-contorno:hover { background: rgba(255,255,255,.1); color: inherit; }
 .btn-azul { background: var(--azul); color: #fff; }
 .btn-azul:hover { background: var(--azul-escuro); color: #fff; }
+.btn-grande { padding: 1rem 1.6rem; font-size: 1.12rem; }
+
+/* Link de texto com seta desenhada (sem caractere) */
+.link-seta { font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem; }
 
 /* Texto longo (páginas de conteúdo) */
 .prosa { max-width: 40rem; }
-.prosa h2 { margin-top: 1.6em; font-size: 1.9rem; }
-.prosa ul { padding-left: 1.2em; }
-.prosa li { margin-bottom: 0.3em; }
+.prosa h2 { margin-top: 1.4em; font-size: clamp(1.8rem, 3vw, 2.2rem); }
+.prosa ul, .prosa ol { padding-left: 1.2em; }
+.prosa li { margin-bottom: 0.4em; }
+.prosa li::marker { color: var(--laranja); }
 .prosa strong { color: var(--azul-escuro); }
 
 @media (prefers-reduced-motion: reduce) {

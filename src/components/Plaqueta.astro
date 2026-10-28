@@ -1,0 +1,39 @@
+---
+// Faixa no formato de plaqueta de identificação de motor/redutor.
+interface Props { itens: { rotulo: string; valor: string }[] }
+const { itens } = Astro.props;
+---
+<div class="plaqueta">
+  <span class="parafuso p1" aria-hidden="true"></span><span class="parafuso p2" aria-hidden="true"></span>
+  <span class="parafuso p3" aria-hidden="true"></span><span class="parafuso p4" aria-hidden="true"></span>
+  <dl>
+    {itens.map((i) => (
+      <div><dt>{i.rotulo}</dt><dd>{i.valor}</dd></div>
+    ))}
+  </dl>
+</div>
+
+<style>
+  .plaqueta {
+    position: relative;
+    background: linear-gradient(180deg, #f7f9fc, #e4e9f1);
+    border: 1px solid #c3ccda;
+    border-radius: 4px;
+    box-shadow: 0 1px 0 #fff inset, 0 14px 30px -18px rgba(15, 25, 56, 0.55);
+    padding: 1.1rem 2rem;
+    color: var(--grafite);
+  }
+  dl { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+  dl > div { padding: 0.35rem 1.25rem; border-left: 1px solid #c3ccda; }
+  dl > div:first-child { border-left: 0; padding-left: 0.4rem; }
+  dt { font-size: 0.88rem; color: var(--cinza); font-weight: 500; }
+  dd { margin: 0; font: 700 clamp(1.45rem, 2.4vw, 1.9rem)/1.1 var(--fonte-titulo); color: var(--azul-escuro); }
+  .parafuso { position: absolute; width: 9px; height: 9px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, #9aa6b8 70%); box-shadow: 0 0 0 1px #8e9aae; }
+  .parafuso::after { content: ''; position: absolute; left: 1px; right: 1px; top: 4px; height: 1px; background: #6f7b8f; transform: rotate(-35deg); }
+  .p1 { top: 8px; left: 8px; } .p2 { top: 8px; right: 8px; } .p3 { bottom: 8px; left: 8px; } .p4 { bottom: 8px; right: 8px; }
+  @media (max-width: 52rem) {
+    .plaqueta { padding: 1rem 1.4rem; }
+    dl { grid-template-columns: 1fr 1fr; row-gap: 0.6rem; }
+    dl > div:nth-child(3) { border-left: 0; padding-left: 0.4rem; }
+  }
+</style>

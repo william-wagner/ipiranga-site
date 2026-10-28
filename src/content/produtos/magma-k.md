@@ -1,28 +1,28 @@
 ---
 titulo: "Magma K"
 tipo: "Coroa e rosca sem-fim"
-resumo: "Redutor de coroa e rosca sem-fim com saída a 90°, para acionamentos que pedem eixos em ângulo reto."
+resumo: "Redutor Cestari de coroa e rosca sem-fim com saída a 90°, para cargas pesadas. Muito presente no parque industrial e no mercado de usados."
 imagem: "/images/produtos/foto-magma-k.jpg"
-ordem: 10
+ordem: 30
 especificacoes:
   - item: "Engrenagens"
     valor: "Coroa e rosca sem-fim"
   - item: "Disposição dos eixos"
-    valor: "Ortogonais"
+    valor: "Ortogonais (90°)"
   - item: "Reduções simples"
     valor: "10 a 80"
   - item: "Reduções duplex"
     valor: "100 a 4.000"
   - item: "Torque"
     valor: "960 a 19.000 Nm"
-  - item: "Motores disponíveis"
+  - item: "Motores"
     valor: "3,7 a 22 kW"
   - item: "Fixação"
-    valor: "Carcaça, pés, flange, braço de torção"
+    valor: "Carcaça, pés, flange ou braço de torção"
   - item: "Eixo de saída"
-    valor: "Vazado (padrão), maciço, duplo"
+    valor: "Vazado (padrão), maciço ou duplo"
 ---
 
-A linha Magma usa o sistema de coroa e rosca sem-fim, em que a saída fica a 90° da entrada. É uma solução robusta para transportadores, misturadores e outros equipamentos em que o motor precisa ficar perpendicular à máquina.
+A linha Magma, da Cestari, é um redutor de coroa e rosca sem-fim robusto, feito para torques altos. Ainda roda em muitas plantas de mineração, siderurgia e alimentos, e é um dos modelos que mais aparecem no mercado de usados.
 
-Fazemos a venda e a manutenção da linha Magma K, com peças de reposição WEG Cestari.
+Trabalhamos com Magma K usado, peças de reposição e oficina preparada para recuperar o seu: troca de rolamentos, retentores, coroa e rosca, óleo e pintura.

@@ -1,27 +1,40 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-interface Props { produto: CollectionEntry<'produtos'> }
-const { produto } = Astro.props;
-const { titulo, tipo, imagem } = produto.data;
+interface Props { produto: CollectionEntry<'produtos'>; destaques?: number }
+const { produto, destaques = 0 } = Astro.props;
+const { titulo, tipo, imagem, resumo, especificacoes } = produto.data;
+const specs = especificacoes.filter((e) => /redu|torque|potên/i.test(e.item)).slice(0, destaques);
 ---
 <a class="card" href={`/produtos/${produto.id}/`}>
   <div class="foto">
     {imagem && <img src={imagem} alt={`Redutor ${titulo}`} loading="lazy" width="400" height="300" />}
   </div>
-  <span class="tipo">{tipo}</span>
-  <span class="nome">{titulo}</span>
+  <div class="corpo">
+    <span class="tipo">{tipo}</span>
+    <span class="nome">{titulo}</span>
+    {destaques > 0 && <p class="resumo">{resumo}</p>}
+    {specs.length > 0 && (
+      <dl class="specs">
+        {specs.map((e) => <div><dt>{e.item}</dt><dd>{e.valor}</dd></div>)}
+      </dl>
+    )}
+    <span class="ver">Ver ficha técnica</span>
+  </div>
 </a>
 
 <style>
-  .card { display: flex; flex-direction: column; height: 100%; background: #fff; text-decoration: none; color: var(--grafite); border: 1px solid var(--linha); border-radius: 4px; overflow: hidden; }
+  .card { display: flex; flex-direction: column; height: 100%; background: #fff; text-decoration: none; color: var(--grafite); border: 1px solid var(--linha); border-radius: var(--raio); overflow: hidden; }
   .card:hover { border-color: var(--azul); color: var(--grafite); }
-  .card:hover .nome { color: var(--azul); }
-  .foto { aspect-ratio: 4 / 3; display: grid; place-items: center; padding: 0.8rem; border-bottom: 1px solid var(--linha); }
-  .foto img { width: 100%; height: 100%; object-fit: contain; }
-  .tipo { padding: 0.9rem 1rem 0; font-size: 0.9rem; color: var(--cinza); }
-  .nome { padding: 0.1rem 1rem 1rem; font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.5rem; line-height: 1.15; }
-  @media (max-width: 30rem) {
-    .tipo { padding: 0.7rem 0.7rem 0; font-size: 0.82rem; }
-    .nome { padding: 0.1rem 0.7rem 0.8rem; font-size: 1.25rem; }
-  }
+  .card:hover .ver { text-decoration: underline; }
+  .foto { position: relative; aspect-ratio: 4 / 3; background: #fff; border-bottom: 1px solid var(--linha); }
+  .foto img { position: absolute; inset: 1.2rem; width: calc(100% - 2.4rem); height: calc(100% - 2.4rem); object-fit: contain; }
+  .corpo { display: flex; flex-direction: column; flex: 1; padding: 1.1rem 1.25rem 1.25rem; }
+  .tipo { font-size: 0.92rem; color: var(--cinza); }
+  .nome { font: 700 2rem/1 var(--fonte-titulo); color: var(--azul-escuro); margin: 0.15rem 0 0.6rem; }
+  .resumo { font-size: 0.98rem; color: var(--cinza); }
+  .specs { margin: 0 0 1rem; display: grid; gap: 0; border-top: 1px solid var(--linha); }
+  .specs div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0; border-bottom: 1px solid var(--linha); font-size: 0.95rem; }
+  .specs dt { color: var(--cinza); }
+  .specs dd { margin: 0; font-weight: 600; text-align: right; }
+  .ver { margin-top: auto; font-weight: 600; color: var(--azul); }
 </style>

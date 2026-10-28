@@ -36,6 +36,9 @@ content:
       - name: ordem
         label: Ordem na lista (menor aparece primeiro)
         type: number
+      - name: catalogo
+        label: Link do catálogo do fabricante (PDF)
+        type: string
       - name: especificacoes
         label: Ficha técnica
         type: object
@@ -73,6 +76,31 @@ content:
       - name: body
         label: Texto
         type: rich-text
+
+  - name: empresa
+    label: Serviços, clientes e setores
+    type: file
+    path: src/data/empresa.json
+    format: json
+    fields:
+      - name: fundacao
+        label: Ano de fundação
+        type: number
+      - name: servicos
+        label: Serviços de manutenção (aparecem na página inicial)
+        type: object
+        list: true
+        fields:
+          - { name: nome, label: Serviço, type: string }
+          - { name: detalhe, label: Explicação curta, type: string }
+      - name: clientes
+        label: Clientes que podem ser citados
+        type: string
+        list: true
+      - name: setores
+        label: Setores atendidos
+        type: string
+        list: true
 
   - name: contato
     label: Contato e horário

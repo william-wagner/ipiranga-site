@@ -1,0 +1,17 @@
+---
+// Botão de orçamento. Sempre diz que é pelo WhatsApp, para o cliente saber
+// que não vai cair num formulário nem no e-mail.
+import Icone from './Icone.astro';
+import { site, whatsappCom } from '../lib/site';
+
+interface Props { texto?: string; mensagem?: string; grande?: boolean; aviso?: boolean; class?: string }
+const { texto = 'Orçamento pelo WhatsApp', mensagem = site.mensagemWhatsapp, grande = false, aviso = false, class: classe = '' } = Astro.props;
+---
+<a class:list={['btn', 'btn-wa', { 'btn-grande': grande }, classe]} href={whatsappCom(mensagem)} target="_blank" rel="noopener">
+  <Icone nome="whatsapp" />{texto}
+</a>
+{aviso && <p class="aviso-wa">Abre uma conversa no WhatsApp com a nossa equipe. Sem formulário, sem cadastro.</p>}
+
+<style>
+  .aviso-wa { margin: 0.7rem 0 0; font-size: 0.95rem; opacity: 0.85; }
+</style>

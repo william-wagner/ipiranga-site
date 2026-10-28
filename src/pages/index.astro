@@ -4,122 +4,219 @@ import Icone from '../components/Icone.astro';
 import StatusAberto from '../components/StatusAberto.astro';
 import CardProduto from '../components/CardProduto.astro';
 import Contato from '../components/Contato.astro';
+import BotaoWhatsapp from '../components/BotaoWhatsapp.astro';
+import Plaqueta from '../components/Plaqueta.astro';
+import DesenhoRedutor from '../components/DesenhoRedutor.astro';
+import DesenhoExplodido from '../components/DesenhoExplodido.astro';
 import { getCollection } from 'astro:content';
-import { site, linkWhatsapp, linkTelefone } from '../lib/site';
+import { site, linkTelefone } from '../lib/site';
+import empresa from '../data/empresa.json';
 
 const produtos = (await getCollection('produtos')).sort((a, b) => a.data.ordem - b.data.ordem);
-const setores = ['Mineração e siderurgia', 'Metalurgia', 'Alimentício', 'Sucroalcooleiro e agronegócio', 'Petroquímico, óleo e gás', 'Plásticos e borracha', 'Movimentação de cargas'];
+const anos = new Date().getFullYear() - empresa.fundacao;
 ---
-<Base titulo={site.nome} descricao="Venda e manutenção de redutores e motorredutores de velocidade em Belo Horizonte. Assistência técnica autorizada WEG Cestari, com atendimento em todo o Brasil.">
+<Base titulo={site.nome} descricao={`Redutores e motorredutores novos e usados, peças, acoplamentos e manutenção em Belo Horizonte desde ${empresa.fundacao}. Assistência técnica autorizada WEG. Orçamento pelo WhatsApp.`}>
 
-  <section class="hero">
+  <section class="hero prancha">
     <div class="container hero-grade">
       <div class="hero-texto">
-        <h1>Venda e manutenção de redutores de velocidade</h1>
-        <p class="hero-sub">Assistência técnica autorizada WEG Cestari em Belo Horizonte. Há mais de 30 anos cuidando de redutores, motorredutores e acoplamentos para a indústria, com atendimento em todo o Brasil.</p>
+        <p class="selo-weg">
+          <img src="/images/weg-cestari.png" alt="WEG Cestari" width="230" height="57" />
+          <span>Assistência técnica autorizada</span>
+        </p>
+        <h1>Redutores e motorredutores novos e usados</h1>
+        <p class="hero-sub">Venda, conserto e peças em Belo Horizonte desde {empresa.fundacao}. Atendemos indústrias de todo o Brasil.</p>
         <div class="hero-acoes">
-          <a class="btn btn-acao" href={linkWhatsapp}><Icone nome="whatsapp" />Chamar no WhatsApp</a>
-          <a class="btn btn-contorno" href={linkTelefone}><Icone nome="telefone" />Ligar {site.telefone}</a>
+          <BotaoWhatsapp grande />
+          <a class="btn btn-contorno btn-grande" href={linkTelefone}><Icone nome="telefone" />{site.telefone}</a>
         </div>
+        <p class="hero-aviso">O botão verde abre uma conversa no WhatsApp com a nossa equipe. Sem formulário, sem cadastro.</p>
         <StatusAberto />
       </div>
-      <figure class="hero-foto">
-        <img src="/images/empresa/estoque.jpg" alt="Prateleiras do estoque com dezenas de redutores e motorredutores" width="800" height="600" fetchpriority="high" />
-        <figcaption>Nosso estoque no Carlos Prates, em Belo Horizonte</figcaption>
+      <div class="hero-desenho">
+        <DesenhoRedutor />
+      </div>
+    </div>
+    <div class="container hero-plaqueta">
+      <Plaqueta itens={[
+        { rotulo: 'Em Belo Horizonte desde', valor: String(empresa.fundacao) },
+        { rotulo: 'Assistência técnica', valor: 'Autorizada WEG' },
+        { rotulo: 'Redutores e acoplamentos', valor: 'Novos e usados' },
+        { rotulo: 'Atendimento', valor: 'Todo o Brasil' },
+      ]} />
+    </div>
+  </section>
+
+  <section class="usados">
+    <div class="container usados-grade">
+      <figure>
+        <img src="/images/empresa/estoque.jpg" alt="Prateleiras do estoque com dezenas de redutores, motorredutores e acoplamentos" width="800" height="600" loading="lazy" />
+        <figcaption>Parte do estoque, na nossa loja do Carlos Prates</figcaption>
       </figure>
+      <div>
+        <h2>Precisa de um redutor para ontem? Veja os usados.</h2>
+        <p>Boa parte do que vendemos é equipamento usado. É o caminho mais rápido quando o redutor parou e a máquina não pode esperar prazo de fábrica, ou quando o modelo já saiu de linha.</p>
+        <ul class="lista-check">
+          <li>Redutores, motorredutores e acoplamentos usados</li>
+          <li>Modelos atuais e de linhas antigas, como a Magma</li>
+          <li>Revisão na nossa própria oficina</li>
+        </ul>
+        <BotaoWhatsapp texto="Consultar usados pelo WhatsApp" mensagem="Olá! Vim pelo site e quero consultar redutores usados." />
+        <p class="dica">Dica: mande uma foto da plaqueta do seu redutor que a gente procura um igual.</p>
+        <a class="link-seta" href="/usados/">Como funciona a compra de usados</a>
+      </div>
     </div>
   </section>
 
-  <section class="selo">
-    <div class="container selo-linha">
-      <img src="/images/weg-cestari.png" alt="WEG Cestari Redutores" width="230" height="57" />
-      <p>Somos revenda e assistência técnica autorizada <strong>WEG Cestari</strong>, com equipe treinada na fábrica.</p>
-    </div>
-  </section>
-
-  <section class="servicos container">
-    <article>
-      <img src="/images/empresa/manutencao.jpg" alt="Redutor de velocidade em manutenção" width="400" height="283" loading="lazy" />
-      <div>
-        <h2>Manutenção</h2>
-        <p>Preventiva e corretiva em redutores e motorredutores de todas as marcas. Seu redutor parou? Envie para a nossa oficina de qualquer cidade do Brasil.</p>
-        <a href="/manutencao/">Como funciona a manutenção</a>
-      </div>
-    </article>
-    <article>
-      <img src="/images/empresa/redutor.jpg" alt="Redutor de velocidade WEG Cestari" width="380" height="380" loading="lazy" />
-      <div>
-        <h2>Venda</h2>
-        <p>Redutores, motorredutores, acoplamentos e peças de reposição WEG Cestari. Ajudamos a escolher o modelo certo para o torque e a rotação que você precisa.</p>
-        <a href="/produtos/">Ver as linhas de produtos</a>
-      </div>
-    </article>
-  </section>
-
-  <section class="produtos">
+  <section class="linhas">
     <div class="container">
       <div class="cabecalho-secao">
-        <h2>Linhas de redutores</h2>
-        <a href="/produtos/">Todos os produtos</a>
+        <div>
+          <h2>Linhas que vendemos e consertamos</h2>
+          <p>Somos assistência autorizada WEG, mas atendemos redutores de todas as marcas.</p>
+        </div>
+        <a class="link-seta" href="/produtos/">Todos os produtos</a>
       </div>
       <ul class="grade-produtos">
-        {produtos.slice(0, 8).map((p) => <li><CardProduto produto={p} /></li>)}
+        {produtos.map((p) => <li><CardProduto produto={p} destaques={2} /></li>)}
       </ul>
     </div>
   </section>
 
-  <section class="setores container">
-    <h2>Setores que atendemos</h2>
-    <ul>
-      {setores.map((s) => <li>{s}</li>)}
-    </ul>
-    <p><a href="/aplicacoes/">Tipos de redutores e onde cada um é usado</a></p>
+  <section class="manutencao prancha">
+    <div class="container manutencao-grade">
+      <div>
+        <h2>Conserto de redutores, com peça certa e oficina própria</h2>
+        <p class="lead">Desmontamos, avaliamos o desgaste e mandamos o orçamento pelo WhatsApp. Se o seu redutor está fora de BH, combinamos o envio.</p>
+        <ul class="servicos">
+          {empresa.servicos.map((s) => <li><strong>{s.nome}</strong><span>{s.detalhe}</span></li>)}
+        </ul>
+        <div class="acoes">
+          <BotaoWhatsapp texto="Orçamento de conserto pelo WhatsApp" mensagem="Olá! Vim pelo site e preciso de um orçamento de manutenção para um redutor." />
+          <a class="link-seta" href="/manutencao/">Como funciona a manutenção</a>
+        </div>
+      </div>
+      <div class="manutencao-desenho">
+        <DesenhoExplodido />
+      </div>
+    </div>
+  </section>
+
+  <section class="pecas">
+    <div class="container pecas-grade">
+      <div>
+        <h2>Peças de reposição e acoplamentos</h2>
+        <p>Peças avulsas para troca imediata ou programada, e acoplamentos WEG Cestari novos e usados. Não sabe o nome da peça? Mande uma foto.</p>
+        <BotaoWhatsapp texto="Pedir peça pelo WhatsApp" mensagem="Olá! Vim pelo site e procuro uma peça de reposição." />
+      </div>
+      <div class="pecas-listas">
+        <div>
+          <h3>Para redutores</h3>
+          <ul><li>Rolamentos e retentores</li><li>Coroa e rosca sem-fim</li><li>Engrenagens e pinhão</li><li>Eixos, tampas e flanges</li><li>Braço de torção e base</li></ul>
+        </div>
+        <div>
+          <h3>Para acoplamentos</h3>
+          <ul><li>Elementos elásticos</li><li>Buchas e pinos</li><li>Arruelas, anéis e porcas</li></ul>
+          <a class="link-seta" href="/pecas-e-acoplamentos/">Ver peças e acoplamentos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="clientes">
+    <div class="container">
+      <h2>{anos} anos atendendo a indústria</h2>
+      <p class="sub">Algumas das empresas que já atendemos</p>
+      <ul class="nomes">
+        {empresa.clientes.map((c) => <li>{c}</li>)}
+      </ul>
+      <p class="sub">Setores</p>
+      <ul class="setores">
+        {empresa.setores.map((s) => <li>{s}</li>)}
+      </ul>
+    </div>
   </section>
 
   <Contato />
 </Base>
 
 <style>
-  .hero { background: var(--azul); color: #fff; padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(3rem, 6vw, 5rem); }
-  .hero-grade { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
-  .hero h1 { max-width: 13ch; }
-  .hero-sub { font-size: 1.2rem; color: #dfe5f4; max-width: 34rem; margin-bottom: 1.8rem; }
-  .hero-acoes { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.4rem; }
-  .hero :global(.status) { color: #dfe5f4; }
-  .hero-foto { margin: 0; }
-  .hero-foto img { border-radius: 4px; border: 6px solid #fff; box-shadow: 0 18px 40px rgba(8, 16, 45, 0.45); transform: rotate(1.2deg); }
-  .hero-foto figcaption { margin-top: 0.9rem; font-size: 0.92rem; color: var(--azul-claro); text-align: right; }
+  /* Hero */
+  .hero { padding: clamp(2.5rem, 6vw, 4.5rem) 0 0; position: relative; }
+  .hero::after { content: ''; position: absolute; inset: auto 0 0 0; height: 3.4rem; background: #fff; }
+  .hero-grade { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+  .selo-weg { display: inline-flex; align-items: center; gap: 0.8rem; margin: 0 0 1.6rem; background: #fff; color: var(--azul-escuro); padding: 0.45rem 0.9rem 0.45rem 0.6rem; border-radius: 4px; font-weight: 600; font-size: 0.95rem; }
+  .selo-weg img { height: 1.75rem; width: auto; }
+  .selo-weg span { padding-left: 0.8rem; border-left: 1px solid var(--linha); }
+  .hero h1 { max-width: 13ch; font-size: clamp(2.7rem, 5.6vw, 4.4rem); }
+  .hero-sub { font-size: clamp(1.15rem, 1.6vw, 1.3rem); color: #dbe4fb; max-width: 32rem; margin-bottom: 1.8rem; }
+  .hero-acoes { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .hero-aviso { margin: 0.9rem 0 1.2rem; font-size: 0.95rem; color: var(--azul-claro); max-width: 30rem; }
+  .hero :global(.status) { color: #dbe4fb; }
+  .hero-desenho { min-width: 0; }
+  .hero-plaqueta { position: relative; z-index: 1; margin-top: clamp(2rem, 5vw, 3.5rem); }
 
-  .selo { background: var(--aco); border-bottom: 1px solid var(--linha); }
-  .selo-linha { display: flex; align-items: center; gap: 1.6rem; padding-block: 1.3rem; }
-  .selo img { width: 170px; height: auto; mix-blend-mode: multiply; }
-  .selo p { margin: 0; color: var(--cinza); }
-  .selo strong { color: var(--grafite); }
+  /* Traço do desenho aparece uma vez, ao carregar */
+  .hero-desenho :global(.traco) { stroke-dasharray: 2400; stroke-dashoffset: 2400; animation: desenhar 2.2s ease-out 0.2s forwards; }
+  @keyframes desenhar { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .hero-desenho :global(.traco) { stroke-dashoffset: 0; } }
 
-  .servicos { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; padding-block: clamp(3rem, 7vw, 5rem); }
-  .servicos article { display: grid; grid-template-columns: 9rem 1fr; gap: 1.5rem; align-items: start; }
-  .servicos img { width: 9rem; aspect-ratio: 1; object-fit: cover; border-radius: 4px; border: 1px solid var(--linha); }
-  .servicos h2 { font-size: 2rem; margin-bottom: 0.3em; }
-  .servicos a { font-weight: 600; }
+  /* Usados */
+  .usados { padding-block: var(--secao); }
+  .usados-grade { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .usados figure { margin: 0; }
+  .usados figure img { width: 100%; border-radius: var(--raio); }
+  .usados figcaption { margin-top: 0.7rem; font-size: 0.92rem; color: var(--cinza); }
+  .usados h2 { max-width: 16ch; }
+  .lista-check { list-style: none; padding: 0; margin: 0 0 1.6rem; display: grid; gap: 0.5rem; }
+  .lista-check li { padding-left: 1.6rem; position: relative; font-weight: 500; }
+  .lista-check li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 0.75rem; height: 0.4rem; border-left: 3px solid var(--laranja); border-bottom: 3px solid var(--laranja); transform: rotate(-45deg); }
+  .dica { margin: 0.9rem 0 1rem; font-size: 0.95rem; color: var(--cinza); }
 
-  .produtos { background: var(--aco); padding-block: clamp(3rem, 7vw, 5rem); }
-  .cabecalho-secao { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 1.6rem; }
-  .cabecalho-secao h2 { margin: 0; }
-  .cabecalho-secao a { font-weight: 600; }
-  .grade-produtos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(15rem, 44%), 1fr)); gap: 1.25rem; }
+  /* Linhas */
+  .linhas { background: var(--aco); padding-block: var(--secao); }
+  .cabecalho-secao { display: flex; justify-content: space-between; align-items: end; gap: 1rem 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .cabecalho-secao h2 { margin-bottom: 0.3em; }
+  .cabecalho-secao p { margin: 0; color: var(--cinza); }
+  .grade-produtos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr)); gap: 1.5rem; }
 
-  .setores { padding-block: clamp(3rem, 7vw, 5rem); }
-  .setores ul { list-style: none; margin: 0 0 1.4rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
-  .setores li { padding: 0.5rem 1rem; border: 1px solid var(--linha); border-left: 4px solid var(--azul); font-weight: 500; background: #fff; }
-  .setores a { font-weight: 600; }
+  /* Manutenção */
+  .manutencao { padding-block: var(--secao); }
+  .manutencao-grade { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .manutencao h2 { max-width: 16ch; }
+  .lead { color: #dbe4fb; font-size: 1.15rem; max-width: 34rem; }
+  .servicos { list-style: none; padding: 0; margin: 1.6rem 0 2rem; border-top: 1px solid var(--azul-linha); }
+  .servicos li { display: grid; grid-template-columns: 11rem 1fr; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--azul-linha); }
+  .servicos strong { font: 600 1.25rem/1.25 var(--fonte-titulo); }
+  .servicos span { color: #c4cfea; }
+  .acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; }
+  .manutencao-desenho { min-width: 0; }
 
-  @media (max-width: 52rem) {
-    .hero-grade { grid-template-columns: 1fr; }
-    .hero-foto img { transform: none; }
-    .hero-foto figcaption { text-align: left; }
-    .servicos { grid-template-columns: 1fr; }
-    .servicos article { grid-template-columns: 6rem 1fr; gap: 1rem; }
-    .servicos img { width: 6rem; }
-    .selo-linha { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  /* Peças */
+  .pecas { padding-block: var(--secao); border-bottom: 1px solid var(--linha); }
+  .pecas-grade { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(2rem, 5vw, 4.5rem); }
+  .pecas h2 { max-width: 14ch; }
+  .pecas-listas { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .pecas-listas h3 { padding-bottom: 0.5rem; border-bottom: 2px solid var(--azul); }
+  .pecas-listas ul { list-style: none; padding: 0; margin: 0 0 1.2rem; }
+  .pecas-listas li { padding: 0.45rem 0; border-bottom: 1px solid var(--linha); }
+
+  /* Clientes */
+  .clientes { padding-block: var(--secao); }
+  .sub { color: var(--cinza); font-weight: 500; margin: 1.6rem 0 0.8rem; }
+  .nomes { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 2.6rem; }
+  .nomes li { font: 700 clamp(1.6rem, 3vw, 2.3rem)/1.2 var(--fonte-titulo); color: var(--azul); }
+  .setores { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .setores li { padding: 0.45rem 0.95rem; background: var(--aco); border-radius: 999px; font-weight: 500; font-size: 0.97rem; }
+
+  @media (max-width: 62rem) {
+    .hero-grade, .usados-grade, .manutencao-grade, .pecas-grade { grid-template-columns: 1fr; }
+    .hero-desenho { max-width: 34rem; }
+    .manutencao-desenho { max-width: 32rem; }
+  }
+  @media (max-width: 40rem) {
+    .servicos li { grid-template-columns: 1fr; gap: 0.1rem; }
+    .pecas-listas { grid-template-columns: 1fr; gap: 0.5rem; }
+    .hero-acoes :global(.btn) { width: 100%; }
   }
 </style>

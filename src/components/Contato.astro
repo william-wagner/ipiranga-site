@@ -1,23 +1,29 @@
 ---
 import Icone from './Icone.astro';
 import StatusAberto from './StatusAberto.astro';
-import { site, horarios, linkWhatsapp, linkTelefone, enderecoCompleto, linkMapa, embedMapa } from '../lib/site';
-interface Props { titulo?: string; nivel?: 'h1' | 'h2' }
-const { titulo = 'Fale com a gente', nivel = 'h2' } = Astro.props;
+import BotaoWhatsapp from './BotaoWhatsapp.astro';
+import { site, horarios, linkTelefone, enderecoCompleto, linkMapa, embedMapa } from '../lib/site';
+interface Props { titulo?: string; nivel?: 'h1' | 'h2'; texto?: string }
+const {
+  titulo = 'Seu redutor parou? Fale com a gente.',
+  nivel = 'h2',
+  texto = 'Peça um orçamento, consulte o estoque de novos e usados ou combine o envio do seu redutor para a oficina.',
+} = Astro.props;
 const H = nivel;
 ---
-<section class="contato">
+<section class="contato prancha" id="contato">
   <div class="container contato-grade">
     <div>
       <H>{titulo}</H>
-      <p class="intro">Tire dúvidas, peça um orçamento ou combine o envio do seu redutor para manutenção.</p>
+      <p class="intro">{texto}</p>
       <div class="acoes">
-        <a class="btn btn-acao" href={linkWhatsapp}><Icone nome="whatsapp" />Chamar no WhatsApp</a>
-        <a class="btn btn-azul" href={linkTelefone}><Icone nome="telefone" />Ligar {site.telefone}</a>
+        <BotaoWhatsapp grande />
+        <a class="btn btn-contorno btn-grande" href={linkTelefone}><Icone nome="telefone" />Ligar {site.telefone}</a>
       </div>
+      <p class="aviso">O WhatsApp e o telefone são o mesmo número: {site.telefone}. O botão verde abre a conversa direto, sem formulário.</p>
       <ul class="dados">
         <li><Icone nome="email" /><a href={`mailto:${site.email}`}>{site.email}</a></li>
-        <li><Icone nome="local" /><a href={linkMapa}>{enderecoCompleto}</a></li>
+        <li><Icone nome="local" /><a href={linkMapa} target="_blank" rel="noopener">{enderecoCompleto}</a></li>
         <li><Icone nome="relogio" /><div>
           <StatusAberto />
           <dl>{horarios.map((h) => (<><dt>{h.dias}</dt><dd>{h.horas}</dd></>))}</dl>
@@ -26,24 +32,26 @@ const H = nivel;
     </div>
     <div class="mapa">
       <iframe src={embedMapa} title={`Mapa: ${enderecoCompleto}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <a href={linkMapa}>Abrir no Google Maps</a>
+      <a href={linkMapa} target="_blank" rel="noopener">Abrir no Google Maps</a>
     </div>
   </div>
 </section>
 
 <style>
-  .contato { padding-block: clamp(3rem, 7vw, 5rem); border-top: 1px solid var(--linha); }
-  .contato-grade { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 5vw, 4rem); }
-  .intro { color: var(--cinza); max-width: 30rem; }
-  .acoes { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 1.4rem 0 2rem; }
-  .dados { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+  .contato { padding-block: var(--secao); }
+  .contato-grade { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .contato :is(h1, h2) { max-width: 16ch; }
+  .intro { color: #dbe4fb; font-size: 1.15rem; max-width: 32rem; }
+  .acoes { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 1.6rem 0 0.8rem; }
+  .aviso { font-size: 0.95rem; color: var(--azul-claro); max-width: 32rem; margin-bottom: 2rem; }
+  .dados { list-style: none; padding: 1.5rem 0 0; margin: 0; display: grid; gap: 1rem; border-top: 1px solid var(--azul-linha); }
   .dados > li { display: flex; gap: 0.8rem; align-items: flex-start; }
-  .dados > li > :global(svg) { width: 1.25rem; height: 1.25rem; flex: none; margin-top: 0.2rem; color: var(--azul); }
-  .dados :global(.status) { margin-bottom: 0.4rem; }
+  .dados > li > :global(svg) { width: 1.25rem; height: 1.25rem; flex: none; margin-top: 0.2rem; color: var(--laranja); }
+  .dados :global(.status) { margin-bottom: 0.4rem; color: #fff; }
   dl { margin: 0; display: grid; grid-template-columns: auto auto; gap: 0.2rem 1.2rem; justify-content: start; }
-  dt { color: var(--cinza); }
+  dt { color: var(--azul-claro); }
   dd { margin: 0; font-weight: 500; }
-  .mapa iframe { width: 100%; aspect-ratio: 4 / 3; border: 1px solid var(--linha); border-radius: 4px; display: block; }
-  .mapa a { display: inline-block; margin-top: 0.6rem; font-weight: 600; }
+  .mapa iframe { width: 100%; aspect-ratio: 4 / 3.4; border: 0; border-radius: var(--raio); display: block; background: var(--azul-noite); }
+  .mapa a { display: inline-block; margin-top: 0.7rem; font-weight: 600; }
   @media (max-width: 52rem) { .contato-grade { grid-template-columns: 1fr; } }
 </style>

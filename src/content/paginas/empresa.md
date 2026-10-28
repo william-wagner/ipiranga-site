@@ -1,17 +1,25 @@
 ---
 titulo: "A empresa"
-descricao: "A Ipiranga Redutores faz parte do Grupo Ipiranga Redutores de Velocidade e Acoplamentos, há mais de 30 anos no mercado, em Belo Horizonte."
+descricao: "Desde 1980 em Belo Horizonte, a Ipiranga Redutores vende e conserta redutores, motorredutores e acoplamentos, novos e usados. Assistência técnica autorizada WEG."
 imagem: "/images/empresa/estoque.jpg"
 ---
 
-A Ipiranga Redutores faz parte do Grupo Ipiranga Redutores de Velocidade e Acoplamentos, presente no mercado há mais de 30 anos.
+A Ipiranga Redutores trabalha com redutores de velocidade desde **1980**, no bairro Carlos Prates, em Belo Horizonte. Faz parte do Grupo Ipiranga Redutores de Velocidade e Acoplamentos.
 
-Trabalhamos com motorredutores, redutores de velocidade, acoplamentos, máquinas e equipamentos para acionamentos industriais e movimentação de cargas. Somos assistência técnica e revenda autorizada **WEG Cestari**.
+Somos **assistência técnica autorizada WEG** e vendemos redutores, motorredutores, acoplamentos e peças de reposição, novos e usados.
 
-## Atendemos todo o Brasil
+## Novos e usados
 
-Nossa oficina fica no Carlos Prates, em Belo Horizonte, mas atendemos clientes de todo o país. Se o seu redutor parou, você pode enviá-lo para nós: nossos técnicos fazem o diagnóstico e o reparo com rapidez, para a sua produção voltar a funcionar.
+Boa parte dos nossos clientes procura equipamento usado: um redutor igual ao que parou, um modelo que saiu de linha ou uma opção mais em conta para uma máquina que não pode esperar. Por isso mantemos estoque de usados ao lado dos novos, e a oficina para revisá-los.
 
 ## Equipe treinada na fábrica
 
-Investimos em cursos de atualização para a equipe e em treinamentos direto na fábrica WEG Cestari. É isso que nos permite fazer análises técnicas criteriosas e manutenção de qualidade em todos os tipos de redutores.
+A equipe passa por cursos de atualização e treinamentos direto na fábrica da WEG. É isso que nos permite diagnosticar a falha com critério e fazer a manutenção com as peças certas.
+
+## Atendemos todo o Brasil
+
+A oficina fica em Belo Horizonte, mas recebemos redutores de qualquer cidade do país. Combine o envio pelo WhatsApp e acompanhe o orçamento por lá.
+
+## Quem já atendemos
+
+Vale, Ambev, Votorantim Cimentos, Pachá Alimentos e Xodó de Minas estão entre as empresas que já atendemos.

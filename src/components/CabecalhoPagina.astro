@@ -2,19 +2,20 @@
 interface Props { titulo: string; resumo?: string; trilha?: { href: string; label: string } }
 const { titulo, resumo, trilha } = Astro.props;
 ---
-<div class="cabecalho">
+<div class="cabecalho prancha">
   <div class="container">
     {trilha && <a class="trilha" href={trilha.href}>{trilha.label}</a>}
     <h1>{titulo}</h1>
     {resumo && <p>{resumo}</p>}
+    <slot />
   </div>
 </div>
 
 <style>
-  .cabecalho { background: var(--azul); color: #fff; padding: 2.5rem 0 2.8rem; }
-  .cabecalho h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 0; max-width: 22ch; }
-  .cabecalho p { margin: 0.8rem 0 0; color: #dfe5f4; font-size: 1.15rem; max-width: 40rem; }
-  .trilha { display: inline-block; color: var(--azul-claro); margin-bottom: 0.6rem; font-weight: 500; text-decoration: none; }
-  .trilha::before { content: '‹ '; }
-  .trilha:hover { color: #fff; text-decoration: underline; }
+  .cabecalho { padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(2.8rem, 6vw, 4.2rem); border-bottom: 3px solid var(--laranja); }
+  .cabecalho h1 { font-size: clamp(2.5rem, 5.5vw, 4rem); margin: 0; max-width: 20ch; }
+  .cabecalho p { margin: 0.9rem 0 0; color: #dbe4fb; font-size: 1.18rem; max-width: 42rem; }
+  .cabecalho .trilha { display: inline-block; color: var(--azul-claro); margin-bottom: 0.7rem; font-weight: 500; text-decoration: none; }
+  .cabecalho .trilha::before { content: '‹ '; }
+  .cabecalho .trilha:hover { color: #fff; text-decoration: underline; }
 </style>

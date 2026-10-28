@@ -1,23 +1,25 @@
 ---
 titulo: "Manutenção de redutores"
-descricao: "Assistência técnica autorizada WEG Cestari. Manutenção preventiva e corretiva de redutores e motorredutores de velocidade, com atendimento em todo o Brasil."
+descricao: "Assistência técnica autorizada WEG em Belo Horizonte: troca de rolamento, retentor, óleo, peças e pintura de redutores e motorredutores. Atendemos todo o Brasil."
 imagem: "/images/empresa/manutencao.jpg"
 ---
 
-Somos assistência técnica autorizada **WEG Cestari** e fazemos manutenção em redutores e motorredutores de todas as marcas e modelos.
+Somos **assistência técnica autorizada WEG** e fazemos a manutenção de redutores e motorredutores de todas as marcas, preventiva ou corretiva.
+
+## O que fazemos
+
+- **Troca de rolamentos**, quando o redutor esquenta, faz barulho ou tem folga no eixo.
+- **Troca de retentores**, para acabar com o vazamento de óleo.
+- **Troca de óleo**, com o lubrificante e a quantidade indicados para o modelo.
+- **Troca de peças**: coroa, rosca sem-fim, engrenagens, pinhão, eixos, tampas e flanges.
+- **Pintura** do equipamento revisado.
+
+## Como funciona
+
+1. Chame no WhatsApp e conte o que está acontecendo. Se o redutor estiver fora de BH, combinamos o envio.
+2. Desmontamos, avaliamos o desgaste e mandamos o orçamento.
+3. Com a sua aprovação, fazemos o reparo e devolvemos o redutor pronto para trabalhar.
 
 ## Manutenção preventiva
 
-O redutor é peça-chave da linha de produção. A manutenção periódica evita paradas inesperadas e aumenta a vida útil do equipamento. Fazemos inspeção, troca de óleo, rolamentos e vedações, e avaliamos o desgaste das engrenagens.
-
-## Manutenção corretiva
-
-Quando o redutor para, fazemos a análise técnica, identificamos a causa da falha e executamos o reparo com peças de reposição adequadas.
-
-## Peças de reposição
-
-Fornecemos peças avulsas para troca imediata ou programada: carcaça, eixos, rosca sem-fim, coroa, engrenagens, pinhão, flange, braço de torção, base, tampas, retentores, rolamentos, ventiladores e outras.
-
-## Como enviar seu redutor
-
-Atendemos em Belo Horizonte e em qualquer cidade do Brasil. Fale com a gente pelo telefone ou WhatsApp para combinar o envio do equipamento para a nossa oficina.
+O redutor é peça-chave da linha de produção. Trocar óleo, rolamentos e retentores no tempo certo evita a parada inesperada e aumenta a vida útil do equipamento.

@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import CabecalhoPagina from '../components/CabecalhoPagina.astro';
 import Contato from '../components/Contato.astro';
+import BotaoWhatsapp from '../components/BotaoWhatsapp.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -14,7 +15,10 @@ const { Content } = await render(p);
 <Base titulo={p.data.titulo} descricao={p.data.descricao} imagem={p.data.imagem}>
   <CabecalhoPagina titulo={p.data.titulo} />
   <div class="container corpo">
-    <article class="prosa"><Content /></article>
+    <article class="prosa">
+      <Content />
+      <div class="cta"><BotaoWhatsapp aviso /></div>
+    </article>
     {p.data.imagem && <img class="foto" src={p.data.imagem} alt="" loading="lazy" />}
   </div>
   <Contato />
@@ -22,6 +26,7 @@ const { Content } = await render(p);
 
 <style>
   .corpo { display: grid; grid-template-columns: minmax(0, 40rem) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); padding-block: clamp(2.5rem, 6vw, 4rem); align-items: start; }
+  .cta { margin-top: 2.2rem; padding-top: 1.6rem; border-top: 1px solid var(--linha); }
   .foto { border-radius: 4px; border: 1px solid var(--linha); width: 100%; max-width: 26rem; justify-self: end; position: sticky; top: 1.5rem; }
   @media (max-width: 52rem) { .corpo { grid-template-columns: 1fr; } .foto { justify-self: start; position: static; } }
 </style>

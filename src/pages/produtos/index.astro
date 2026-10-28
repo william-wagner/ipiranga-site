@@ -10,14 +10,14 @@ const produtos = (await getCollection('produtos')).sort((a, b) => a.data.ordem -
 const grupos = new Map<string, typeof produtos>();
 for (const p of produtos) grupos.set(p.data.tipo, [...(grupos.get(p.data.tipo) ?? []), p]);
 ---
-<Base titulo="Produtos" descricao="Linhas de redutores e motorredutores WEG Cestari: Magma, Alumag, Helimax, Conimax, Magmax, Vertimax e coaxiais. Venda e peças de reposição.">
-  <CabecalhoPagina titulo="Produtos" resumo="Redutores, motorredutores e acoplamentos WEG Cestari, com peças de reposição. Não sabe qual escolher? Fale com a gente." />
+<Base titulo="Produtos" descricao="Redutores WCR e Magma K de coroa e rosca sem-fim e motorredutores WCG20, novos e usados. Ficha técnica, peças e orçamento pelo WhatsApp.">
+  <CabecalhoPagina titulo="Produtos" resumo="Redutores, motorredutores e acoplamentos novos e usados, com peças de reposição. Não sabe qual escolher? Mande os dados da sua máquina pelo WhatsApp." />
   <div class="container lista">
     {[...grupos].map(([tipo, itens]) => (
       <section>
         <h2>{tipo}</h2>
         <ul>
-          {itens.map((p) => <li><CardProduto produto={p} /></li>)}
+          {itens.map((p) => <li><CardProduto produto={p} destaques={2} /></li>)}
         </ul>
       </section>
     ))}
@@ -28,5 +28,5 @@ for (const p of produtos) grupos.set(p.data.tipo, [...(grupos.get(p.data.tipo) ?
 <style>
   .lista { padding-block: clamp(2.5rem, 6vw, 4rem); display: grid; gap: 2.8rem; }
   h2 { font-size: 1.8rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--azul); margin-bottom: 1.2rem; }
-  ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(15rem, 44%), 1fr)); gap: 1.25rem; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(19rem, 100%), 1fr)); gap: 1.25rem; }
 </style>
