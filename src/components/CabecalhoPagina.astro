@@ -1,0 +1,20 @@
+---
+interface Props { titulo: string; resumo?: string; trilha?: { href: string; label: string } }
+const { titulo, resumo, trilha } = Astro.props;
+---
+<div class="cabecalho">
+  <div class="container">
+    {trilha && <a class="trilha" href={trilha.href}>{trilha.label}</a>}
+    <h1>{titulo}</h1>
+    {resumo && <p>{resumo}</p>}
+  </div>
+</div>
+
+<style>
+  .cabecalho { background: var(--azul); color: #fff; padding: 2.5rem 0 2.8rem; }
+  .cabecalho h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 0; max-width: 22ch; }
+  .cabecalho p { margin: 0.8rem 0 0; color: #dfe5f4; font-size: 1.15rem; max-width: 40rem; }
+  .trilha { display: inline-block; color: var(--azul-claro); margin-bottom: 0.6rem; font-weight: 500; text-decoration: none; }
+  .trilha::before { content: '‹ '; }
+  .trilha:hover { color: #fff; text-decoration: underline; }
+</style>

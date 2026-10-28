@@ -1,0 +1,36 @@
+---
+// Mostra "Aberto agora" ou "Fechado agora" no horário de Belo Horizonte.
+// Calculado no navegador do visitante, então sempre está atualizado.
+import { site } from '../lib/site';
+---
+<p class="status" data-horario={JSON.stringify(site.horario)} hidden>
+  <span class="ponto" aria-hidden="true"></span><span class="texto"></span>
+</p>
+
+<script>
+  const fmt = (h: string) => {
+    const [hh, mm] = h.split(':');
+    return mm && mm !== '00' ? `${Number(hh)}h${mm}` : `${Number(hh)}h`;
+  };
+  const minutos = (h: string) => { const [a, b] = h.split(':').map(Number); return a * 60 + b; };
+
+  for (const el of document.querySelectorAll<HTMLElement>('.status')) {
+    const horario = JSON.parse(el.dataset.horario || '{}');
+    const agora = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+    const dia = agora.getDay();
+    const f = dia === 0 ? horario.domingo : dia === 6 ? horario.sabado : horario.semana;
+    const m = agora.getHours() * 60 + agora.getMinutes();
+    const aberto = f?.abre && f?.fecha && m >= minutos(f.abre) && m < minutos(f.fecha);
+    el.classList.toggle('aberto', !!aberto);
+    el.querySelector('.texto')!.textContent = aberto
+      ? `Aberto agora, até as ${fmt(f.fecha)}`
+      : 'Fechado agora. Deixe sua mensagem no WhatsApp';
+    el.hidden = false;
+  }
+</script>
+
+<style>
+  .status { display: inline-flex; align-items: center; gap: 0.55rem; margin: 0; font-weight: 500; }
+  .ponto { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: #9aa4b8; }
+  .aberto .ponto { background: #3fcf73; box-shadow: 0 0 0 4px rgba(63, 207, 115, 0.25); }
+</style>

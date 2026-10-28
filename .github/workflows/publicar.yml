@@ -1,0 +1,59 @@
+name: Publicar site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  id-token: write   # login na AWS por OIDC, sem chaves guardadas no GitHub
+  contents: read
+
+concurrency:
+  group: publicar
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Gerar o site
+        run: npm run build
+
+      # Os passos abaixo só rodam depois que a AWS estiver configurada
+      # (variáveis AWS_ROLE_ARN, S3_BUCKET e CLOUDFRONT_DISTRIBUTION_ID no repositório).
+      - name: Entrar na AWS
+        if: vars.AWS_ROLE_ARN != ''
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: sa-east-1
+
+      - name: Enviar arquivos para o S3
+        if: vars.AWS_ROLE_ARN != ''
+        run: |
+          # Arquivos com hash no nome (CSS/JS/fontes) podem ficar em cache por 1 ano
+          aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}/" --delete \
+            --exclude "*" --include "_astro/*" \
+            --cache-control "public, max-age=31536000, immutable"
+          # O resto (HTML, imagens, sitemap) é revalidado com frequência
+          aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}/" --delete \
+            --exclude "_astro/*" \
+            --cache-control "public, max-age=300"
+
+      - name: Limpar o cache do CloudFront
+        if: vars.AWS_ROLE_ARN != ''
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/*"

@@ -1,0 +1,59 @@
+---
+import Base from '../../layouts/Base.astro';
+import CabecalhoPagina from '../../components/CabecalhoPagina.astro';
+import CardProduto from '../../components/CardProduto.astro';
+import Icone from '../../components/Icone.astro';
+import { getCollection, render } from 'astro:content';
+import { site } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const produtos = await getCollection('produtos');
+  return produtos.map((p) => ({ params: { produto: p.id }, props: { p, todos: produtos } }));
+}
+const { p, todos } = Astro.props;
+const { Content } = await render(p);
+const relacionados = todos.filter((o) => o.id !== p.id).sort((a, b) => (b.data.tipo === p.data.tipo ? 1 : 0) - (a.data.tipo === p.data.tipo ? 1 : 0) || a.data.ordem - b.data.ordem).slice(0, 3);
+const msg = `Olá! Vim pelo site e gostaria de um orçamento do redutor ${p.data.titulo}.`;
+const linkWa = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(msg)}`;
+---
+<Base titulo={`Redutor ${p.data.titulo}`} descricao={p.data.resumo} imagem={p.data.imagem}>
+  <CabecalhoPagina titulo={p.data.titulo} resumo={p.data.tipo} trilha={{ href: '/produtos/', label: 'Produtos' }} />
+  <div class="container produto">
+    {p.data.imagem && <div class="foto"><img src={p.data.imagem} alt={`Redutor ${p.data.titulo}`} /></div>}
+    <div>
+      <p class="resumo">{p.data.resumo}</p>
+      <div class="prosa"><Content /></div>
+      {p.data.especificacoes.length > 0 && (
+        <table class="ficha">
+          <caption>Ficha técnica</caption>
+          <tbody>
+            {p.data.especificacoes.map((e) => (<tr><th scope="row">{e.item}</th><td>{e.valor}</td></tr>))}
+          </tbody>
+        </table>
+      )}
+      <a class="btn btn-acao" href={linkWa}><Icone nome="whatsapp" />Pedir orçamento do {p.data.titulo}</a>
+    </div>
+  </div>
+  <section class="relacionados">
+    <div class="container">
+      <h2>Outras linhas</h2>
+      <ul>{relacionados.map((r) => <li><CardProduto produto={r} /></li>)}</ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .produto { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(2rem, 5vw, 4rem); padding-block: clamp(2.5rem, 6vw, 4rem); align-items: start; }
+  .foto { border: 1px solid var(--linha); border-radius: 4px; padding: 1.5rem; display: grid; place-items: center; }
+  .foto img { width: 100%; max-width: 22rem; max-height: 24rem; object-fit: contain; }
+  .resumo { font-size: 1.25rem; font-weight: 500; color: var(--azul-escuro); }
+  .prosa { margin-bottom: 1.8rem; }
+  .ficha { width: 100%; max-width: 40rem; border-collapse: collapse; margin-bottom: 2rem; font-size: 1rem; }
+  .ficha caption { text-align: left; font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.5rem; padding-bottom: 0.6rem; }
+  .ficha th, .ficha td { text-align: left; vertical-align: top; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--linha); }
+  .ficha th { font-weight: 600; width: 45%; background: var(--aco); }
+  .ficha tr:first-child th, .ficha tr:first-child td { border-top: 2px solid var(--azul); }
+  .relacionados { background: var(--aco); padding-block: clamp(2.5rem, 6vw, 4rem); }
+  .relacionados ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(15rem, 44%), 1fr)); gap: 1.25rem; }
+  @media (max-width: 52rem) { .produto { grid-template-columns: 1fr; } }
+</style>

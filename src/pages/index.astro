@@ -1,0 +1,125 @@
+---
+import Base from '../layouts/Base.astro';
+import Icone from '../components/Icone.astro';
+import StatusAberto from '../components/StatusAberto.astro';
+import CardProduto from '../components/CardProduto.astro';
+import Contato from '../components/Contato.astro';
+import { getCollection } from 'astro:content';
+import { site, linkWhatsapp, linkTelefone } from '../lib/site';
+
+const produtos = (await getCollection('produtos')).sort((a, b) => a.data.ordem - b.data.ordem);
+const setores = ['Mineração e siderurgia', 'Metalurgia', 'Alimentício', 'Sucroalcooleiro e agronegócio', 'Petroquímico, óleo e gás', 'Plásticos e borracha', 'Movimentação de cargas'];
+---
+<Base titulo={site.nome} descricao="Venda e manutenção de redutores e motorredutores de velocidade em Belo Horizonte. Assistência técnica autorizada WEG Cestari, com atendimento em todo o Brasil.">
+
+  <section class="hero">
+    <div class="container hero-grade">
+      <div class="hero-texto">
+        <h1>Venda e manutenção de redutores de velocidade</h1>
+        <p class="hero-sub">Assistência técnica autorizada WEG Cestari em Belo Horizonte. Há mais de 30 anos cuidando de redutores, motorredutores e acoplamentos para a indústria, com atendimento em todo o Brasil.</p>
+        <div class="hero-acoes">
+          <a class="btn btn-acao" href={linkWhatsapp}><Icone nome="whatsapp" />Chamar no WhatsApp</a>
+          <a class="btn btn-contorno" href={linkTelefone}><Icone nome="telefone" />Ligar {site.telefone}</a>
+        </div>
+        <StatusAberto />
+      </div>
+      <figure class="hero-foto">
+        <img src="/images/empresa/estoque.jpg" alt="Prateleiras do estoque com dezenas de redutores e motorredutores" width="800" height="600" fetchpriority="high" />
+        <figcaption>Nosso estoque no Carlos Prates, em Belo Horizonte</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="selo">
+    <div class="container selo-linha">
+      <img src="/images/weg-cestari.png" alt="WEG Cestari Redutores" width="230" height="57" />
+      <p>Somos revenda e assistência técnica autorizada <strong>WEG Cestari</strong>, com equipe treinada na fábrica.</p>
+    </div>
+  </section>
+
+  <section class="servicos container">
+    <article>
+      <img src="/images/empresa/manutencao.jpg" alt="Redutor de velocidade em manutenção" width="400" height="283" loading="lazy" />
+      <div>
+        <h2>Manutenção</h2>
+        <p>Preventiva e corretiva em redutores e motorredutores de todas as marcas. Seu redutor parou? Envie para a nossa oficina de qualquer cidade do Brasil.</p>
+        <a href="/manutencao/">Como funciona a manutenção</a>
+      </div>
+    </article>
+    <article>
+      <img src="/images/empresa/redutor.jpg" alt="Redutor de velocidade WEG Cestari" width="380" height="380" loading="lazy" />
+      <div>
+        <h2>Venda</h2>
+        <p>Redutores, motorredutores, acoplamentos e peças de reposição WEG Cestari. Ajudamos a escolher o modelo certo para o torque e a rotação que você precisa.</p>
+        <a href="/produtos/">Ver as linhas de produtos</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="produtos">
+    <div class="container">
+      <div class="cabecalho-secao">
+        <h2>Linhas de redutores</h2>
+        <a href="/produtos/">Todos os produtos</a>
+      </div>
+      <ul class="grade-produtos">
+        {produtos.slice(0, 8).map((p) => <li><CardProduto produto={p} /></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="setores container">
+    <h2>Setores que atendemos</h2>
+    <ul>
+      {setores.map((s) => <li>{s}</li>)}
+    </ul>
+    <p><a href="/aplicacoes/">Tipos de redutores e onde cada um é usado</a></p>
+  </section>
+
+  <Contato />
+</Base>
+
+<style>
+  .hero { background: var(--azul); color: #fff; padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(3rem, 6vw, 5rem); }
+  .hero-grade { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .hero h1 { max-width: 13ch; }
+  .hero-sub { font-size: 1.2rem; color: #dfe5f4; max-width: 34rem; margin-bottom: 1.8rem; }
+  .hero-acoes { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.4rem; }
+  .hero :global(.status) { color: #dfe5f4; }
+  .hero-foto { margin: 0; }
+  .hero-foto img { border-radius: 4px; border: 6px solid #fff; box-shadow: 0 18px 40px rgba(8, 16, 45, 0.45); transform: rotate(1.2deg); }
+  .hero-foto figcaption { margin-top: 0.9rem; font-size: 0.92rem; color: var(--azul-claro); text-align: right; }
+
+  .selo { background: var(--aco); border-bottom: 1px solid var(--linha); }
+  .selo-linha { display: flex; align-items: center; gap: 1.6rem; padding-block: 1.3rem; }
+  .selo img { width: 170px; height: auto; mix-blend-mode: multiply; }
+  .selo p { margin: 0; color: var(--cinza); }
+  .selo strong { color: var(--grafite); }
+
+  .servicos { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; padding-block: clamp(3rem, 7vw, 5rem); }
+  .servicos article { display: grid; grid-template-columns: 9rem 1fr; gap: 1.5rem; align-items: start; }
+  .servicos img { width: 9rem; aspect-ratio: 1; object-fit: cover; border-radius: 4px; border: 1px solid var(--linha); }
+  .servicos h2 { font-size: 2rem; margin-bottom: 0.3em; }
+  .servicos a { font-weight: 600; }
+
+  .produtos { background: var(--aco); padding-block: clamp(3rem, 7vw, 5rem); }
+  .cabecalho-secao { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 1.6rem; }
+  .cabecalho-secao h2 { margin: 0; }
+  .cabecalho-secao a { font-weight: 600; }
+  .grade-produtos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(15rem, 44%), 1fr)); gap: 1.25rem; }
+
+  .setores { padding-block: clamp(3rem, 7vw, 5rem); }
+  .setores ul { list-style: none; margin: 0 0 1.4rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .setores li { padding: 0.5rem 1rem; border: 1px solid var(--linha); border-left: 4px solid var(--azul); font-weight: 500; background: #fff; }
+  .setores a { font-weight: 600; }
+
+  @media (max-width: 52rem) {
+    .hero-grade { grid-template-columns: 1fr; }
+    .hero-foto img { transform: none; }
+    .hero-foto figcaption { text-align: left; }
+    .servicos { grid-template-columns: 1fr; }
+    .servicos article { grid-template-columns: 6rem 1fr; gap: 1rem; }
+    .servicos img { width: 6rem; }
+    .selo-linha { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import CabecalhoPagina from '../../components/CabecalhoPagina.astro';
+import CardProduto from '../../components/CardProduto.astro';
+import Contato from '../../components/Contato.astro';
+import { getCollection } from 'astro:content';
+
+const produtos = (await getCollection('produtos')).sort((a, b) => a.data.ordem - b.data.ordem);
+// Agrupa pelo tipo, na ordem em que os tipos aparecem
+const grupos = new Map<string, typeof produtos>();
+for (const p of produtos) grupos.set(p.data.tipo, [...(grupos.get(p.data.tipo) ?? []), p]);
+---
+<Base titulo="Produtos" descricao="Linhas de redutores e motorredutores WEG Cestari: Magma, Alumag, Helimax, Conimax, Magmax, Vertimax e coaxiais. Venda e peças de reposição.">
+  <CabecalhoPagina titulo="Produtos" resumo="Redutores, motorredutores e acoplamentos WEG Cestari, com peças de reposição. Não sabe qual escolher? Fale com a gente." />
+  <div class="container lista">
+    {[...grupos].map(([tipo, itens]) => (
+      <section>
+        <h2>{tipo}</h2>
+        <ul>
+          {itens.map((p) => <li><CardProduto produto={p} /></li>)}
+        </ul>
+      </section>
+    ))}
+  </div>
+  <Contato titulo="Peça um orçamento" />
+</Base>
+
+<style>
+  .lista { padding-block: clamp(2.5rem, 6vw, 4rem); display: grid; gap: 2.8rem; }
+  h2 { font-size: 1.8rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--azul); margin-bottom: 1.2rem; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(15rem, 44%), 1fr)); gap: 1.25rem; }
+</style>

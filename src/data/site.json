@@ -1,0 +1,16 @@
+{
+  "nome": "Ipiranga Redutores",
+  "telefone": "(31) 3201-5536",
+  "whatsapp": "553132015536",
+  "mensagemWhatsapp": "Olá! Vim pelo site e gostaria de falar sobre redutores.",
+  "email": "redutores.ipiranga@gmail.com",
+  "endereco": "Av. Nossa Sra. de Fátima, 2215",
+  "bairro": "Carlos Prates",
+  "cidade": "Belo Horizonte – MG",
+  "cep": "30710-020",
+  "horario": {
+    "semana": { "abre": "08:30", "fecha": "17:00" },
+    "sabado": { "abre": "08:00", "fecha": "11:00" },
+    "domingo": { "abre": "", "fecha": "" }
+  }
+}
