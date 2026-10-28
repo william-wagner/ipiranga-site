@@ -1,7 +1,7 @@
 # Roadmap: pendências do site
 
-Situação em 28/10/2026: o site novo está publicado na AWS e pode ser visto em
-https://dpg3ehvdwvrru.cloudfront.net. O domínio `ipirangaredutores.com.br` ainda mostra o site antigo.
+Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.com.br, servido pela AWS
+(S3 + CloudFront). O endereço de teste https://dpg3ehvdwvrru.cloudfront.net continua funcionando.
 
 ## Antes da virada
 
@@ -15,10 +15,10 @@ https://dpg3ehvdwvrru.cloudfront.net. O domínio `ipirangaredutores.com.br` aind
 
 ## Virada do domínio
 
-- [ ] **Fase 3 do CloudFormation**: atualizar a pilha `site-ipiranga` (us-east-1) com o parâmetro `Fase = 3`.
+- [x] **Fase 3 do CloudFormation** (feita em 28/10/2026): atualizar a pilha `site-ipiranga` (us-east-1) com o parâmetro `Fase = 3`.
   Isso aponta `ipirangaredutores.com.br` e `www` para o CloudFront. O DNS está com TTL de 5 minutos;
   para desfazer, basta voltar para `Fase = 2`.
-- [ ] Depois da virada, conferir no domínio: HTTPS, redirect do `www` e redirects das URLs antigas do WordPress.
+- [x] Depois da virada, conferir no domínio: HTTPS, redirect do `www` e redirects das URLs antigas do WordPress.
 
 ## Domínio (painel do Registro.br)
 
