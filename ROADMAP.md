@@ -5,7 +5,13 @@ https://dpg3ehvdwvrru.cloudfront.net. O domínio `ipirangaredutores.com.br` aind
 
 ## Antes da virada
 
-- [ ] **Revisar o site novo** com a Ipiranga: textos, descrições dos produtos, fotos e contatos, também pelo celular.
+- [ ] **Revisar o site novo** com a Ipiranga: fotos, contatos e navegação, também pelo celular.
+- [ ] **Revisar os textos do site** e ajustar para a linguagem da empresa: A empresa, Manutenção, Aplicações
+  e as descrições dos produtos (foram reescritos a partir do site antigo).
+  - Atenção especial ao artigo **"O que é um redutor de velocidade?"**: no site antigo ele era uma cópia
+    da Wikipédia. No site novo já foi reescrito com outras palavras, mas o ideal é a Ipiranga revisar ou
+    trocar por um texto próprio, com a experiência da empresa (o que mais aparece na oficina, dicas de
+    manutenção etc.). Arquivo: `src/content/paginas/o-que-e-um-redutor-de-velocidade.md`.
 
 ## Virada do domínio
 
@@ -23,6 +29,12 @@ https://dpg3ehvdwvrru.cloudfront.net. O domínio `ipirangaredutores.com.br` aind
 
 - [ ] **Cancelar a hospedagem antiga** (WordPress em `108.167.132.137`, DNS `prodns.com.br`).
   Esperar alguns dias com o site novo no ar antes de cancelar.
+- [ ] **Formulário de contato no site**: caixa para o cliente escrever nome, e-mail/telefone e mensagem
+  e enviar direto pela página, sem abrir o aplicativo de e-mail dele. A mensagem chega no
+  e-mail da empresa (`redutores.ipiranga@gmail.com`).
+  - Caminho previsto, mantendo o site sem servidor: uma função AWS Lambda que recebe o formulário e envia
+    o e-mail pelo Amazon SES, criada no mesmo modelo do CloudFormation.
+  - Incluir proteção contra spam (campo oculto "isca" e limite de envios) e uma mensagem de confirmação na tela.
 - [ ] **Configurar o painel de edição** (Pages CMS em https://app.pagescms.org):
   - criar conta no GitHub para a esposa e convidá-la como colaboradora do repositório;
   - entrar no Pages CMS com a conta do GitHub e abrir o repositório `ipiranga-site`.
