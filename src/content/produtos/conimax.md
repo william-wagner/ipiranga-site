@@ -21,6 +21,8 @@ especificacoes:
     valor: "Eixo maciço, flange KTR, flange lanterna, motor tipo 1 WEG"
   - item: "Fixação"
     valor: "Pés, pés + flange, braço de torção"
+  - item: "Eixo de saída"
+    valor: "Maciço, ponta dupla, oco com chaveta, oco com disco de contração"
 ---
 
 A linha Conimax combina engrenagens helicoidais retificadas com um par cônico, com saída a 90°. É uma alternativa de alto rendimento à rosca sem-fim quando o ângulo reto é necessário.

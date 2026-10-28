@@ -21,6 +21,8 @@ especificacoes:
     valor: "Eixo maciço, flange KTR, flange lanterna, motor tipo 1 WEG"
   - item: "Fixação"
     valor: "Pés, flange, pés + flange"
+  - item: "Eixo de saída"
+    valor: "Maciço"
 ---
 
 No motorredutor coaxial, o eixo de saída fica alinhado com o motor. O resultado é um conjunto compacto, com várias opções de redução.

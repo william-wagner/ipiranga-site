@@ -21,6 +21,8 @@ especificacoes:
     valor: "Eixo maciço, flange KTR, flange lanterna, motor tipo 1 WEG"
   - item: "Fixação"
     valor: "Pés, pés + flange, braço de torção"
+  - item: "Eixo de saída"
+    valor: "Maciço, ponta dupla, oco com chaveta, oco com disco de contração"
 ---
 
 O Magmax combina engrenagens helicoidais retificadas com coroa e rosca sem-fim, com saída a 90° da entrada. Atende uma faixa ampla de reduções, de 7,4 até 23.000, em um conjunto compacto.
