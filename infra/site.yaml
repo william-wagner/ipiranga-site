@@ -20,9 +20,12 @@ Parameters:
     Type: String
     Default: 108.167.132.137
     Description: IP da hospedagem antiga, usado nas fases 1 e 2.
-  RepositorioGitHub:
+  SujeitoGitHub:
     Type: String
-    Default: william-wagner/ipiranga-site
+    Default: repo:william-wagner@215719899/ipiranga-site@1437495170:ref:refs/heads/main
+    Description: >-
+      Identificacao (sub) que o GitHub envia no token OIDC, com os IDs fixos do dono e do repositorio.
+      Somente a branch main deste repositorio pode publicar.
   CriarProvedorOidcGitHub:
     Type: String
     AllowedValues: ['sim', 'nao']
@@ -292,7 +295,7 @@ Resources:
             Condition:
               StringEquals:
                 token.actions.githubusercontent.com:aud: sts.amazonaws.com
-                token.actions.githubusercontent.com:sub: !Sub 'repo:${RepositorioGitHub}:ref:refs/heads/main'
+                token.actions.githubusercontent.com:sub: !Ref SujeitoGitHub
       Policies:
         - PolicyName: publicar-site
           PolicyDocument:
