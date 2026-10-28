@@ -1,8 +1,8 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: >-
   Site ipirangaredutores.com.br: DNS (Route 53), certificado HTTPS (ACM), arquivos (S3),
-  CDN (CloudFront) e permissão de publicação para o GitHub Actions.
-  Criar na região us-east-1 (Norte da Virgínia), exigida pelo certificado do CloudFront.
+  CDN (CloudFront) e permissao de publicacao para o GitHub Actions.
+  Criar na regiao us-east-1 (Norte da Virginia), exigida pelo certificado do CloudFront.
 
 Parameters:
   Fase:
@@ -10,9 +10,9 @@ Parameters:
     AllowedValues: ['1', '2', '3']
     Default: '1'
     Description: >-
-      1 = cria só a zona de DNS, ainda apontando para o site antigo (depois troque os servidores DNS no Registro.br).
-      2 = cria certificado, bucket e CloudFront; o domínio continua no site antigo e o novo pode ser testado pelo endereço do CloudFront.
-      3 = aponta o domínio para o site novo.
+      1 = cria so a zona de DNS, ainda apontando para o site antigo (depois troque os servidores DNS no Registro.br).
+      2 = cria certificado, bucket e CloudFront; o dominio continua no site antigo e o novo pode ser testado pelo endereco do CloudFront.
+      3 = aponta o dominio para o site novo.
   Dominio:
     Type: String
     Default: ipirangaredutores.com.br
@@ -27,11 +27,11 @@ Parameters:
     Type: String
     AllowedValues: ['sim', 'nao']
     Default: 'sim'
-    Description: Use "nao" se a conta já tiver o provedor token.actions.githubusercontent.com no IAM.
+    Description: Use "nao" se a conta ja tiver o provedor token.actions.githubusercontent.com no IAM.
 
 Conditions:
   Fase2: !Not [!Equals [!Ref Fase, '1']]   # fases 2 e 3: infraestrutura existe
-  Fase3: !Equals [!Ref Fase, '3']          # domínio aponta para o site novo
+  Fase3: !Equals [!Ref Fase, '3']          # dominio aponta para o site novo
   DominioAntigo: !Not [!Condition Fase3]
   CriarOidc: !And [!Condition Fase2, !Equals [!Ref CriarProvedorOidcGitHub, 'sim']]
 
@@ -158,11 +158,11 @@ Resources:
         Runtime: cloudfront-js-2.0
       FunctionCode: |
             // CloudFront Function (runtime cloudfront-js-2.0), evento "viewer request".
-            // 1. Manda www.ipirangaredutores.com.br para o domínio sem www
-            //    (o endereço *.cloudfront.net continua acessível para testes).
-            // 2. Redireciona (301) os endereços do site antigo em WordPress para as páginas novas,
+            // 1. Manda www.ipirangaredutores.com.br para o dominio sem www
+            //    (o endereco *.cloudfront.net continua acessivel para testes).
+            // 2. Redireciona (301) os enderecos do site antigo em WordPress para as paginas novas,
             //    preservando o posicionamento no Google.
-            // 3. Converte /pagina/ em /pagina/index.html, que é como os arquivos estão no S3.
+            // 3. Converte /pagina/ em /pagina/index.html, que e como os arquivos estao no S3.
 
             var DOMINIO = 'ipirangaredutores.com.br';
 
@@ -187,7 +187,7 @@ Resources:
               '/redutores-de-velocidade-bh/': '/aplicacoes/',
             };
 
-            // Prefixos de páginas automáticas do WordPress (categorias, tags, paginação, feed)
+            // Prefixos de paginas automaticas do WordPress (categorias, tags, paginacao, feed)
             var PREFIXOS = [
               ['/category/', '/produtos/'],
               ['/tag/', '/produtos/'],
@@ -223,7 +223,7 @@ Resources:
               for (var i = 0; i < PREFIXOS.length; i++) {
                 if (uri.indexOf(PREFIXOS[i][0]) === 0) return redirecionar(PREFIXOS[i][1]);
               }
-              // Endereços antigos com ?p=123 (links curtos do WordPress)
+              // Enderecos antigos com ?p=123 (links curtos do WordPress)
               if (uri === '/' && req.querystring && req.querystring.p) return redirecionar('/');
 
               if (uri.endsWith('/')) {
@@ -245,7 +245,7 @@ Resources:
         DefaultRootObject: index.html
         HttpVersion: http2and3
         IPV6Enabled: true
-        PriceClass: PriceClass_All   # inclui os servidores da América do Sul
+        PriceClass: PriceClass_All   # inclui os servidores da America do Sul
         ViewerCertificate:
           AcmCertificateArn: !Ref Certificado
           SslSupportMethod: sni-only
@@ -268,7 +268,7 @@ Resources:
           - { ErrorCode: 403, ResponseCode: 404, ResponsePagePath: /404.html, ErrorCachingMinTTL: 60 }
           - { ErrorCode: 404, ResponseCode: 404, ResponsePagePath: /404.html, ErrorCachingMinTTL: 60 }
 
-  # ---------- Publicação pelo GitHub Actions (OIDC, sem chaves) ----------
+  # ---------- Publicacao pelo GitHub Actions (OIDC, sem chaves) ----------
   ProvedorOidcGitHub:
     Type: AWS::IAM::OIDCProvider
     Condition: CriarOidc
@@ -281,7 +281,7 @@ Resources:
     Condition: Fase2
     Properties:
       RoleName: github-publicar-site-ipiranga
-      Description: Usado pelo GitHub Actions do repositório do site para publicar no S3 e limpar o cache
+      Description: Usado pelo GitHub Actions do repositorio do site para publicar no S3 e limpar o cache
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -314,17 +314,17 @@ Outputs:
     Value: !Join [', ', !GetAtt Zona.NameServers]
   AWSROLEARN:
     Condition: Fase2
-    Description: Variável AWS_ROLE_ARN do repositório no GitHub
+    Description: Variavel AWS_ROLE_ARN do repositorio no GitHub
     Value: !GetAtt PapelPublicacao.Arn
   S3BUCKET:
     Condition: Fase2
-    Description: Variável S3_BUCKET do repositório no GitHub
+    Description: Variavel S3_BUCKET do repositorio no GitHub
     Value: !Ref Bucket
   CLOUDFRONTDISTRIBUTIONID:
     Condition: Fase2
-    Description: Variável CLOUDFRONT_DISTRIBUTION_ID do repositório no GitHub
+    Description: Variavel CLOUDFRONT_DISTRIBUTION_ID do repositorio no GitHub
     Value: !Ref Distribuicao
   EnderecoCloudFront:
     Condition: Fase2
-    Description: Endereço de teste do site (funciona antes da virada do domínio)
+    Description: Endereco de teste do site (funciona antes da virada do dominio)
     Value: !Sub 'https://${Distribuicao.DomainName}'
