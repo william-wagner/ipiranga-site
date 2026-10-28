@@ -37,7 +37,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_ROLE_ARN }}
-          aws-region: sa-east-1
+          aws-region: us-east-1
 
       - name: Enviar arquivos para o S3
         if: vars.AWS_ROLE_ARN != ''

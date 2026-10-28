@@ -1,5 +1,6 @@
 // CloudFront Function (runtime cloudfront-js-2.0), evento "viewer request".
-// 1. Manda www.ipirangaredutores.com.br para o domínio sem www.
+// 1. Manda www.ipirangaredutores.com.br para o domínio sem www
+//    (o endereço *.cloudfront.net continua acessível para testes).
 // 2. Redireciona (301) os endereços do site antigo em WordPress para as páginas novas,
 //    preservando o posicionamento no Google.
 // 3. Converte /pagina/ em /pagina/index.html, que é como os arquivos estão no S3.
@@ -51,7 +52,7 @@ function handler(event) {
   var host = req.headers.host ? req.headers.host.value : DOMINIO;
   var uri = req.uri;
 
-  if (host !== DOMINIO) {
+  if (host === 'www.' + DOMINIO) {
     var qs = req.querystring && Object.keys(req.querystring).length ? '?' + Object.keys(req.querystring).map(function (k) {
       return k + '=' + req.querystring[k].value;
     }).join('&') : '';
