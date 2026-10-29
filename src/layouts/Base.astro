@@ -117,6 +117,11 @@ const schema = {
       // Links para seções da mesma página: rola suave e desconta o cabeçalho fixo
       document.addEventListener('click', (e) => {
         const link = (e.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
+        if (link?.hash === '#top') {
+          e.preventDefault();
+          lenis.scrollTo(0, { duration: 1.4 });
+          return;
+        }
         const alvo = link && document.getElementById(link.hash.slice(1));
         if (!alvo) return;
         e.preventDefault();
