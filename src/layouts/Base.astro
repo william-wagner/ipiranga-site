@@ -4,8 +4,6 @@ import Icone from '../components/Icone.astro';
 import BotaoWhatsapp from '../components/BotaoWhatsapp.astro';
 import Contato from '../components/Contato.astro';
 import RodapeEnxuto from '../components/RodapeEnxuto.astro';
-import RodapeContato from '../components/RodapeContato.astro';
-import { opcaoRodape } from '../lib/navegacao';
 import empresa from '../data/empresa.json';
 import { site, linkWhatsapp, linkTelefone } from '../lib/site';
 
@@ -100,8 +98,8 @@ const schema = {
     <slot />
   </main>
 
-  {opcaoRodape === 'a' && contato && <Contato titulo={contato} />}
-  {opcaoRodape === 'b' && contato ? <RodapeContato titulo={contato} /> : <RodapeEnxuto />}
+  {contato && <Contato titulo={contato} />}
+  <RodapeEnxuto />
 
   <nav class="barra-movel" aria-label="Contato rápido">
     <a href={linkWhatsapp} class="wa" target="_blank" rel="noopener"><Icone nome="whatsapp" />Orçamento pelo WhatsApp</a>

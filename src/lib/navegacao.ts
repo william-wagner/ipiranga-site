@@ -10,8 +10,3 @@ export const paginasRodape = [
   { href: '/o-que-e-um-redutor-de-velocidade/', label: 'O que é um redutor' },
 ];
 
-// Duas propostas em avaliação para o fim da página:
-//  'a' = seção de contato completa (com mapa) + rodapé enxuto
-//  'b' = rodapé que é o próprio bloco de contato
-// Para gerar a outra: PUBLIC_RODAPE=b npm run build
-export const opcaoRodape: 'a' | 'b' = import.meta.env.PUBLIC_RODAPE === 'b' ? 'b' : 'a';
