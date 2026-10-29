@@ -34,7 +34,7 @@
 }
 
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: 4.75rem; scroll-behavior: smooth; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 4.75rem; }
 body {
   margin: 0;
   font-family: var(--fonte);

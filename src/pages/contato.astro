@@ -3,6 +3,6 @@ import Base from '../layouts/Base.astro';
 import Contato from '../components/Contato.astro';
 import { site, enderecoCompleto } from '../lib/site';
 ---
-<Base titulo="Contato" descricao={`Fale com a Ipiranga Redutores pelo WhatsApp ou telefone ${site.telefone}. ${enderecoCompleto}.`}>
+<Base contato={false} titulo="Contato" descricao={`Fale com a Ipiranga Redutores pelo WhatsApp ou telefone ${site.telefone}. ${enderecoCompleto}.`}>
   <Contato titulo="Contato" nivel="h1" />
 </Base>

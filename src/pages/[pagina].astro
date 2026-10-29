@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import CabecalhoPagina from '../components/CabecalhoPagina.astro';
-import Contato from '../components/Contato.astro';
 import BotaoWhatsapp from '../components/BotaoWhatsapp.astro';
 import { getCollection, render } from 'astro:content';
 
@@ -21,7 +20,6 @@ const { Content } = await render(p);
     </article>
     {p.data.imagem && <img class="foto" src={p.data.imagem} alt="" loading="lazy" />}
   </div>
-  <Contato />
 </Base>
 
 <style>

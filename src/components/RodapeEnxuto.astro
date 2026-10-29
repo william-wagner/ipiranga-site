@@ -1,0 +1,38 @@
+---
+// Opção A: o contato completo fica na seção acima; o rodapé só tem marca, páginas e créditos.
+import { site } from '../lib/site';
+import empresa from '../data/empresa.json';
+import { paginasRodape } from '../lib/navegacao';
+---
+<footer class="rodape">
+  <div class="container linha">
+    <a href="/" class="marca" aria-label={`${site.nome} – página inicial`}>
+      <img src="/images/logo-branco.png" alt={site.nome} width="531" height="80" loading="lazy" />
+    </a>
+    <nav aria-label="Páginas do site">
+      <ul>{paginasRodape.map((m) => <li><a href={m.href}>{m.label}</a></li>)}</ul>
+    </nav>
+  </div>
+  <div class="container fim">
+    <img class="weg" src="/images/weg-cestari.png" alt="WEG Cestari" width="230" height="57" loading="lazy" />
+    <p>Assistência técnica autorizada WEG. Em Belo Horizonte desde {empresa.fundacao}.</p>
+    <p class="direitos">© {new Date().getFullYear()} {site.nome}</p>
+  </div>
+</footer>
+
+<style>
+  .rodape { background: var(--azul-noite); color: #9fabc8; padding: 2.2rem 0 1.6rem; font-size: 0.95rem; border-top: 1px solid var(--azul-linha); }
+  .linha { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.2rem 2.5rem; padding-bottom: 1.6rem; }
+  .marca img { height: 2rem; width: auto; }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; }
+  a { color: #dbe4fb; text-decoration: none; }
+  a:hover { color: #fff; text-decoration: underline; }
+  .fim { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.4rem; padding-top: 1.3rem; border-top: 1px solid var(--azul-linha); font-size: 0.88rem; }
+  .fim p { margin: 0; }
+  .weg { height: 1.9rem; width: auto; background: #fff; padding: 0.3rem 0.55rem; border-radius: 4px; }
+  .direitos { margin-left: auto !important; }
+  @media (max-width: 40rem) {
+    .rodape { padding-bottom: 6rem; }
+    .direitos { margin-left: 0 !important; }
+  }
+</style>

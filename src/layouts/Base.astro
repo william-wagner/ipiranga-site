@@ -2,11 +2,16 @@
 import '../styles/global.css';
 import Icone from '../components/Icone.astro';
 import BotaoWhatsapp from '../components/BotaoWhatsapp.astro';
+import Contato from '../components/Contato.astro';
+import RodapeEnxuto from '../components/RodapeEnxuto.astro';
+import RodapeContato from '../components/RodapeContato.astro';
+import { opcaoRodape } from '../lib/navegacao';
 import empresa from '../data/empresa.json';
-import { site, horarios, linkWhatsapp, linkTelefone, enderecoCompleto, linkMapa } from '../lib/site';
+import { site, linkWhatsapp, linkTelefone } from '../lib/site';
 
-interface Props { titulo: string; descricao: string; imagem?: string }
-const { titulo, descricao, imagem = '/images/empresa/estoque.jpg' } = Astro.props;
+// contato: título do bloco de contato no fim da página; false para não mostrar (página Contato)
+interface Props { titulo: string; descricao: string; imagem?: string; contato?: string | false }
+const { titulo, descricao, imagem = '/images/empresa/estoque.jpg', contato = 'Seu redutor parou? Fale com a gente.' } = Astro.props;
 const tituloCompleto = titulo === site.nome ? `${site.nome} – Redutores de velocidade em BH` : `${titulo} | ${site.nome}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const atual = Astro.url.pathname;
@@ -20,16 +25,6 @@ const menu = [
   { secao: 'pecas', label: 'Peças', pagina: '/pecas-e-acoplamentos/' },
   { secao: 'empresa', label: 'A empresa', pagina: '/empresa/' },
   { secao: 'contato', label: 'Contato', pagina: '/contato/' },
-];
-const paginasRodape = [
-  { href: '/usados/', label: 'Redutores usados' },
-  { href: '/produtos/', label: 'Produtos' },
-  { href: '/manutencao/', label: 'Manutenção' },
-  { href: '/pecas-e-acoplamentos/', label: 'Peças e acoplamentos' },
-  { href: '/empresa/', label: 'A empresa' },
-  { href: '/contato/', label: 'Contato' },
-  { href: '/aplicacoes/', label: 'Aplicações e tipos de redutor' },
-  { href: '/o-que-e-um-redutor-de-velocidade/', label: 'O que é um redutor de velocidade' },
 ];
 const naHome = atual === '/';
 const ativo = (m: (typeof menu)[number]) => (naHome ? m.secao === 'inicio' : !!m.pagina && atual.startsWith(m.pagina));
@@ -105,40 +100,8 @@ const schema = {
     <slot />
   </main>
 
-  <footer class="rodape">
-    <div class="container rodape-grade">
-      <div>
-        <img src="/images/logo-branco.png" alt={site.nome} width="531" height="80" class="rodape-logo" loading="lazy" />
-        <p>Redutores, motorredutores e acoplamentos novos e usados, peças e manutenção. Assistência técnica autorizada WEG, em Belo Horizonte desde {empresa.fundacao}.</p>
-      </div>
-      <div>
-        <h2>Site</h2>
-        <ul class="lista-links">
-          {paginasRodape.map((m) => <li><a href={m.href}>{m.label}</a></li>)}
-        </ul>
-      </div>
-      <div>
-        <h2>Contato</h2>
-        <ul class="lista-contato">
-          <li><Icone nome="whatsapp" /><a href={linkWhatsapp} target="_blank" rel="noopener">WhatsApp {site.telefone}</a></li>
-          <li><Icone nome="telefone" /><a href={linkTelefone}>{site.telefone}</a></li>
-          <li><Icone nome="email" /><a href={`mailto:${site.email}`}>{site.email}</a></li>
-          <li><Icone nome="local" /><a href={linkMapa} target="_blank" rel="noopener">{enderecoCompleto}</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Horário</h2>
-        <dl class="horarios">
-          {horarios.map((h) => (<><dt>{h.dias}</dt><dd>{h.horas}</dd></>))}
-        </dl>
-      </div>
-    </div>
-    <div class="container rodape-fim">
-      <img src="/images/weg-cestari.png" alt="WEG Cestari" width="230" height="57" loading="lazy" />
-      <p>Assistência técnica autorizada WEG. WEG e Cestari são marcas de seus respectivos donos.</p>
-      <p>© {new Date().getFullYear()} {site.nome}</p>
-    </div>
-  </footer>
+  {opcaoRodape === 'a' && contato && <Contato titulo={contato} />}
+  {opcaoRodape === 'b' && contato ? <RodapeContato titulo={contato} /> : <RodapeEnxuto />}
 
   <nav class="barra-movel" aria-label="Contato rápido">
     <a href={linkWhatsapp} class="wa" target="_blank" rel="noopener"><Icone nome="whatsapp" />Orçamento pelo WhatsApp</a>
@@ -146,6 +109,28 @@ const schema = {
   </nav>
 
   <script>
+    import Lenis from 'lenis';
+    import 'lenis/dist/lenis.css';
+
+    // Rolagem suave com inércia (como no site de referência).
+    // Quem pediu menos movimento no sistema fica com a rolagem normal.
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.9 });
+      // Links para seções da mesma página: rola suave e desconta o cabeçalho fixo
+      document.addEventListener('click', (e) => {
+        const link = (e.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
+        const alvo = link && document.getElementById(link.hash.slice(1));
+        if (!alvo) return;
+        e.preventDefault();
+        const topo = document.querySelector<HTMLElement>('.topo')?.offsetHeight ?? 0;
+        const y = alvo.getBoundingClientRect().top + window.scrollY - topo;
+        lenis.scrollTo(Math.max(0, y), { duration: 1.4 });
+        history.replaceState(null, '', link.hash);
+      });
+      const quadro = (t: number) => { lenis.raf(t); requestAnimationFrame(quadro); };
+      requestAnimationFrame(quadro);
+    }
+
     const botao = document.querySelector<HTMLButtonElement>('.menu-botao');
     const fecharMenu = () => botao?.setAttribute('aria-expanded', 'false');
     botao?.addEventListener('click', () => {
@@ -214,25 +199,6 @@ const schema = {
   @media (max-width: 40rem) {
     .topo :global(.topo-wa) { display: none; }
   }
-
-  .rodape { background: var(--azul-noite); color: #c4cfea; padding: 3.5rem 0 2rem; font-size: 0.98rem; }
-  .rodape a { color: #fff; text-decoration: none; }
-  .rodape a:hover { text-decoration: underline; color: #fff; }
-  .rodape h2 { font-size: 1.3rem; color: #fff; margin-bottom: 0.8rem; }
-  .rodape-grade { display: grid; grid-template-columns: 1.3fr 1fr 1.3fr 0.9fr; gap: 2.5rem; }
-  .rodape-logo { height: 2.1rem; width: auto; margin-bottom: 1rem; }
-  .lista-links, .lista-contato { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
-  .lista-contato li { display: flex; gap: 0.6rem; align-items: flex-start; }
-  .lista-contato :global(svg) { width: 1.1rem; height: 1.1rem; flex: none; margin-top: 0.2rem; color: var(--laranja); }
-  .horarios { margin: 0; display: grid; grid-template-columns: auto auto; gap: 0.35rem 1.2rem; justify-content: start; }
-  .horarios dt { color: #9fabc8; }
-  .horarios dd { margin: 0; color: #fff; font-weight: 500; }
-  .rodape-fim { margin-top: 2.8rem; padding-top: 1.4rem; border-top: 1px solid var(--azul-linha); display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.6rem; font-size: 0.88rem; color: #8f9cbc; }
-  .rodape-fim img { height: 2rem; width: auto; background: #fff; padding: 0.35rem 0.6rem; border-radius: 4px; }
-  .rodape-fim p { margin: 0; }
-  .rodape-fim p:last-child { margin-left: auto; }
-  @media (max-width: 62rem) { .rodape-grade { grid-template-columns: 1fr 1fr; gap: 2rem; } }
-  @media (max-width: 40rem) { .rodape-grade { grid-template-columns: 1fr; } .rodape { padding-bottom: 6rem; } .rodape-fim p:last-child { margin-left: 0; } }
 
   .barra-movel { display: none; }
   @media (max-width: 40rem) {

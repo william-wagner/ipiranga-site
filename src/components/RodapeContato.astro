@@ -1,0 +1,89 @@
+---
+// Opção B: o rodapé é o próprio bloco de contato. Uma chamada no topo e,
+// abaixo, endereço, horário e páginas, sem repetir nada.
+import Icone from './Icone.astro';
+import StatusAberto from './StatusAberto.astro';
+import BotaoWhatsapp from './BotaoWhatsapp.astro';
+import { site, horarios, linkTelefone, enderecoCompleto, linkMapa } from '../lib/site';
+import empresa from '../data/empresa.json';
+import { paginasRodape } from '../lib/navegacao';
+
+interface Props { titulo?: string }
+const { titulo = 'Seu redutor parou? Fale com a gente.' } = Astro.props;
+---
+<footer class="rodape escuro" id="contato">
+  <div class="container chamada">
+    <div>
+      <h2>{titulo}</h2>
+      <p>Orçamento, estoque de novos e usados ou envio do seu redutor para a oficina.</p>
+    </div>
+    <div class="acoes">
+      <BotaoWhatsapp grande />
+      <a class="btn btn-contorno btn-grande" href={linkTelefone}><Icone nome="telefone" />{site.telefone}</a>
+    </div>
+  </div>
+
+  <div class="container grade">
+    <div class="col-marca">
+      <img src="/images/logo-branco.png" alt={site.nome} width="531" height="80" loading="lazy" />
+      <p>Redutores novos WEG e usados de todas as marcas, peças e manutenção. Em Belo Horizonte desde {empresa.fundacao}.</p>
+    </div>
+    <div>
+      <h3>Onde estamos</h3>
+      <p><a href={linkMapa} target="_blank" rel="noopener">{site.endereco}<br />{site.bairro}, {site.cidade}<br />{site.cep}</a></p>
+      <p><a class="link-seta" href={linkMapa} target="_blank" rel="noopener"><Icone nome="local" />Ver no mapa</a></p>
+      <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+    <div>
+      <h3>Horário</h3>
+      <StatusAberto />
+      <dl>{horarios.map((h) => (<><dt>{h.dias}</dt><dd>{h.horas}</dd></>))}</dl>
+    </div>
+    <nav aria-label="Páginas do site">
+      <h3>Páginas</h3>
+      <ul>{paginasRodape.map((m) => <li><a href={m.href}>{m.label}</a></li>)}</ul>
+    </nav>
+  </div>
+
+  <div class="container fim">
+    <img class="weg" src="/images/weg-cestari.png" alt="WEG Cestari" width="230" height="57" loading="lazy" />
+    <p>Assistência técnica autorizada WEG.</p>
+    <p class="direitos">© {new Date().getFullYear()} {site.nome}</p>
+  </div>
+</footer>
+
+<style>
+  .rodape { padding: var(--secao) 0 1.6rem; color: #c4cfea; }
+  .rodape a { text-decoration: none; }
+  .rodape a:hover { text-decoration: underline; }
+
+  .chamada { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1.5rem 3rem; padding-bottom: clamp(2.5rem, 5vw, 3.5rem); border-bottom: 1px solid var(--azul-linha); }
+  .chamada h2 { color: #fff; max-width: 15ch; margin-bottom: 0.3em; }
+  .chamada p { margin: 0; color: #dbe4fb; font-size: 1.12rem; }
+  .acoes { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+
+  .grade { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 2.5rem; padding-block: clamp(2.2rem, 4vw, 3rem); }
+  .col-marca img { height: 2.1rem; width: auto; margin-bottom: 1rem; }
+  .col-marca p { max-width: 22rem; }
+  h3 { font-size: 1.3rem; color: #fff; margin-bottom: 0.8rem; }
+  .grade p { margin: 0 0 0.7rem; }
+  .link-seta :global(svg) { width: 1rem; height: 1rem; color: var(--laranja); }
+  .grade :global(.status) { color: #fff; margin-bottom: 0.6rem; }
+  dl { margin: 0; display: grid; grid-template-columns: auto auto; gap: 0.3rem 1.2rem; justify-content: start; }
+  dt { color: #9fabc8; }
+  dd { margin: 0; color: #fff; font-weight: 500; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+
+  .fim { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.4rem; padding-top: 1.3rem; border-top: 1px solid var(--azul-linha); font-size: 0.88rem; color: #8f9cbc; }
+  .fim p { margin: 0; }
+  .weg { height: 1.9rem; width: auto; background: #fff; padding: 0.3rem 0.55rem; border-radius: 4px; }
+  .direitos { margin-left: auto !important; }
+
+  @media (max-width: 62rem) { .grade { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 40rem) {
+    .grade { grid-template-columns: 1fr; gap: 1.8rem; }
+    .acoes, .acoes :global(.btn) { width: 100%; }
+    .rodape { padding-bottom: 6rem; }
+    .direitos { margin-left: 0 !important; }
+  }
+</style>

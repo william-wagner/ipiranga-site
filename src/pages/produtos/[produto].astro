@@ -3,7 +3,6 @@ import Base from '../../layouts/Base.astro';
 import CabecalhoPagina from '../../components/CabecalhoPagina.astro';
 import CardProduto from '../../components/CardProduto.astro';
 import BotaoWhatsapp from '../../components/BotaoWhatsapp.astro';
-import Contato from '../../components/Contato.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -42,7 +41,6 @@ const msg = `Olá! Vim pelo site e gostaria de um orçamento do ${p.data.titulo}
       <ul>{relacionados.map((r) => <li><CardProduto produto={r} /></li>)}</ul>
     </div>
   </section>
-  <Contato />
 </Base>
 
 <style>

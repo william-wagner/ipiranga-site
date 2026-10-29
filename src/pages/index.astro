@@ -3,7 +3,6 @@ import Base from '../layouts/Base.astro';
 import Icone from '../components/Icone.astro';
 import StatusAberto from '../components/StatusAberto.astro';
 import CardProduto from '../components/CardProduto.astro';
-import Contato from '../components/Contato.astro';
 import BotaoWhatsapp from '../components/BotaoWhatsapp.astro';
 import Plaqueta from '../components/Plaqueta.astro';
 import FaixaClientes from '../components/FaixaClientes.astro';
@@ -166,28 +165,27 @@ const fotoEmpresa = foto('empresa');
     </div>
   </section>
 
-  <Contato />
 </Base>
 
 <style>
   /* Hero */
-  .hero { padding: clamp(2.5rem, 6vw, 4.5rem) 0 0; position: relative; }
+  .hero { padding: clamp(1.5rem, 3.2vw, 2.75rem) 0 0; position: relative; }
   .hero::after { content: ''; position: absolute; inset: auto 0 0 0; height: 3.4rem; background: #fff; }
   .hero.com-foto {
     background-image: linear-gradient(90deg, rgba(15, 25, 56, 0.94) 0%, rgba(15, 25, 56, 0.78) 45%, rgba(15, 25, 56, 0.25) 100%), var(--foto);
     background-size: cover; background-position: center;
   }
   .hero-grade { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
-  .com-foto .hero-grade { grid-template-columns: 1fr; padding-block: clamp(1rem, 4vw, 3rem); }
-  .selo-weg { display: inline-flex; align-items: center; gap: 0.8rem; margin: 0 0 1.6rem; background: #fff; color: var(--azul-escuro); padding: 0.45rem 0.9rem 0.45rem 0.6rem; border-radius: 4px; font-weight: 600; font-size: 0.95rem; }
+  .com-foto .hero-grade { grid-template-columns: 1fr; }
+  .selo-weg { display: inline-flex; align-items: center; gap: 0.8rem; margin: 0 0 1.25rem; background: #fff; color: var(--azul-escuro); padding: 0.45rem 0.9rem 0.45rem 0.6rem; border-radius: 4px; font-weight: 600; font-size: 0.95rem; }
   .selo-weg img { height: 1.75rem; width: auto; }
   .selo-weg span { padding-left: 0.8rem; border-left: 1px solid var(--linha); }
-  .hero h1 { max-width: 13ch; font-size: clamp(2.7rem, 5.6vw, 4.4rem); }
-  .hero-sub { font-size: clamp(1.15rem, 1.6vw, 1.3rem); color: #dbe4fb; max-width: 32rem; margin-bottom: 1.8rem; }
+  .hero h1 { max-width: 13ch; font-size: clamp(2.6rem, 5vw, 4.1rem); margin-bottom: 0.35em; }
+  .hero-sub { font-size: clamp(1.15rem, 1.6vw, 1.3rem); color: #dbe4fb; max-width: 32rem; margin-bottom: 1.5rem; }
   .hero-acoes { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.3rem; }
   .hero :global(.status) { color: #dbe4fb; }
   .hero-desenho { min-width: 0; }
-  .hero-plaqueta { position: relative; z-index: 1; margin-top: clamp(2rem, 5vw, 3.5rem); }
+  .hero-plaqueta { position: relative; z-index: 1; margin-top: clamp(1.75rem, 4vw, 3rem); }
 
   /* Traço do desenho aparece uma vez, ao carregar */
   .hero-desenho :global(.traco) { stroke-dasharray: 2400; stroke-dashoffset: 2400; animation: desenhar 2.2s ease-out 0.2s forwards; }

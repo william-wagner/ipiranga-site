@@ -2,7 +2,6 @@
 import Base from '../../layouts/Base.astro';
 import CabecalhoPagina from '../../components/CabecalhoPagina.astro';
 import CardProduto from '../../components/CardProduto.astro';
-import Contato from '../../components/Contato.astro';
 import { getCollection } from 'astro:content';
 
 const produtos = (await getCollection('produtos')).sort((a, b) => a.data.ordem - b.data.ordem);
@@ -10,7 +9,7 @@ const produtos = (await getCollection('produtos')).sort((a, b) => a.data.ordem -
 const grupos = new Map<string, typeof produtos>();
 for (const p of produtos) grupos.set(p.data.tipo, [...(grupos.get(p.data.tipo) ?? []), p]);
 ---
-<Base titulo="Produtos" descricao="Redutores de coroa e rosca sem-fim WCR, WCG01 e Magma K. Novos WEG e usados de todas as marcas, com ficha técnica, peças e orçamento pelo WhatsApp.">
+<Base contato="Peça um orçamento" titulo="Produtos" descricao="Redutores de coroa e rosca sem-fim WCR, WCG01 e Magma K. Novos WEG e usados de todas as marcas, com ficha técnica, peças e orçamento pelo WhatsApp.">
   <CabecalhoPagina titulo="Produtos" resumo="Novos, só da WEG. Usados, de todas as marcas. Não sabe qual escolher? Mande os dados da sua máquina pelo WhatsApp." />
   <div class="container lista">
     {[...grupos].map(([tipo, itens]) => (
@@ -22,7 +21,6 @@ for (const p of produtos) grupos.set(p.data.tipo, [...(grupos.get(p.data.tipo) ?
       </section>
     ))}
   </div>
-  <Contato titulo="Peça um orçamento" />
 </Base>
 
 <style>
