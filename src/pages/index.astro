@@ -72,7 +72,7 @@ const linhas = [
       <div class:list={['empresa-grade', { 'com-foto': fotoEmpresa }]}>
         <div class="empresa-texto">
           <h2>Há {anos} anos, mantendo a indústria em movimento</h2>
-          <p>Desde {empresa.fundacao}, a Ipiranga Redutores oferece soluções em redutores e motorredutores para a indústria. Trabalhamos com equipamentos novos e usados, peças de reposição, manutenção e assistência técnica autorizada WEG-CESTARI.</p>
+          <p>Desde {empresa.fundacao}, em Belo Horizonte, a Ipiranga Redutores vende e faz a manutenção de redutores de velocidade e motorredutores para indústrias de todo o Brasil. Trabalhamos com equipamentos novos e usados, peças de reposição, manutenção e assistência técnica autorizada WEG-CESTARI.</p>
           <p>Sabemos que máquina parada significa prejuízo. Por isso, unimos experiência, agilidade e conhecimento técnico para encontrar soluções que atendam às necessidades de cada cliente, inclusive em situações de urgência, ajudando a reduzir o tempo de parada e a manter a produção em funcionamento.</p>
           <p class="assinatura">Ipiranga Redutores: experiência e agilidade para a indústria não parar.</p>
         </div>
@@ -115,9 +115,8 @@ const linhas = [
       <div>
         <h2>Manutenção de redutores em BH</h2>
         <ul class="servicos">
-          {empresa.servicos.map((s) => <li><strong>{s.nome}</strong><span>{s.detalhe}</span></li>)}
+          {empresa.servicos.map((s) => <li><strong>{s.nome}</strong>{s.detalhe && <span>{s.detalhe}</span>}</li>)}
         </ul>
-        <p class="servicos-mais"><a class="link-seta" href="/manutencao/">Ver todos os serviços <span aria-hidden="true">→</span></a></p>
         <BotaoWhatsapp mensagem="Olá! Vim pelo site e preciso de um orçamento de manutenção para um redutor." />
       </div>
       <div class="servicos-imagem">
@@ -187,7 +186,6 @@ const linhas = [
   .servicos li { display: grid; grid-template-columns: 15rem 1fr; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--azul-linha); }
   .servicos strong { font: 600 1.25rem/1.25 var(--fonte-titulo); }
   .servicos span { color: #c4cfea; }
-  .servicos-mais { margin: -0.6rem 0 1.8rem; font-size: 1.05rem; }
   .servicos-imagem { min-width: 0; }
   .servicos-imagem img { width: 100%; border-radius: var(--raio); }
 

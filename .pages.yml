@@ -95,7 +95,7 @@ content:
         list: true
         fields:
           - { name: nome, label: Serviço, type: string }
-          - { name: detalhe, label: Explicação curta, type: string }
+          - { name: detalhe, label: Explicação curta (opcional), type: string }
       - name: clientes
         label: Clientes na faixa de logos (página inicial)
         type: object

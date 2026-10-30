@@ -6,8 +6,20 @@
       "detalhe": "Conta com equipe qualificada para realizar a manutenção das linhas de redutores da WEG-CESTARI."
     },
     {
-      "nome": "Manutenção em redutores de todas as marcas",
-      "detalhe": "Preventiva e corretiva em redutores Falk, SEW, Transmotécnica e outros: troca de rolamento, retentor, óleo e peças, e pintura."
+      "nome": "Manutenção preventiva e corretiva",
+      "detalhe": "Em redutores de todas as marcas: Falk, SEW, Transmotécnica e outras."
+    },
+    {
+      "nome": "Troca de rolamentos e retentores",
+      "detalhe": ""
+    },
+    {
+      "nome": "Troca de óleo e reposição de peças",
+      "detalhe": ""
+    },
+    {
+      "nome": "Pintura",
+      "detalhe": ""
     }
   ],
   "clientes": [
