@@ -9,6 +9,12 @@ export default defineConfig({
   site: 'https://ipirangaredutores.com.br',
   trailingSlash: 'always',
   build: { format: 'directory' },
+  // Rede de segurança: o 301 de verdade é feito pela função do CloudFront (infra/)
   redirects: Object.fromEntries(linhasRemovidas.map((slug) => [`/produtos/${slug}/`, '/produtos/'])),
-  integrations: [sitemap({ filter: (page) => !removida(page) })],
+  integrations: [
+    sitemap({
+      // Linhas removidas e atalhos para o cPanel e o webmail da HostGator não entram no sitemap
+      filter: (pagina) => !removida(pagina) && !/\/(cpanel|webmail)\/$/.test(pagina),
+    }),
+  ],
 });

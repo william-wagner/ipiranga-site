@@ -39,11 +39,26 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
 
 ## Depois da virada
 
-- [ ] **Cancelar a hospedagem antiga** (WordPress em `108.167.132.137`, DNS `prodns.com.br`).
-  Esperar alguns dias com o site novo no ar antes de cancelar.
+- [ ] **Hospedagem antiga (HostGator, `108.167.132.137`): NÃO cancelar.** O site saiu de lá, mas o
+  e-mail `@ipirangaredutores.com.br` continua hospedado nela. Em 30/10/2026 os registros de e-mail
+  (MX, `mail`, `webmail`, `cpanel`, SPF, DKIM, DMARC, autodiscover) foram recriados à mão no Route 53,
+  apontando para a HostGator; eles ficam fora do CloudFormation.
+  - [ ] Descobrir em nome de quem está a conta da HostGator (provavelmente o antigo gestor do site),
+    quando vence e quem paga; pedir a transferência para a Ipiranga.
+  - [ ] Trocar a senha do cPanel.
+  - [ ] Se um dia quiserem sair da HostGator: migrar o e-mail antes (Google Workspace, Microsoft 365,
+    Zoho ou outra hospedagem com cPanel) e só então trocar o MX no Route 53.
+- [ ] **Perfil da Empresa no Google (Google Maps)**: é o que mais pesa em buscas locais como "redutores BH".
+  - Verificar se o perfil existe e quem administra (pedir acesso, se for de terceiros).
+  - Conferir se nome, endereço, telefone/WhatsApp, horário e site (`https://ipirangaredutores.com.br`)
+    estão iguais aos do site; adicionar fotos da fachada e da oficina e a categoria certa.
+- [ ] **Atendimento fora de BH (pensar)**: avaliar uma frase na seção de manutenção da página inicial
+  convidando quem é de fora a enviar o redutor para a oficina, por exemplo: "Fora de BH? Envie seu
+  redutor para a nossa oficina. Atendemos todo o Brasil." Decidir se a Ipiranga quer destacar isso
+  (frete, prazo, como embalar) antes de pôr no site.
 - [ ] **Formulário de contato no site**: caixa para o cliente escrever nome, e-mail/telefone e mensagem
   e enviar direto pela página, sem abrir o aplicativo de e-mail dele. A mensagem chega no
-  e-mail da empresa (`redutores.ipiranga@gmail.com`).
+  e-mail da empresa (`ipirangaredutores@ipirangaredutores.com.br`).
   - Caminho previsto, mantendo o site sem servidor: uma função AWS Lambda que recebe o formulário e envia
     o e-mail pelo Amazon SES, criada no mesmo modelo do CloudFormation.
   - Incluir proteção contra spam (campo oculto "isca" e limite de envios) e uma mensagem de confirmação na tela.
