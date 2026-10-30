@@ -33,7 +33,7 @@
     },
     {
       "nome": "Dicasa Alimentos",
-      "logo": ""
+      "logo": "/images/clientes/dicasa.png"
     },
     {
       "nome": "Plena Alimentos",
@@ -52,8 +52,8 @@
       "logo": "/images/clientes/pacha.png"
     },
     {
-      "nome": "Amperam Inox",
-      "logo": ""
+      "nome": "Aperam Inox",
+      "logo": "/images/clientes/aperam.png"
     }
   ],
   "setores": [
