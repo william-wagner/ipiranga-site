@@ -36,6 +36,10 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
   - [ ] Trocar a senha do cPanel.
   - [ ] Se um dia quiserem sair da HostGator: migrar o e-mail antes (Google Workspace, Microsoft 365,
     Zoho ou outra hospedagem com cPanel) e só então trocar o MX no Route 53.
+- [ ] **Perfil da Empresa no Google (Google Maps)**: é o que mais pesa em buscas locais como "redutores BH".
+  - Verificar se o perfil existe e quem administra (pedir acesso, se for de terceiros).
+  - Conferir se nome, endereço, telefone/WhatsApp, horário e site (`https://ipirangaredutores.com.br`)
+    estão iguais aos do site; adicionar fotos da fachada e da oficina e a categoria certa.
 - [ ] **Formulário de contato no site**: caixa para o cliente escrever nome, e-mail/telefone e mensagem
   e enviar direto pela página, sem abrir o aplicativo de e-mail dele. A mensagem chega no
   e-mail da empresa (`ipirangaredutores@ipirangaredutores.com.br`).
