@@ -40,6 +40,10 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
   - Verificar se o perfil existe e quem administra (pedir acesso, se for de terceiros).
   - Conferir se nome, endereço, telefone/WhatsApp, horário e site (`https://ipirangaredutores.com.br`)
     estão iguais aos do site; adicionar fotos da fachada e da oficina e a categoria certa.
+- [ ] **Atendimento fora de BH (pensar)**: avaliar uma frase na seção de manutenção da página inicial
+  convidando quem é de fora a enviar o redutor para a oficina, por exemplo: "Fora de BH? Envie seu
+  redutor para a nossa oficina. Atendemos todo o Brasil." Decidir se a Ipiranga quer destacar isso
+  (frete, prazo, como embalar) antes de pôr no site.
 - [ ] **Formulário de contato no site**: caixa para o cliente escrever nome, e-mail/telefone e mensagem
   e enviar direto pela página, sem abrir o aplicativo de e-mail dele. A mensagem chega no
   e-mail da empresa (`ipirangaredutores@ipirangaredutores.com.br`).
