@@ -1,14 +1,17 @@
 ---
 // Faixa de logos de clientes que passa sozinha na tela.
-// Cliente sem logo aparece como espaço reservado, com o nome.
+// Cliente sem logo (ou com arquivo ainda não enviado) aparece com o nome.
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 interface Cliente { nome: string; logo?: string }
 interface Props { clientes: Cliente[]; minimo?: number }
 const { clientes, minimo = 8 } = Astro.props;
 
 // Espaços extras só para dar volume enquanto não há logos suficientes
 const extras = Math.max(0, minimo - clientes.length);
+const temArquivo = (logo?: string) => !!logo && existsSync(join(process.cwd(), 'public', logo));
 const itens: (Cliente & { reservado?: boolean })[] = [
-  ...clientes,
+  ...clientes.map((c) => ({ ...c, logo: temArquivo(c.logo) ? c.logo : '' })),
   ...Array.from({ length: extras }, () => ({ nome: 'Logo de cliente', reservado: true })),
 ];
 ---

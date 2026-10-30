@@ -2,37 +2,49 @@
   "fundacao": 1980,
   "servicos": [
     {
-      "nome": "Troca de rolamento",
-      "detalhe": "Quando o redutor esquenta, faz barulho ou tem folga no eixo."
+      "nome": "Assistência técnica autorizada da WEG Cestari",
+      "detalhe": "Conta com equipe qualificada para realizar a manutenção das linhas de redutores da WEG."
     },
     {
-      "nome": "Troca de retentor",
-      "detalhe": "Para acabar com o vazamento de óleo."
-    },
-    {
-      "nome": "Troca de óleo",
-      "detalhe": "Lubrificante e quantidade indicados para o modelo."
-    },
-    {
-      "nome": "Troca de peças",
-      "detalhe": "Coroa, rosca sem-fim, engrenagens, eixos e tampas."
-    },
-    {
-      "nome": "Pintura",
-      "detalhe": "O redutor revisado volta com acabamento novo."
+      "nome": "Manutenção em redutores",
+      "detalhe": "Falk, SEW, Transmotécnica."
     }
   ],
   "clientes": [
     {
-      "nome": "Vale",
-      "logo": ""
-    },
-    {
-      "nome": "Ambev",
-      "logo": ""
+      "nome": "Lhoist",
+      "logo": "/images/clientes/lhoist.png"
     },
     {
       "nome": "Votorantim Cimentos",
+      "logo": "/images/clientes/votorantim.png"
+    },
+    {
+      "nome": "Ambev",
+      "logo": "/images/clientes/ambev.png"
+    },
+    {
+      "nome": "Xodó de Minas",
+      "logo": "/images/clientes/xodo.png"
+    },
+    {
+      "nome": "Mineração Esperança",
+      "logo": ""
+    },
+    {
+      "nome": "Dicasa Alimentos",
+      "logo": ""
+    },
+    {
+      "nome": "Plena Alimentos",
+      "logo": ""
+    },
+    {
+      "nome": "Forno de Minas",
+      "logo": ""
+    },
+    {
+      "nome": "AngloGold",
       "logo": ""
     },
     {
@@ -40,7 +52,7 @@
       "logo": ""
     },
     {
-      "nome": "Xodó de Minas",
+      "nome": "Amperam Inox",
       "logo": ""
     }
   ],

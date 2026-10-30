@@ -6,6 +6,7 @@ import Contato from '../components/Contato.astro';
 import RodapeEnxuto from '../components/RodapeEnxuto.astro';
 import empresa from '../data/empresa.json';
 import { site, linkWhatsapp, linkTelefone } from '../lib/site';
+import { menu, hrefSecao } from '../lib/menu';
 
 // contato: título do bloco de contato no fim da página; false para não mostrar (página Contato)
 interface Props { titulo: string; descricao: string; imagem?: string; contato?: string | false }
@@ -14,16 +15,6 @@ const tituloCompleto = titulo === site.nome ? `${site.nome} – Redutores de vel
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const atual = Astro.url.pathname;
 
-// O menu leva às seções da página inicial. Em outras páginas, marca a seção do assunto.
-const menu = [
-  { secao: 'inicio', label: 'Início', pagina: '' },
-  { secao: 'novos-e-usados', label: 'Novos e usados', pagina: '/usados/' },
-  { secao: 'produtos', label: 'Produtos', pagina: '/produtos/' },
-  { secao: 'manutencao', label: 'Manutenção', pagina: '/manutencao/' },
-  { secao: 'pecas', label: 'Peças', pagina: '/pecas-e-acoplamentos/' },
-  { secao: 'empresa', label: 'A empresa', pagina: '/empresa/' },
-  { secao: 'contato', label: 'Contato', pagina: '/contato/' },
-];
 const naHome = atual === '/';
 const ativo = (m: (typeof menu)[number]) => (naHome ? m.secao === 'inicio' : !!m.pagina && atual.startsWith(m.pagina));
 
@@ -85,7 +76,7 @@ const schema = {
         <nav id="menu-principal" aria-label="Principal">
           <ul>
             {menu.map((m) => (
-              <li><a href={naHome ? `#${m.secao}` : `/#${m.secao}`} data-secao={m.secao} aria-current={ativo(m) ? 'true' : undefined}>{m.label}</a></li>
+              <li><a href={hrefSecao(m.secao, naHome)} data-secao={m.secao} aria-current={ativo(m) ? 'true' : undefined}>{m.label}</a></li>
             ))}
           </ul>
         </nav>
@@ -99,7 +90,7 @@ const schema = {
   </main>
 
   {contato && <Contato titulo={contato} />}
-  <RodapeEnxuto />
+  <RodapeEnxuto naHome={naHome} />
 
   <nav class="barra-movel" aria-label="Contato rápido">
     <a href={linkWhatsapp} class="wa" target="_blank" rel="noopener"><Icone nome="whatsapp" />Orçamento pelo WhatsApp</a>
@@ -180,7 +171,7 @@ const schema = {
   .menu { margin-left: auto; }
   .menu-botao { display: none; }
   .menu ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.35rem; }
-  .menu a { color: #dbe4fb; text-decoration: none; font-weight: 500; padding-block: 0.35rem; border-bottom: 2px solid transparent; white-space: nowrap; transition: color .2s, border-color .2s; }
+  .menu a { color: #dbe4fb; text-decoration: none; font-weight: 500; padding-block: 0.35rem; border-bottom: 2px solid transparent; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.02em; transition: color .2s, border-color .2s; }
   .menu a:hover { color: #fff; border-color: var(--azul-claro); }
   .menu a[aria-current] { color: #fff; border-color: var(--laranja); }
   .topo :global(.topo-wa) { padding: 0.65rem 1rem; font-size: 0.98rem; white-space: nowrap; }
