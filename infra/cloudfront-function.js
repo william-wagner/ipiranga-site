@@ -1,48 +1,49 @@
 // CloudFront Function (runtime cloudfront-js-2.0), evento "viewer request".
 // 1. Manda www.ipirangaredutores.com.br para o domínio sem www
 //    (o endereço *.cloudfront.net continua acessível para testes).
-// 2. Redireciona (301) os endereços do site antigo em WordPress para as páginas novas,
+// 2. Redireciona (301) os endereços do site antigo em WordPress e as antigas páginas internas para as seções da página inicial,
 //    preservando o posicionamento no Google.
 // 3. Converte /pagina/ em /pagina/index.html, que é como os arquivos estão no S3.
 
 var DOMINIO = 'ipirangaredutores.com.br';
 
 var REDIRECTS = {
-  '/2014/09/24/o-que-e-um-redutor-de-velocidade/': '/o-que-e-um-redutor-de-velocidade/',
-  '/2014/10/29/redutor-de-velocidade-esferico/': '/o-que-e-um-redutor-de-velocidade/',
-  '/2014/10/29/redutor-epicicloidal/': '/o-que-e-um-redutor-de-velocidade/',
-  '/2014/11/05/linha-de-redutores-alumag/': '/produtos/',
-  '/2014/11/05/motorredutor-conimax/': '/produtos/',
-  '/2014/11/05/motorredutor-magmax/': '/produtos/',
-  '/2014/11/05/redutor-coaxial/': '/produtos/',
-  '/2014/11/05/redutor-vertimax/': '/produtos/',
-  '/2014/11/05/redutores-helimax-bipartido/': '/produtos/',
-  '/2014/11/06/redutores-helimax-1-estagio/': '/produtos/',
-  '/2014/11/06/redutores-helimax-monobloco/': '/produtos/',
-  '/2014/11/07/redutor-de-velocidade-magma-k/': '/produtos/magma-k/',
-  '/2014/11/07/redutor-de-velocidade-magma-m/': '/produtos/',
-  '/fale-com-a-ipiranga-redutores/': '/contato/',
-  '/redutor-de-velocidade/': '/empresa/',
-  '/redutor-de-velocidade-bh/': '/manutencao/',
-  '/redutores-de-velocidade/': '/produtos/',
-  '/redutores-de-velocidade-bh/': '/aplicacoes/',
-  // Linhas que saíram do site no redesenho de 2026
-  '/produtos/alumag/': '/produtos/',
-  '/produtos/conimax/': '/produtos/',
-  '/produtos/magmax/': '/produtos/',
-  '/produtos/coaxial/': '/produtos/',
-  '/produtos/vertimax/': '/produtos/',
-  '/produtos/helimax-bipartido/': '/produtos/',
-  '/produtos/helimax-1-estagio/': '/produtos/',
-  '/produtos/helimax-monobloco/': '/produtos/',
-  '/produtos/magma-m/': '/produtos/',
+  // Endereços do site antigo em WordPress
+  '/2014/09/24/o-que-e-um-redutor-de-velocidade/': '/#produtos',
+  '/2014/10/29/redutor-de-velocidade-esferico/': '/#produtos',
+  '/2014/10/29/redutor-epicicloidal/': '/#produtos',
+  '/2014/11/05/linha-de-redutores-alumag/': '/#produtos',
+  '/2014/11/05/motorredutor-conimax/': '/#produtos',
+  '/2014/11/05/motorredutor-magmax/': '/#produtos',
+  '/2014/11/05/redutor-coaxial/': '/#produtos',
+  '/2014/11/05/redutor-vertimax/': '/#produtos',
+  '/2014/11/05/redutores-helimax-bipartido/': '/#produtos',
+  '/2014/11/06/redutores-helimax-1-estagio/': '/#produtos',
+  '/2014/11/06/redutores-helimax-monobloco/': '/#produtos',
+  '/2014/11/07/redutor-de-velocidade-magma-k/': '/#produtos',
+  '/2014/11/07/redutor-de-velocidade-magma-m/': '/#produtos',
+  '/fale-com-a-ipiranga-redutores/': '/#contato',
+  '/redutor-de-velocidade/': '/#empresa',
+  '/redutor-de-velocidade-bh/': '/#servicos',
+  '/redutores-de-velocidade/': '/#produtos',
+  '/redutores-de-velocidade-bh/': '/#empresa',
+  // Páginas internas que saíram em 30/10/2026: o site virou uma página só, com seções
+  '/empresa/': '/#empresa',
+  '/aplicacoes/': '/#empresa',
+  '/manutencao/': '/#servicos',
+  '/usados/': '/#produtos',
+  '/pecas-e-acoplamentos/': '/#produtos',
+  '/o-que-e-um-redutor-de-velocidade/': '/#produtos',
+  '/produtos/': '/#produtos',
+  '/contato/': '/#contato',
 };
 
-// Prefixos de páginas automáticas do WordPress (categorias, tags, paginação, feed)
+// Prefixos: páginas de cada produto e páginas automáticas do WordPress (categorias, tags, paginação, feed)
 var PREFIXOS = [
-  ['/category/', '/produtos/'],
-  ['/tag/', '/produtos/'],
-  ['/page/', '/produtos/'],
+  ['/produtos/', '/#produtos'],
+  ['/category/', '/#produtos'],
+  ['/tag/', '/#produtos'],
+  ['/page/', '/#produtos'],
   ['/author/', '/'],
   ['/feed/', '/'],
   ['/comments/', '/'],

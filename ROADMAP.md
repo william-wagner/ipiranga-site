@@ -9,10 +9,19 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
 - [ ] **Fotos**: gerar as fotos pelos prompts do documento "Prompts das fotos do site" e salvar em
   `public/images/fotos/` com os nomes de `public/images/fotos/LEIA-ME.md`. Cada foto entra sozinha no site.
   A da fachada (`empresa`) deve ser real.
-- [ ] **Fotos de produto melhores**: a do Magma K é pequena (221 px) e a do WCR é provisória.
+- [x] **Site em uma página só** (30/10/2026): as páginas internas (A empresa, Aplicações, Manutenção, Usados,
+  Peças e acoplamentos, "O que é um redutor", Produtos e cada produto, Contato) saíram do site. Os endereços
+  delas e os do WordPress antigo vão em 301 para a seção correspondente da página inicial
+  (função do CloudFront em `infra/`).
+- [ ] **Pensar como incluir os textos mais longos** que saíram com as páginas internas, como o artigo
+  "O que é um redutor de velocidade?", as páginas de usados, de peças e de aplicações, e as fichas dos
+  produtos (WCR, WCG01, Magma K). Os textos continuam guardados em `src/content/paginas/` e
+  `src/content/produtos/` (fora do site e do painel de edição). Ideias: uma seção curta na página inicial
+  com "saiba mais" que abre o texto, uma área de artigos/blog ou voltar com algumas páginas só para o
+  Google. Pesar o ganho no Google contra o site ficar enxuto.
 - [ ] **Logo em alta resolução** (vetor ou PNG grande, fundo transparente).
 - [ ] **Conferir textos que assumem coisas** sobre os usados: "revisão na nossa oficina" antes da entrega e
-  que o estoque de usados muda com frequência (`src/content/paginas/usados.md` e página inicial).
+  que o estoque de usados muda com frequência (página inicial).
 - [ ] **Regras do selo WEG**: conferir com a WEG como o selo de autorizada pode aparecer.
 
 ## Antes da virada

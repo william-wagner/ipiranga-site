@@ -16,7 +16,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 const atual = Astro.url.pathname;
 
 const naHome = atual === '/';
-const ativo = (m: (typeof menu)[number]) => (naHome ? m.secao === 'inicio' : !!m.pagina && atual.startsWith(m.pagina));
+const ativo = (m: (typeof menu)[number]) => naHome && m.secao === 'inicio';
 
 const schema = {
   '@context': 'https://schema.org',
