@@ -1,0 +1,24 @@
+---
+// Página de atalho que manda o visitante para um endereço fora do site
+// (ex.: /cpanel/ → painel da HostGator). Não aparece no Google nem no sitemap.
+interface Props {
+  destino: string;
+  titulo: string;
+}
+const { destino, titulo } = Astro.props;
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0; url=${destino}`} />
+    <link rel="canonical" href={destino} />
+    <title>{titulo}</title>
+    <script is:inline define:vars={{ destino }}>window.location.replace(destino);</script>
+  </head>
+  <body>
+    <p>Abrindo o {titulo}… Se não abrir sozinho, <a href={destino}>clique aqui</a>.</p>
+  </body>
+</html>

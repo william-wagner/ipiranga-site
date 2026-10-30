@@ -25,6 +25,15 @@ Ao salvar, o site é publicado sozinho em 1 a 2 minutos.
 | `.github/workflows/publicar.yml` | Publicação automática na AWS |
 | `infra/cloudfront-function.js` | Redirects do site antigo e do www |
 
+## E-mail e cPanel
+
+O e-mail `@ipirangaredutores.com.br` **não** fica na AWS: continua na hospedagem antiga (HostGator, `108.167.132.137`).
+O Route 53 só aponta para lá (MX → `mail.ipirangaredutores.com.br`, mais SPF, DKIM e DMARC). Não apague esses registros.
+
+- cPanel: [ipirangaredutores.com.br/cpanel](https://ipirangaredutores.com.br/cpanel/) (atalho para `cpanel.ipirangaredutores.com.br`)
+- Webmail: [ipirangaredutores.com.br/webmail](https://ipirangaredutores.com.br/webmail/) (atalho para `webmail.ipirangaredutores.com.br`)
+- Outlook / celular: servidor `mail.ipirangaredutores.com.br`
+
 ## Rodar no computador
 
 ```bash

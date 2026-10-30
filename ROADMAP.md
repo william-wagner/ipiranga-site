@@ -27,8 +27,15 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
 
 ## Depois da virada
 
-- [ ] **Cancelar a hospedagem antiga** (WordPress em `108.167.132.137`, DNS `prodns.com.br`).
-  Esperar alguns dias com o site novo no ar antes de cancelar.
+- [ ] **Hospedagem antiga (HostGator, `108.167.132.137`): NÃO cancelar.** O site saiu de lá, mas o
+  e-mail `@ipirangaredutores.com.br` continua hospedado nela. Em 30/10/2026 os registros de e-mail
+  (MX, `mail`, `webmail`, `cpanel`, SPF, DKIM, DMARC, autodiscover) foram recriados à mão no Route 53,
+  apontando para a HostGator; eles ficam fora do CloudFormation.
+  - [ ] Descobrir em nome de quem está a conta da HostGator (provavelmente o antigo gestor do site),
+    quando vence e quem paga; pedir a transferência para a Ipiranga.
+  - [ ] Trocar a senha do cPanel.
+  - [ ] Se um dia quiserem sair da HostGator: migrar o e-mail antes (Google Workspace, Microsoft 365,
+    Zoho ou outra hospedagem com cPanel) e só então trocar o MX no Route 53.
 - [ ] **Formulário de contato no site**: caixa para o cliente escrever nome, e-mail/telefone e mensagem
   e enviar direto pela página, sem abrir o aplicativo de e-mail dele. A mensagem chega no
   e-mail da empresa (`redutores.ipiranga@gmail.com`).
