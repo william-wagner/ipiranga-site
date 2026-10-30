@@ -155,15 +155,15 @@ const linhas = [
   .setores li { padding: 0.45rem 0.95rem; background: var(--aco); border-radius: 999px; font-weight: 500; font-size: 0.97rem; }
 
   /* Produtos */
-  .produtos { padding-block: var(--secao); }
+  .produtos { padding-block: var(--secao); background: var(--aco); }
   .prod-topo { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem clamp(2rem, 5vw, 4.5rem); align-items: end; margin-bottom: 2.2rem; }
   .prod-topo h2 { margin: 0; max-width: 14ch; }
   .prod-topo p { margin: 0; color: var(--cinza); font-size: 1.05rem; }
   .prod-grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .prod-grade article { display: flex; flex-direction: column; align-items: flex-start; padding: 1.5rem; border: 1px solid var(--linha); border-top: 4px solid var(--laranja); border-radius: var(--raio); }
+  .prod-grade article { display: flex; flex-direction: column; align-items: flex-start; padding: 1.5rem; border: 1px solid var(--linha); border-top: 4px solid var(--laranja); border-radius: var(--raio); background: #fff; }
   .prod-grade article:first-child { border-top-color: var(--azul); }
   .prod-foto { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--raio); margin-bottom: 1.4rem; }
-  .prod-foto.vazia { display: grid; place-items: center; background: var(--aco); border: 1px dashed var(--aco-escuro); color: #8a95aa; font-weight: 600; }
+  .prod-foto.vazia { display: grid; place-items: center; background: #fff; border: 1px dashed var(--aco-escuro); color: #8a95aa; font-weight: 600; }
   .prod-grade h3 { font-size: 2rem; margin: 0 0 0.2rem; }
   .marca { font-weight: 600; color: var(--cinza); margin-bottom: 1rem; }
   .lista-check { list-style: none; padding: 0; margin: 0 0 1.5rem; display: grid; gap: 0.5rem; flex: 1; align-content: start; }
