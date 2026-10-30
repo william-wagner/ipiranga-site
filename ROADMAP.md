@@ -5,7 +5,7 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
 
 ## Novo visual (branch `redesign-2026`)
 
-- [ ] **Aprovar o novo visual** e juntar a branch na `main` (isso publica o site).
+- [x] **Aprovar o novo visual** e juntar a branch na `main`: publicado em 30/10/2026, com os redirecionamentos (pilha `site-ipiranga`) e o formulário de contato.
 - [ ] **Fotos**: gerar as fotos pelos prompts do documento "Prompts das fotos do site" e salvar em
   `public/images/fotos/` com os nomes de `public/images/fotos/LEIA-ME.md`. Cada foto entra sozinha no site.
   A da fachada (`empresa`) deve ser real.
