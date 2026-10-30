@@ -56,12 +56,15 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
   convidando quem é de fora a enviar o redutor para a oficina, por exemplo: "Fora de BH? Envie seu
   redutor para a nossa oficina. Atendemos todo o Brasil." Decidir se a Ipiranga quer destacar isso
   (frete, prazo, como embalar) antes de pôr no site.
-- [ ] **Formulário de contato no site**: caixa para o cliente escrever nome, e-mail/telefone e mensagem
-  e enviar direto pela página, sem abrir o aplicativo de e-mail dele. A mensagem chega no
-  e-mail da empresa (`ipirangaredutores@ipirangaredutores.com.br`).
-  - Caminho previsto, mantendo o site sem servidor: uma função AWS Lambda que recebe o formulário e envia
-    o e-mail pelo Amazon SES, criada no mesmo modelo do CloudFormation.
-  - Incluir proteção contra spam (campo oculto "isca" e limite de envios) e uma mensagem de confirmação na tela.
+- [x] **Formulário de contato no site** (30/10/2026): nome, telefone e mensagem, enviados em segundo
+  plano para `ipirangaredutores@ipirangaredutores.com.br`, com remetente `site@ipirangaredutores.com.br`.
+  - Função AWS Lambda `ipiranga-contato` (sa-east-1, Node 22) com endereço público (Function URL) que
+    só aceita chamadas de `ipirangaredutores.com.br` e `www.`; envia pelo Amazon SES (domínio verificado
+    com DKIM no Route 53). O endereço fica em `src/data/site.json` → `formulario`.
+  - Criada pelo CloudShell, fora do `infra/site.yaml`. Pendente: trazer a função para o CloudFormation.
+  - Proteção: campo-isca `empresa_site`, limites de tamanho e validação de telefone com DDD.
+  - O SES está no modo sandbox (200 envios/dia, só para endereços do domínio), suficiente para o formulário.
+  - Só funciona no domínio oficial; na prévia do artefato o envio é simulado.
 - [ ] **Configurar o painel de edição** (Pages CMS em https://app.pagescms.org):
   - criar conta no GitHub para a esposa e convidá-la como colaboradora do repositório;
   - entrar no Pages CMS com a conta do GitHub e abrir o repositório `ipiranga-site`.

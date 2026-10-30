@@ -29,12 +29,109 @@ const H = nivel;
         </div></li>
       </ul>
     </div>
+
+    <!-- Formulário: envia em segundo plano para a função AWS Lambda (site.formulario),
+         que manda o e-mail pelo Amazon SES para site.email. -->
+    <div class="form-cartao">
+      <form class="form-contato" data-endpoint={site.formulario} data-telefone={site.telefone} novalidate>
+        <div class="form-topo">
+          <h3>Prefere mandar uma mensagem?</h3>
+          <p>Respondemos por telefone ou WhatsApp em horário comercial.</p>
+        </div>
+        <div class="campo">
+          <label for="fc-nome">Nome</label>
+          <input id="fc-nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome ou empresa" required maxlength="120" />
+        </div>
+        <div class="campo">
+          <label for="fc-tel">Telefone / WhatsApp</label>
+          <input id="fc-tel" name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(31) 99999-9999" required maxlength="30" />
+        </div>
+        <div class="campo">
+          <label for="fc-msg">Mensagem</label>
+          <textarea id="fc-msg" name="mensagem" rows="5" placeholder="Modelo do redutor, problema, peça que procura…" required maxlength="3000"></textarea>
+        </div>
+        <!-- Campo-isca contra robôs: invisível para pessoas. -->
+        <div class="campo-oculto" aria-hidden="true">
+          <label for="fc-site">Não preencha</label>
+          <input id="fc-site" name="empresa_site" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+        <p class="form-erro" role="alert" hidden></p>
+        <button type="submit" class="btn btn-azul btn-grande form-enviar">
+          <span class="rotulo">Enviar mensagem</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4Z"/></svg>
+        </button>
+      </form>
+      <div class="form-ok" role="status" hidden>
+        <div class="form-ok-icone"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3>Mensagem enviada!</h3>
+        <p>Recebemos seu contato e retornamos em breve. Se for urgente, chame no WhatsApp.</p>
+        <button type="button" class="form-outra">Enviar outra mensagem</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container contato-mapa">
     <div class="mapa">
       <iframe src={embedMapa} title={`Mapa: ${enderecoCompleto}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       <a href={linkMapa} target="_blank" rel="noopener">Abrir no Google Maps</a>
     </div>
   </div>
 </section>
+
+<script>
+  const f = document.querySelector<HTMLFormElement>('.form-contato');
+  if (f) {
+    const cartao = f.closest('.form-cartao')!;
+    const ok = cartao.querySelector<HTMLElement>('.form-ok')!;
+    const erro = f.querySelector<HTMLElement>('.form-erro')!;
+    const botao = f.querySelector<HTMLButtonElement>('.form-enviar')!;
+    const rotulo = botao.querySelector<HTMLElement>('.rotulo')!;
+    const mostraErro = (t: string) => { erro.textContent = t; erro.hidden = !t; };
+
+    f.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      mostraErro('');
+      let primeiro: HTMLInputElement | HTMLTextAreaElement | null = null;
+      for (const c of f.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]')) {
+        const valido = c.value.trim().length > 0 && (c.type !== 'tel' || c.value.replace(/\D/g, '').length >= 10);
+        c.setAttribute('aria-invalid', valido ? 'false' : 'true');
+        if (!valido && !primeiro) primeiro = c;
+      }
+      if (primeiro) {
+        mostraErro('Preencha nome, telefone com DDD e mensagem.');
+        primeiro.focus();
+        return;
+      }
+      const d = Object.fromEntries(new FormData(f)) as Record<string, string>;
+      if (d.empresa_site) { f.reset(); return; }
+      botao.disabled = true;
+      rotulo.textContent = 'Enviando…';
+      try {
+        const r = await fetch(f.dataset.endpoint!, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome: d.nome, telefone: d.telefone, mensagem: d.mensagem }),
+        });
+        if (!r.ok) throw new Error(String(r.status));
+        f.reset();
+        f.hidden = true;
+        ok.hidden = false;
+        ok.querySelector<HTMLButtonElement>('.form-outra')!.focus();
+      } catch {
+        mostraErro(`Não foi possível enviar agora. Tente de novo ou chame no WhatsApp: ${f.dataset.telefone}.`);
+      } finally {
+        botao.disabled = false;
+        rotulo.textContent = 'Enviar mensagem';
+      }
+    });
+
+    ok.querySelector('.form-outra')!.addEventListener('click', () => {
+      ok.hidden = true;
+      f.hidden = false;
+      f.querySelector<HTMLInputElement>('input')!.focus();
+    });
+  }
+</script>
 
 <style>
   .contato { padding-block: var(--secao); }
@@ -49,7 +146,38 @@ const H = nivel;
   dl { margin: 0; display: grid; grid-template-columns: auto auto; gap: 0.2rem 1.2rem; justify-content: start; }
   dt { color: var(--azul-claro); }
   dd { margin: 0; font-weight: 500; }
-  .mapa iframe { width: 100%; aspect-ratio: 4 / 3.4; border: 0; border-radius: var(--raio); display: block; background: var(--azul-noite); }
+
+  /* Formulário */
+  .form-cartao { background: #fff; color: var(--grafite); border-radius: 8px; padding: clamp(1.5rem, 3vw, 2.25rem); box-shadow: 0 24px 60px #050a1e59; }
+  .form-contato { display: grid; gap: 1.1rem; }
+  .form-contato[hidden] { display: none; }
+  .form-topo h3 { font-family: var(--fonte-titulo); font-weight: 700; font-size: 2rem; line-height: 1.05; color: var(--azul-escuro); margin: 0 0 0.35rem; }
+  .form-topo p { margin: 0; color: var(--cinza); font-size: 1rem; }
+  .campo { display: grid; gap: 0.35rem; }
+  .campo label { font-weight: 600; font-size: 0.95rem; }
+  .campo input, .campo textarea { font: inherit; font-size: 1.06rem; color: var(--grafite); background: #fff; border: 1px solid #c3ccda; border-radius: var(--raio); padding: 0.75rem 0.9rem; width: 100%; }
+  .campo input { height: 3.1rem; }
+  .campo textarea { resize: vertical; min-height: 8rem; line-height: 1.5; }
+  .campo input:focus, .campo textarea:focus { outline: 3px solid var(--laranja); outline-offset: 1px; border-color: var(--laranja); }
+  .campo [aria-invalid='true'] { border-color: #c8161f; }
+  .campo-oculto { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .form-erro { margin: 0; color: #b3141c; font-weight: 500; }
+  .form-enviar { width: 100%; }
+  .form-enviar[disabled] { opacity: 0.7; cursor: wait; }
+  .form-ok { min-height: 28rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 0.8rem; }
+  .form-ok[hidden] { display: none; }
+  .form-ok-icone { width: 4rem; height: 4rem; border-radius: 50%; background: #e3f4ea; color: var(--verde-wa); display: grid; place-items: center; }
+  .form-ok-icone svg { width: 2rem; height: 2rem; }
+  .form-ok h3 { font-family: var(--fonte-titulo); font-weight: 700; font-size: 2rem; color: var(--azul-escuro); margin: 0; }
+  .form-ok p { margin: 0; color: var(--cinza); max-width: 26rem; }
+  .form-outra { background: none; border: 0; color: var(--azul); font: 600 1rem var(--fonte); text-decoration: underline; cursor: pointer; padding: 0.6rem; }
+
+  /* Mapa, abaixo da grade */
+  .contato-mapa { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+  .mapa iframe { width: 100%; aspect-ratio: 16 / 6; min-height: 16rem; border: 0; border-radius: var(--raio); display: block; background: var(--azul-noite); }
   .mapa a { display: inline-block; margin-top: 0.7rem; font-weight: 600; }
-  @media (max-width: 52rem) { .contato-grade { grid-template-columns: 1fr; } }
+  @media (max-width: 52rem) {
+    .contato-grade { grid-template-columns: 1fr; }
+    .mapa iframe { aspect-ratio: 4 / 3; }
+  }
 </style>
