@@ -1,0 +1,140 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >-
+  Formulario de contato do site ipirangaredutores.com.br: funcao Lambda com endereco publico
+  (Function URL) que envia a mensagem por e-mail pelo Amazon SES.
+  Criar na regiao sa-east-1 (Sao Paulo), a mesma do dominio verificado no SES.
+  Pre-requisito: o dominio verificado no SES (identidade de dominio com Easy DKIM publicado no Route 53).
+  O endereco gerado (saida EnderecoFormulario) vai em src/data/site.json -> "formulario".
+
+Parameters:
+  Dominio:
+    Type: String
+    Default: ipirangaredutores.com.br
+  Destinatario:
+    Type: String
+    Default: ipirangaredutores@ipirangaredutores.com.br
+    Description: Caixa que recebe as mensagens do formulario.
+  Remetente:
+    Type: String
+    Default: site@ipirangaredutores.com.br
+    Description: Endereco que aparece como remetente (precisa ser do dominio verificado no SES).
+
+Resources:
+  PapelFuncao:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: ipiranga-contato-lambda
+      Description: Usado pela funcao do formulario de contato do site
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: { Service: lambda.amazonaws.com }
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: enviar-email-ses
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: ses:SendEmail
+                Resource: !Sub 'arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/${Dominio}'
+
+  Logs:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/lambda/ipiranga-formulario
+      RetentionInDays: 90
+
+  Funcao:
+    Type: AWS::Lambda::Function
+    DependsOn: Logs
+    Properties:
+      FunctionName: ipiranga-formulario
+      Description: Recebe o formulario de contato do site e envia por e-mail (SES)
+      Runtime: nodejs22.x
+      Handler: index.handler
+      Role: !GetAtt PapelFuncao.Arn
+      Timeout: 10
+      MemorySize: 128
+      Environment:
+        Variables:
+          TO_ADDRESS: !Ref Destinatario
+          FROM_ADDRESS: !Ref Remetente
+      Code:
+        ZipFile: |
+          // Recebe { nome, telefone, mensagem } em JSON (POST) e envia um e-mail de texto pelo SES.
+          // O campo "empresa_site" e uma isca para robos: se vier preenchido, finge sucesso e nao envia.
+          const { SESv2Client, SendEmailCommand } = require("@aws-sdk/client-sesv2");
+          const ses = new SESv2Client({});
+          const TO = process.env.TO_ADDRESS;
+          const FROM = process.env.FROM_ADDRESS;
+
+          const resp = (code, body) => ({ statusCode: code, headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+          const limpa = (v, max) => String(v ?? "").trim().slice(0, max);
+
+          exports.handler = async (event) => {
+            if (event.requestContext?.http?.method !== "POST") return resp(405, { ok: false });
+            let d;
+            try {
+              const raw = event.isBase64Encoded ? Buffer.from(event.body || "", "base64").toString("utf8") : (event.body || "{}");
+              d = JSON.parse(raw);
+            } catch { return resp(400, { ok: false, erro: "formato" }); }
+            if (d.empresa_site) return resp(200, { ok: true });
+
+            const nome = limpa(d.nome, 120).replace(/[\r\n]+/g, " ");
+            const telefone = limpa(d.telefone, 40).replace(/[\r\n]+/g, " ");
+            const mensagem = limpa(d.mensagem, 5000);
+            if (!nome || !telefone || !mensagem) return resp(400, { ok: false, erro: "campos" });
+
+            const quando = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+            const texto = "Nova mensagem pelo formulario do site\n\n"
+              + "Nome: " + nome + "\nTelefone: " + telefone + "\nEnviado em: " + quando
+              + "\n\nMensagem:\n" + mensagem + "\n";
+
+            try {
+              await ses.send(new SendEmailCommand({
+                FromEmailAddress: "Site Ipiranga Redutores <" + FROM + ">",
+                Destination: { ToAddresses: [TO] },
+                Content: { Simple: {
+                  Subject: { Data: "Contato pelo site - " + nome, Charset: "UTF-8" },
+                  Body: { Text: { Data: texto, Charset: "UTF-8" } },
+                } },
+              }));
+            } catch (e) { console.error(e); return resp(502, { ok: false, erro: "envio" }); }
+            return resp(200, { ok: true });
+          };
+
+  EnderecoPublico:
+    Type: AWS::Lambda::Url
+    Properties:
+      TargetFunctionArn: !Ref Funcao
+      AuthType: NONE
+      Cors:
+        AllowOrigins: [!Sub 'https://${Dominio}', !Sub 'https://www.${Dominio}']
+        AllowMethods: [POST]
+        AllowHeaders: [content-type]
+        MaxAge: 86400
+
+  PermissaoUrl:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Funcao
+      Action: lambda:InvokeFunctionUrl
+      Principal: '*'
+      FunctionUrlAuthType: NONE
+
+  PermissaoInvocarViaUrl:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Funcao
+      Action: lambda:InvokeFunction
+      Principal: '*'
+      InvokedViaFunctionUrl: true
+
+Outputs:
+  EnderecoFormulario:
+    Description: Endereco do formulario; coloque em src/data/site.json -> "formulario"
+    Value: !GetAtt EnderecoPublico.FunctionUrl

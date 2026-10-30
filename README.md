@@ -24,6 +24,8 @@ Ao salvar, o site é publicado sozinho em 1 a 2 minutos.
 | `.pages.yml` | Configuração do painel de edição |
 | `.github/workflows/publicar.yml` | Publicação automática na AWS |
 | `infra/cloudfront-function.js` | Redirects do site antigo e do www |
+| `infra/site.yaml` | Infraestrutura do site (CloudFormation, região us-east-1) |
+| `infra/contato.yaml` | Formulário de contato: Lambda + SES (CloudFormation, região sa-east-1) |
 
 ## E-mail e cPanel
 
@@ -33,6 +35,18 @@ O Route 53 só aponta para lá (MX → `mail.ipirangaredutores.com.br`, mais SPF
 - cPanel: [ipirangaredutores.com.br/cpanel](https://ipirangaredutores.com.br/cpanel/) (atalho para `cpanel.ipirangaredutores.com.br`)
 - Webmail: [ipirangaredutores.com.br/webmail](https://ipirangaredutores.com.br/webmail/) (atalho para `webmail.ipirangaredutores.com.br`)
 - Outlook / celular: servidor `mail.ipirangaredutores.com.br`
+
+## Formulário de contato
+
+O formulário da seção de contato envia em segundo plano para uma função AWS Lambda, que manda a mensagem
+por e-mail (Amazon SES) de `site@ipirangaredutores.com.br` para `ipirangaredutores@ipirangaredutores.com.br`.
+
+- Infraestrutura: `infra/contato.yaml`, pilha `ipiranga-contato` em **sa-east-1** (São Paulo).
+  Para alterar: `aws cloudformation deploy --region sa-east-1 --stack-name ipiranga-contato --template-file infra/contato.yaml --capabilities CAPABILITY_NAMED_IAM`.
+- O endereço da função (saída `EnderecoFormulario` da pilha) fica em `src/data/site.json` → `formulario`.
+- A função só aceita envios vindos de `ipirangaredutores.com.br` e `www.`; em `npm run dev` o envio é bloqueado pelo navegador.
+- O domínio está verificado no SES (DKIM no Route 53). Os registros `*._domainkey` criados pelo SES não podem ser apagados.
+- A caixa `site@` existe no cPanel só para receber eventuais respostas ou avisos de falha.
 
 ## Rodar no computador
 

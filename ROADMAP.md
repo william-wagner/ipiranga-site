@@ -58,10 +58,11 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
   (frete, prazo, como embalar) antes de pôr no site.
 - [x] **Formulário de contato no site** (30/10/2026): nome, telefone e mensagem, enviados em segundo
   plano para `ipirangaredutores@ipirangaredutores.com.br`, com remetente `site@ipirangaredutores.com.br`.
-  - Função AWS Lambda `ipiranga-contato` (sa-east-1, Node 22) com endereço público (Function URL) que
-    só aceita chamadas de `ipirangaredutores.com.br` e `www.`; envia pelo Amazon SES (domínio verificado
-    com DKIM no Route 53). O endereço fica em `src/data/site.json` → `formulario`.
-  - Criada pelo CloudShell, fora do `infra/site.yaml`. Pendente: trazer a função para o CloudFormation.
+  - Infraestrutura em `infra/contato.yaml` (pilha CloudFormation `ipiranga-contato`, região sa-east-1):
+    função Lambda `ipiranga-formulario` (Node 22) com endereço público (Function URL) que só aceita
+    chamadas de `ipirangaredutores.com.br` e `www.`; envia pelo Amazon SES. O endereço é a saída
+    `EnderecoFormulario` da pilha e fica em `src/data/site.json` → `formulario`.
+  - O domínio no SES (identidade com Easy DKIM publicado no Route 53) foi criado pelo console, fora do modelo.
   - Proteção: campo-isca `empresa_site`, limites de tamanho e validação de telefone com DDD.
   - O SES está no modo sandbox (200 envios/dia, só para endereços do domínio), suficiente para o formulário.
   - Só funciona no domínio oficial; na prévia do artefato o envio é simulado.
