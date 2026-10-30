@@ -24,13 +24,16 @@ const linhas = [
     sub: 'Revenda e assistência técnica autorizada WEG-CESTARI',
     itens: ['Redutores', 'Motorredutores', 'Peças de reposição'],
     foto: foto('produto-novos'),
+    // Descrição da foto para o Google e leitores de tela: atualizar se a foto for trocada
+    alt: 'Redutor de velocidade novo sobre a bancada da oficina',
     mensagem: 'Olá! Vim pelo site e quero um orçamento de equipamento novo WEG-CESTARI.',
   },
   {
     titulo: 'Equipamentos usados',
     sub: 'Diversas marcas e modelos',
-    itens: ['Redutores e motorredutores usados', 'SEW, Falk, Flender, Transmotécnica, Sumitomo, entre outros', 'Equipamentos fora de linha'],
+    itens: ['Redutores de velocidade e motorredutores usados', 'SEW, Falk, Flender, Transmotécnica, Sumitomo, entre outros', 'Equipamentos fora de linha'],
     foto: foto('produto-usados'),
+    alt: 'Estoque de redutores e motorredutores usados nas prateleiras',
     mensagem: 'Olá! Vim pelo site e quero consultar equipamentos usados.',
   },
   {
@@ -38,6 +41,7 @@ const linhas = [
     sub: 'Componentes para manutenção e reposição',
     itens: ['Acoplamentos diversos', 'Coroas, roscas sem-fim, flanges e cubos entalhados', 'Válvulas, eixos de entrada/saída e eixos vazados com coroa', 'Óleo específico para redutores, fracionado'],
     foto: foto('produto-pecas'),
+    alt: 'Peças de reposição para redutores: coroa, rosca sem-fim, engrenagens, eixos, rolamentos, retentores e acoplamento',
     mensagem: 'Olá! Vim pelo site e procuro peças ou acoplamentos.',
   },
 ];
@@ -51,7 +55,7 @@ const linhas = [
           <img src="/images/weg-cestari.png" alt="WEG-CESTARI" width="230" height="57" />
           <span>Assistência técnica autorizada</span>
         </p>
-        <h1>Redutores e motorredutores novos e usados</h1>
+        <h1>Redutores de velocidade e motorredutores novos e usados</h1>
         <p class="hero-sub">Venda de equipamentos novos e usados, manutenção e peças de reposição para diversas aplicações industriais. Atendemos clientes em todo o Brasil.</p>
         <div class="hero-acoes">
           <BotaoWhatsapp grande />
@@ -80,20 +84,21 @@ const linhas = [
       <ul class="setores">
         {empresa.setores.map((s) => <li><IconeSetor nome={s.icone} />{s.nome}</li>)}
       </ul>
+      <p class="empresa-cta"><a class="link-seta" href="#produtos">Ver o que vendemos <span aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
   <section id="produtos" class="produtos">
     <div class="container">
       <div class="prod-topo">
-        <h2>Redutores, motorredutores e peças para a indústria</h2>
-        <p>Redutores, motorredutores e acoplamentos. O novo vem com garantia de fábrica; o usado resolve rápido quando a máquina parou ou o modelo saiu de linha.</p>
+        <h2>Redutores de velocidade, motorredutores e peças</h2>
+        <p>Novos e usados, com acoplamentos e peças. O novo vem com garantia de fábrica; o usado resolve rápido quando a máquina parou ou o modelo saiu de linha.</p>
       </div>
       <div class="prod-grade">
         {linhas.map((l) => (
           <article>
             {l.foto
-              ? <img class="prod-foto" src={l.foto} alt="" width="1448" height="1086" loading="lazy" />
+              ? <img class="prod-foto" src={l.foto} alt={l.alt} width="1448" height="1086" loading="lazy" />
               : <div class="prod-foto vazia">Espaço para imagem</div>}
             <h3>{l.titulo}</h3>
             <p class="marca">{l.sub}</p>
@@ -108,10 +113,11 @@ const linhas = [
   <section id="servicos" class="servicos-sec escuro">
     <div class="container servicos-grade">
       <div>
-        <h2>Serviços</h2>
+        <h2>Manutenção de redutores em BH</h2>
         <ul class="servicos">
           {empresa.servicos.map((s) => <li><strong>{s.nome}</strong><span>{s.detalhe}</span></li>)}
         </ul>
+        <p class="servicos-mais"><a class="link-seta" href="/manutencao/">Ver todos os serviços <span aria-hidden="true">→</span></a></p>
         <BotaoWhatsapp mensagem="Olá! Vim pelo site e preciso de um orçamento de manutenção para um redutor." />
       </div>
       <div class="servicos-imagem">
@@ -174,12 +180,14 @@ const linhas = [
   .prod-grade :global(.btn) { width: 100%; }
 
   /* Serviços */
+  .empresa-cta { margin: 2rem 0 0; font-size: 1.1rem; }
   .servicos-sec { padding-block: var(--secao); }
   .servicos-grade { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
   .servicos { list-style: none; padding: 0; margin: 1.4rem 0 2rem; border-top: 1px solid var(--azul-linha); }
   .servicos li { display: grid; grid-template-columns: 15rem 1fr; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--azul-linha); }
   .servicos strong { font: 600 1.25rem/1.25 var(--fonte-titulo); }
   .servicos span { color: #c4cfea; }
+  .servicos-mais { margin: -0.6rem 0 1.8rem; font-size: 1.05rem; }
   .servicos-imagem { min-width: 0; }
   .servicos-imagem img { width: 100%; border-radius: var(--raio); }
 
