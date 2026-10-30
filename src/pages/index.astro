@@ -25,7 +25,8 @@ const linhas = [
     itens: ['Redutores', 'Motorredutores', 'Peças de reposição'],
     foto: foto('produto-novos'),
     // Descrição da foto para o Google e leitores de tela: atualizar se a foto for trocada
-    alt: 'Redutor de velocidade novo sobre a bancada da oficina',
+    alt: 'Dois redutores de velocidade novos sobre a bancada, com o estoque ao fundo',
+    largura: 1448, altura: 1086,
     mensagem: 'Olá! Vim pelo site e quero um orçamento de equipamento novo WEG-CESTARI.',
   },
   {
@@ -33,7 +34,8 @@ const linhas = [
     sub: 'Diversas marcas e modelos',
     itens: ['Redutores de velocidade e motorredutores usados', 'SEW, Falk, Flender, Transmotécnica, Sumitomo, entre outros', 'Equipamentos fora de linha'],
     foto: foto('produto-usados'),
-    alt: 'Estoque de redutores e motorredutores usados nas prateleiras',
+    alt: 'Motorredutor usado sobre um palete no galpão, com prateleiras de equipamentos usados ao fundo',
+    largura: 1536, altura: 1024,
     mensagem: 'Olá! Vim pelo site e quero consultar equipamentos usados.',
   },
   {
@@ -41,7 +43,8 @@ const linhas = [
     sub: 'Componentes para manutenção e reposição',
     itens: ['Acoplamentos diversos', 'Coroas, roscas sem-fim, flanges e cubos entalhados', 'Válvulas, eixos de entrada/saída e eixos vazados com coroa', 'Óleo específico para redutores, fracionado'],
     foto: foto('produto-pecas'),
-    alt: 'Peças de reposição para redutores: coroa, rosca sem-fim, engrenagens, eixos, rolamentos, retentores e acoplamento',
+    alt: 'Peças de reposição e acoplamentos: rosca sem-fim, coroas, eixo, chavetas, anéis e acoplamentos elásticos',
+    largura: 1448, altura: 1086,
     mensagem: 'Olá! Vim pelo site e procuro peças ou acoplamentos.',
   },
 ];
@@ -98,7 +101,7 @@ const linhas = [
         {linhas.map((l) => (
           <article>
             {l.foto
-              ? <img class="prod-foto" src={l.foto} alt={l.alt} width="1448" height="1086" loading="lazy" />
+              ? <img class="prod-foto" src={l.foto} alt={l.alt} width={l.largura} height={l.altura} loading="lazy" />
               : <div class="prod-foto vazia">Espaço para imagem</div>}
             <h3>{l.titulo}</h3>
             <p class="marca">{l.sub}</p>
@@ -121,7 +124,7 @@ const linhas = [
       </div>
       <div class="servicos-imagem">
         {fotoServicos
-          ? <img src={fotoServicos} alt="Técnico trocando o rolamento de um redutor na bancada da oficina" width="1448" height="1086" loading="lazy" />
+          ? <img src={fotoServicos} alt="Técnico da Ipiranga Redutores montando a tampa de um redutor aberto na bancada, com rolamentos e retentores ao lado" width="1448" height="1086" loading="lazy" />
           : <DesenhoExplodido />}
       </div>
     </div>
