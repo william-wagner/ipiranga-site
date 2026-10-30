@@ -54,6 +54,10 @@
     {
       "nome": "Aperam Inox",
       "logo": "/images/clientes/aperam.png"
+    },
+    {
+      "nome": "Grupo AVG",
+      "logo": "/images/clientes/avg.png"
     }
   ],
   "setores": [
