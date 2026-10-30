@@ -1,6 +1,6 @@
 ---
 titulo: "Peças e acoplamentos"
-descricao: "Peças de reposição para redutores e acoplamentos WEG Cestari em Belo Horizonte: rolamentos, retentores, coroas, roscas, eixos e elementos elásticos."
+descricao: "Peças de reposição para redutores e acoplamentos WEG-CESTARI em Belo Horizonte: rolamentos, retentores, coroas, roscas, eixos e elementos elásticos."
 imagem: "/images/empresa/redutor-componentes.jpg"
 ---
 
@@ -18,7 +18,7 @@ Vendemos peças de reposição para redutores e acoplamentos, para troca imediat
 
 ## Acoplamentos
 
-Trabalhamos com a linha de acoplamentos WEG Cestari, novos e usados. A escolha depende do torque e do diâmetro do furo. No eixo de saída, onde o torque é maior, os acoplamentos elásticos são os mais indicados, porque absorvem variações de carga e oscilações.
+Trabalhamos com a linha de acoplamentos WEG-CESTARI, novos e usados. A escolha depende do torque e do diâmetro do furo. No eixo de saída, onde o torque é maior, os acoplamentos elásticos são os mais indicados, porque absorvem variações de carga e oscilações.
 
 ## Peças para acoplamentos
 

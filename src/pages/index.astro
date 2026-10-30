@@ -21,15 +21,15 @@ const fotoServicos = foto('manutencao');
 const linhas = [
   {
     titulo: 'Equipamentos novos',
-    sub: 'Revenda e assistência técnica autorizada WEG Cestari',
+    sub: 'Revenda e assistência técnica autorizada WEG-CESTARI',
     itens: ['Redutores', 'Motorredutores', 'Peças de reposição'],
     foto: foto('produto-novos'),
-    mensagem: 'Olá! Vim pelo site e quero um orçamento de equipamento novo WEG.',
+    mensagem: 'Olá! Vim pelo site e quero um orçamento de equipamento novo WEG-CESTARI.',
   },
   {
     titulo: 'Equipamentos usados',
     sub: 'Diversas marcas e modelos',
-    itens: ['Redutores e motorredutores usados', 'SEW, Falk, Flender, Transmotécnica, Sumitomo e dentre outros', 'Equipamentos fora de linha'],
+    itens: ['Redutores e motorredutores usados', 'SEW, Falk, Flender, Transmotécnica, Sumitomo, entre outros', 'Equipamentos fora de linha'],
     foto: foto('produto-usados'),
     mensagem: 'Olá! Vim pelo site e quero consultar equipamentos usados.',
   },
@@ -42,13 +42,13 @@ const linhas = [
   },
 ];
 ---
-<Base titulo={site.nome} descricao={`Redutores e motorredutores novos e usados, manutenção e peças de reposição em Belo Horizonte desde ${empresa.fundacao}. Assistência técnica autorizada WEG Cestari.`}>
+<Base titulo={site.nome} descricao={`Redutores e motorredutores novos e usados, manutenção e peças de reposição em Belo Horizonte desde ${empresa.fundacao}. Assistência técnica autorizada WEG-CESTARI.`} imagem="/images/compartilhar.jpg">
 
   <section id="inicio" class:list={['hero', 'escuro', { 'com-foto': fotoHero }]} style={fotoHero ? `--foto: url(${fotoHero})` : undefined}>
     <div class="container hero-grade">
       <div class="hero-texto">
         <p class="selo-weg">
-          <img src="/images/weg-cestari.png" alt="WEG Cestari" width="230" height="57" />
+          <img src="/images/weg-cestari.png" alt="WEG-CESTARI" width="230" height="57" />
           <span>Assistência técnica autorizada</span>
         </p>
         <h1>Redutores e motorredutores novos e usados</h1>
@@ -68,7 +68,7 @@ const linhas = [
       <div class:list={['empresa-grade', { 'com-foto': fotoEmpresa }]}>
         <div class="empresa-texto">
           <h2>Há {anos} anos, mantendo a indústria em movimento</h2>
-          <p>Desde {empresa.fundacao}, a Ipiranga Redutores oferece soluções em redutores e motorredutores para a indústria. Trabalhamos com equipamentos novos e usados, peças de reposição, manutenção e assistência técnica autorizada WEG Cestari.</p>
+          <p>Desde {empresa.fundacao}, a Ipiranga Redutores oferece soluções em redutores e motorredutores para a indústria. Trabalhamos com equipamentos novos e usados, peças de reposição, manutenção e assistência técnica autorizada WEG-CESTARI.</p>
           <p>Sabemos que máquina parada significa prejuízo. Por isso, unimos experiência, agilidade e conhecimento técnico para encontrar soluções que atendam às necessidades de cada cliente, inclusive em situações de urgência, ajudando a reduzir o tempo de parada e a manter a produção em funcionamento.</p>
           <p class="assinatura">Ipiranga Redutores: experiência e agilidade para a indústria não parar.</p>
         </div>
@@ -86,7 +86,7 @@ const linhas = [
   <section id="produtos" class="produtos">
     <div class="container">
       <div class="prod-topo">
-        <h2>Redutores, motorredutores e peças para indústria</h2>
+        <h2>Redutores, motorredutores e peças para a indústria</h2>
         <p>Redutores, motorredutores e acoplamentos. O novo vem com garantia de fábrica; o usado resolve rápido quando a máquina parou ou o modelo saiu de linha.</p>
       </div>
       <div class="prod-grade">

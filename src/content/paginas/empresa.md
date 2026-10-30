@@ -1,12 +1,12 @@
 ---
 titulo: "A empresa"
-descricao: "Desde 1980 em Belo Horizonte, a Ipiranga Redutores vende e conserta redutores, motorredutores e acoplamentos, novos e usados. Assistência técnica autorizada WEG."
+descricao: "Desde 1980 em Belo Horizonte, a Ipiranga Redutores vende e conserta redutores, motorredutores e acoplamentos, novos e usados. Assistência técnica autorizada WEG-CESTARI."
 imagem: "/images/empresa/estoque.jpg"
 ---
 
 A Ipiranga Redutores trabalha com redutores de velocidade desde **1980**, no bairro Carlos Prates, em Belo Horizonte. Faz parte do Grupo Ipiranga Redutores de Velocidade e Acoplamentos.
 
-Somos **assistência técnica autorizada WEG**. Vendemos redutores, motorredutores, acoplamentos e peças de reposição: novos, só da WEG; usados, de todas as marcas.
+Somos **assistência técnica autorizada WEG-CESTARI**. Vendemos redutores, motorredutores, acoplamentos e peças de reposição: novos, só da WEG; usados, de todas as marcas.
 
 ## Novos e usados
 

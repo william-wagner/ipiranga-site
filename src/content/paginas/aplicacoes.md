@@ -1,6 +1,6 @@
 ---
 titulo: "Aplicações"
-descricao: "Onde se usam redutores e motorredutores de velocidade, os tipos mais comuns e os acoplamentos WEG Cestari."
+descricao: "Onde se usam redutores e motorredutores de velocidade, os tipos mais comuns e os acoplamentos WEG-CESTARI."
 imagem: "/images/empresa/redutor.jpg"
 ---
 
@@ -32,6 +32,6 @@ O redutor de velocidade diminui a rotação do acionamento para que o equipament
 
 ## Acoplamentos
 
-Trabalhamos com toda a linha de acoplamentos WEG Cestari. A escolha depende do torque e do diâmetro do furo necessários. Os acoplamentos podem ir no eixo de entrada ou no de saída; no eixo de saída, o torque é maior e os modelos elásticos são os mais indicados, porque absorvem variações de carga e oscilações.
+Trabalhamos com toda a linha de acoplamentos WEG-CESTARI. A escolha depende do torque e do diâmetro do furo necessários. Os acoplamentos podem ir no eixo de entrada ou no de saída; no eixo de saída, o torque é maior e os modelos elásticos são os mais indicados, porque absorvem variações de carga e oscilações.
 
 Também fornecemos peças de reposição para acoplamentos: buchas, pinos, arruelas, anéis, porcas e elementos elásticos.
