@@ -57,13 +57,37 @@
     }
   ],
   "setores": [
-    "Mineração e siderurgia",
-    "Cimento",
-    "Alimentos e bebidas",
-    "Metalurgia",
-    "Sucroalcooleiro e agronegócio",
-    "Petroquímico, óleo e gás",
-    "Plásticos e borracha",
-    "Movimentação de cargas"
+    {
+      "nome": "Mineração e siderurgia",
+      "icone": "mineracao"
+    },
+    {
+      "nome": "Cimento",
+      "icone": "fabrica"
+    },
+    {
+      "nome": "Alimentos e bebidas",
+      "icone": "alimentos"
+    },
+    {
+      "nome": "Metalurgia",
+      "icone": "metalurgia"
+    },
+    {
+      "nome": "Sucroalcooleiro e agronegócio",
+      "icone": "agro"
+    },
+    {
+      "nome": "Petroquímico, óleo e gás",
+      "icone": "petroleo"
+    },
+    {
+      "nome": "Plásticos e borracha",
+      "icone": "plasticos"
+    },
+    {
+      "nome": "Movimentação de cargas",
+      "icone": "cargas"
+    }
   ]
 }

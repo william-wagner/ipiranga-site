@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import IconeSetor from '../components/IconeSetor.astro';
 import Icone from '../components/Icone.astro';
 import StatusAberto from '../components/StatusAberto.astro';
 import BotaoWhatsapp from '../components/BotaoWhatsapp.astro';
@@ -77,7 +78,7 @@ const linhas = [
       <FaixaClientes clientes={empresa.clientes} />
       <p class="sub">Setores</p>
       <ul class="setores">
-        {empresa.setores.map((s) => <li>{s}</li>)}
+        {empresa.setores.map((s) => <li><IconeSetor nome={s.icone} />{s.nome}</li>)}
       </ul>
     </div>
   </section>
@@ -151,8 +152,9 @@ const linhas = [
   .empresa-texto .assinatura { color: var(--grafite); font-weight: 600; opacity: 0.85; margin-bottom: 0; }
   .empresa-foto { width: 100%; border-radius: var(--raio); }
   .sub { color: var(--cinza); font-weight: 500; margin: 2.2rem 0 0.8rem; }
-  .setores { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .setores li { padding: 0.45rem 0.95rem; background: var(--aco); border-radius: 999px; font-weight: 500; font-size: 0.97rem; }
+  .setores { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.75rem; }
+  .setores li { display: flex; flex-direction: column; gap: 0.7rem; padding: 1rem 1.1rem; border: 1px solid var(--linha); border-radius: var(--raio); background: #fff; font-weight: 500; line-height: 1.25; }
+  .setores :global(svg) { width: 1.9rem; height: 1.9rem; color: var(--azul); }
 
   /* Produtos */
   .produtos { padding-block: var(--secao); background: var(--aco); }
@@ -183,7 +185,7 @@ const linhas = [
 
   @media (max-width: 62rem) {
     .hero-grade, .empresa-grade.com-foto, .prod-topo, .servicos-grade { grid-template-columns: 1fr; }
-    .prod-grade { grid-template-columns: 1fr 1fr; }
+    .prod-grade, .setores { grid-template-columns: 1fr 1fr; }
     .hero-desenho { max-width: 34rem; }
   }
   @media (max-width: 40rem) {
