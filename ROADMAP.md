@@ -38,7 +38,7 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
     Zoho ou outra hospedagem com cPanel) e só então trocar o MX no Route 53.
 - [ ] **Formulário de contato no site**: caixa para o cliente escrever nome, e-mail/telefone e mensagem
   e enviar direto pela página, sem abrir o aplicativo de e-mail dele. A mensagem chega no
-  e-mail da empresa (`redutores.ipiranga@gmail.com`).
+  e-mail da empresa (`ipirangaredutores@ipirangaredutores.com.br`).
   - Caminho previsto, mantendo o site sem servidor: uma função AWS Lambda que recebe o formulário e envia
     o e-mail pelo Amazon SES, criada no mesmo modelo do CloudFormation.
   - Incluir proteção contra spam (campo oculto "isca" e limite de envios) e uma mensagem de confirmação na tela.
