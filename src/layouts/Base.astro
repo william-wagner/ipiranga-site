@@ -46,6 +46,21 @@ const schema = {
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
+  <!-- Chegada em uma seção (/?secao=x ou /#x): guarda o destino e tira do endereço antes de a página
+       montar, para o navegador não saltar direto; o script do fim da página rola suave até lá. -->
+  <script is:inline>
+    (function () {
+      if (location.pathname !== '/') return;
+      var p = new URLSearchParams(location.search);
+      var id = p.get('secao') || (location.hash.length > 1 ? decodeURIComponent(location.hash.slice(1)) : '');
+      if (!id || id === 'top') return;
+      window.__secaoInicial = id;
+      p.delete('secao');
+      var resto = p.toString();
+      history.replaceState(null, '', '/' + (resto ? '?' + resto : ''));
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{tituloCompleto}</title>
   <meta name="description" content={descricao} />
@@ -103,8 +118,31 @@ const schema = {
 
     // Rolagem suave com inércia (como no site de referência).
     // Quem pediu menos movimento no sistema fica com a rolagem normal.
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.9 });
+    const poucoMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const lenis = poucoMovimento ? null : new Lenis({ lerp: 0.085, wheelMultiplier: 0.9 });
+    const posicaoDe = (alvo: HTMLElement) => {
+      const topo = document.querySelector<HTMLElement>('.topo')?.offsetHeight ?? 0;
+      return Math.max(0, alvo.getBoundingClientRect().top + window.scrollY - topo);
+    };
+
+    // Chegada por um endereço antigo (ex.: /manutencao/ -> /?secao=servicos, feito pelo CloudFront)
+    // ou por um link /#secao: a página abre no topo e depois rola suave até a seção.
+    // O destino foi guardado pelo script do <head> (window.__secaoInicial).
+    {
+      const id = (window as unknown as { __secaoInicial?: string }).__secaoInicial;
+      const alvo = id ? document.getElementById(id) : null;
+      if (alvo) {
+        window.scrollTo(0, 0);
+        const rolar = () => setTimeout(() => {
+          if (lenis) lenis.scrollTo(posicaoDe(alvo), { duration: 1.6 });
+          else window.scrollTo(0, posicaoDe(alvo));
+          history.replaceState(null, '', location.pathname + location.search + '#' + id);
+        }, 450);
+        if (document.readyState === 'complete') rolar(); else window.addEventListener('load', rolar, { once: true });
+      }
+    }
+
+    if (lenis) {
       // Links para seções da mesma página: rola suave e desconta o cabeçalho fixo
       document.addEventListener('click', (e) => {
         const link = (e.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
@@ -116,9 +154,7 @@ const schema = {
         const alvo = link && document.getElementById(link.hash.slice(1));
         if (!alvo) return;
         e.preventDefault();
-        const topo = document.querySelector<HTMLElement>('.topo')?.offsetHeight ?? 0;
-        const y = alvo.getBoundingClientRect().top + window.scrollY - topo;
-        lenis.scrollTo(Math.max(0, y), { duration: 1.4 });
+        lenis.scrollTo(posicaoDe(alvo), { duration: 1.4 });
         history.replaceState(null, '', link.hash);
       });
       const quadro = (t: number) => { lenis.raf(t); requestAnimationFrame(quadro); };
