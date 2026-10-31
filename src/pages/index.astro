@@ -113,7 +113,7 @@ const linhas = [
     </div>
   </section>
 
-  <section id="servicos" class="servicos-sec escuro">
+  <section id="servicos" class="servicos-sec">
     <div class="container servicos-grade">
       <div>
         <h2>Manutenção de redutores em BH</h2>
@@ -171,7 +171,9 @@ const linhas = [
   .prod-topo p { margin: 0; color: var(--cinza); font-size: 1.05rem; }
   .prod-grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .prod-grade article { display: flex; flex-direction: column; align-items: flex-start; padding: 1.5rem; border: 1px solid var(--linha); border-top: 4px solid var(--laranja); border-radius: var(--raio); background: #fff; }
-  .prod-grade article:first-child { border-top-color: var(--azul); }
+  .prod-grade article:nth-child(1) { border-top-color: #045a9c; }
+  .prod-grade article:nth-child(2) { border-top-color: #c8161f; }
+  .prod-grade article:nth-child(3) { border-top-color: #bd8d51; }
   .prod-foto { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--raio); margin-bottom: 1.4rem; }
   .prod-foto.vazia { display: grid; place-items: center; background: #fff; border: 1px dashed var(--aco-escuro); color: #8a95aa; font-weight: 600; }
   .prod-grade h3 { font-size: 2rem; margin: 0 0 0.2rem; }
@@ -185,10 +187,10 @@ const linhas = [
   .empresa-cta { margin: 2rem 0 0; font-size: 1.1rem; }
   .servicos-sec { padding-block: var(--secao); }
   .servicos-grade { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
-  .servicos { list-style: none; padding: 0; margin: 1.4rem 0 2rem; border-top: 1px solid var(--azul-linha); }
-  .servicos li { display: grid; grid-template-columns: 15rem 1fr; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--azul-linha); }
+  .servicos { list-style: none; padding: 0; margin: 1.4rem 0 2rem; border-top: 1px solid var(--linha); }
+  .servicos li { display: grid; grid-template-columns: 15rem 1fr; gap: 1rem; padding: 0.8rem 0; border-bottom: 1px solid var(--linha); }
   .servicos strong { font: 600 1.25rem/1.25 var(--fonte-titulo); }
-  .servicos span { color: #c4cfea; }
+  .servicos span { color: var(--cinza); }
   .servicos-imagem { min-width: 0; }
   .servicos-imagem img { width: 100%; border-radius: var(--raio); }
 
