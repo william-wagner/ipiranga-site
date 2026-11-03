@@ -17,8 +17,8 @@ Os nomes descrevem a foto de propósito: o Google usa o nome do arquivo para ent
 Ao trocar uma foto, atualize em `src/pages/index.astro` a descrição dela (`alt`, o texto que o Google e os
 leitores de tela leem) e a largura e a altura, se mudarem.
 
-A imagem de compartilhamento (`public/images/ipiranga-redutores-belo-horizonte.jpg`, 1200 × 630) é um
-recorte da foto do topo. Se a foto do topo mudar, gere um recorte novo com o mesmo nome.
+A imagem da prévia de link (`public/images/compartilhar-ipiranga-redutores-bh.jpg`, 1200 × 630) é uma arte
+com logo e textos, não uma foto. O passo a passo para refazê-la está em `design/compartilhar.html`.
 
 Logos de clientes ficam em `public/images/clientes/` (PNG com fundo transparente ou SVG) e são ligados
 a cada cliente em `src/data/empresa.json` (ou pelo painel, em "Serviços, clientes e setores").

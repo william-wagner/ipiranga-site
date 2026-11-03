@@ -48,15 +48,18 @@ Relatório completo no artefato "Auditoria SEO Ipiranga Redutores"
   `src/data/empresa.json`). H1 sugerido: "Redutores e motorredutores novos e usados em BH".
 - [x] **Imagens para o Google** (03/11/2026): foto do topo como `<img>` com alt e prioridade (antes era fundo de
   CSS, invisível para o Google Imagens); nomes de arquivo descritivos; alt da fachada antiga; imagem de
-  compartilhamento nova (recorte da fachada atual) com `og:image:alt`, largura e altura; `image` do schema
-  com três fotos; width/height nos logos de clientes; imagens sem uso apagadas.
+  compartilhamento com `og:image:alt`, largura e altura; `image` do schema com as fotos da fachada atual e da
+  antiga; width/height nos logos de clientes; imagens sem uso apagadas.
 - [ ] **Fotos reais da empresa**: hoje as fotos de produtos, de manutenção e do topo parecem geradas por IA
   (há textos sem sentido como "TILMARCON" e "STK" ao fundo). Fotografar a fachada atual, a oficina, o estoque
   e a equipe e trocar os arquivos (nomes e passos em `public/images/fotos/LEIA-ME.md`). Depois:
-  - refazer a imagem de compartilhamento a partir da fachada real;
   - rever os alts em `src/pages/index.astro` (o da manutenção cita um "técnico da Ipiranga");
   - incluir as fotos reais da oficina no `image` do schema (`src/layouts/Base.astro`);
   - subir as mesmas fotos no Perfil da Empresa no Google (ver "Depois da virada").
+- [x] **Arte da prévia de link** (03/11/2026): `og:image` passou a ser uma arte com logo, "Redutores e
+  motorredutores", "Venda e manutenção em Belo Horizonte desde 1980" e selo WEG-CESTARI
+  (`public/images/compartilhar-ipiranga-redutores-bh.jpg`; fonte e passo a passo em `design/compartilhar.html`).
+  Refazer quando chegar o logo em alta resolução e tirar o selo se a WEG não permitir (ver "Regras do selo WEG").
 - [ ] **Validar o compartilhamento** depois de publicar: colar o link no WhatsApp e no
   https://developers.facebook.com/tools/debug/ (o Facebook guarda a imagem antiga em cache; usar "Scrape again").
 - [ ] **Desempenho** (medir antes no PageSpeed Insights): versão para celular da foto do topo (`srcset`); reservar o espaço do "Aberto agora"; menos pesos de fonte; cache longo para `/_astro/*`
