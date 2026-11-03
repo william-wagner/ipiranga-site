@@ -8,7 +8,7 @@ import FaixaClientes from '../components/FaixaClientes.astro';
 import DesenhoRedutor from '../components/DesenhoRedutor.astro';
 import DesenhoExplodido from '../components/DesenhoExplodido.astro';
 import { site, linkTelefone } from '../lib/site';
-import { foto } from '../lib/fotos';
+import { foto, srcset } from '../lib/fotos';
 import empresa from '../data/empresa.json';
 
 const anos = new Date().getFullYear() - empresa.fundacao;
@@ -52,8 +52,9 @@ const linhas = [
 <Base titulo={site.nome} descricao={`Redutores e motorredutores novos e usados, manutenção e peças de reposição em Belo Horizonte desde ${empresa.fundacao}. Assistência técnica autorizada WEG-CESTARI.`}>
 
   <section id="inicio" class:list={['hero', 'escuro', { 'com-foto': fotoHero }]}>
-    {/* Foto como <img>, e não fundo de CSS, para o Google Imagens indexar; é a maior imagem da página, então vem com prioridade */}
-    {fotoHero && <img class="hero-foto" src={fotoHero} alt="Fachada da Ipiranga Redutores na Av. Nossa Senhora de Fátima, 2215, em Belo Horizonte, com um redutor Falk sobre um caminhão" width="1672" height="941" fetchpriority="high" decoding="async" />}
+    {/* Foto como <img>, e não fundo de CSS, para o Google Imagens indexar; é a maior imagem da página, então vem com prioridade.
+        O srcset deixa o celular baixar uma versão menor (src/lib/fotos-celular.ts) */}
+    {fotoHero && <img class="hero-foto" src={fotoHero} srcset={srcset(fotoHero)} sizes="100vw" alt="Fachada da Ipiranga Redutores na Av. Nossa Senhora de Fátima, 2215, em Belo Horizonte, com um redutor Falk sobre um caminhão" width="1672" height="941" fetchpriority="high" />}
     <div class="container hero-grade">
       <div class="hero-texto">
         <p class="selo-weg">

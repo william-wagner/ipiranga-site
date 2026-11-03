@@ -45,7 +45,11 @@ Relatório completo no artefato "Auditoria SEO Ipiranga Redutores"
   - as imagens do frontmatter dessas páginas e produtos (`/images/empresa/*` e `/images/produtos/*`) foram
     apagadas em 03/11/2026 porque nenhuma página as usava: recuperar do git ou usar as fotos novas.
 - [ ] **Serviços com mais texto**: cada serviço como H3 com descrição (três estão sem detalhe em
-  `src/data/empresa.json`). H1 sugerido: "Redutores e motorredutores novos e usados em BH".
+  `src/data/empresa.json`).
+- [x] **H1 sem BH e sem manutenção** (03/11/2026): decidido manter o H1 como está. O texto logo abaixo dele e o
+  título da aba já citam BH e manutenção; repetir no H1 só duplicaria a frase.
+- [x] **Foto do topo para celular** (03/11/2026): `srcset` com versões de 640 e 1024 px, geradas no build por
+  `src/lib/fotos-celular.ts` (41 KB e 85 KB, contra 224 KB da original).
 - [x] **Imagens para o Google** (03/11/2026): foto do topo como `<img>` com alt e prioridade (antes era fundo de
   CSS, invisível para o Google Imagens); nomes de arquivo descritivos; alt da fachada antiga; imagem de
   compartilhamento com `og:image:alt`, largura e altura; `image` do schema com as fotos da fachada atual e da
@@ -62,7 +66,7 @@ Relatório completo no artefato "Auditoria SEO Ipiranga Redutores"
   `design/compartilhar-original.png`). Tirar o selo se a WEG não permitir (ver "Regras do selo WEG").
 - [ ] **Validar o compartilhamento** depois de publicar: colar o link no WhatsApp e no
   https://developers.facebook.com/tools/debug/ (o Facebook guarda a imagem antiga em cache; usar "Scrape again").
-- [ ] **Desempenho** (medir antes no PageSpeed Insights): versão para celular da foto do topo (`srcset`); reservar o espaço do "Aberto agora"; menos pesos de fonte; cache longo para `/_astro/*`
+- [ ] **Desempenho** (medir antes no PageSpeed Insights): reservar o espaço do "Aberto agora"; menos pesos de fonte; cache longo para `/_astro/*`
   e `/images/*` no CloudFront; avaliar se o Lenis fica.
 - [ ] **Search Console**: cadastrar o domínio, enviar o sitemap e acompanhar indexação e soft 404.
 
