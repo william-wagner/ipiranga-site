@@ -1,8 +1,8 @@
 ---
-// Google Analytics 4 com aviso de cookies (LGPD).
+// Google Analytics 4.
 //
-// Nada do Google é carregado antes de o visitante clicar em "Aceitar". A escolha fica guardada no
-// navegador dele e pode ser mudada pelo link "Cookies" no rodapé.
+// Carrega para todos os visitantes, sem aviso de cookies (decisão de 03/11/2026; a política de
+// privacidade está no ROADMAP). Sinais de anúncios e personalização ficam desligados.
 // Só mede no domínio oficial: a prévia do artefato, o endereço de teste do CloudFront e o
 // "npm run dev" não entram nos números.
 //
@@ -17,29 +17,15 @@
 // Além desses, o GA4 já mede sozinho visualizações, rolagem até o fim e tempo de engajamento.
 const ID_GA = 'G-2GWF60PHEJ';
 ---
-<div class="cookies" role="region" aria-label="Aviso de cookies" data-ga={ID_GA} hidden>
-  <p>
-    Usamos cookies do Google Analytics para contar as visitas e entender como o site é usado.
-    Os dados não são usados para propaganda.
-  </p>
-  <div class="cookies-botoes">
-    <button type="button" class="btn btn-azul" data-cookies="sim">Aceitar</button>
-    <button type="button" class="btn btn-contorno-escuro" data-cookies="nao">Recusar</button>
-  </div>
-</div>
+<span id="ga" data-ga={ID_GA} hidden></span>
 
 <script>
   type Params = Record<string, string | number | undefined>;
   type W = Window & { dataLayer: unknown[]; gtag: (...a: unknown[]) => void };
   const w = window as unknown as W;
 
-  const aviso = document.querySelector<HTMLElement>('.cookies')!;
-  const id = aviso.dataset.ga!;
-  const CHAVE = 'cookies-analytics';
+  const id = document.getElementById('ga')!.dataset.ga!;
   const oficial = /(^|\.)ipirangaredutores\.com\.br$/.test(location.hostname);
-
-  const lerEscolha = () => { try { return localStorage.getItem(CHAVE); } catch { return null; } };
-  const salvarEscolha = (v: string) => { try { localStorage.setItem(CHAVE, v); } catch { /* navegação privada */ } };
 
   let ativo = false;
 
@@ -60,40 +46,11 @@ const ID_GA = 'G-2GWF60PHEJ';
     observarSecoes();
   }
 
-  function desligar() {
-    if (ativo) w.gtag('consent', 'update', { analytics_storage: 'denied' });
-    ativo = false;
-    // Apaga os cookies do GA (_ga e _ga_XXXX) no domínio do site
-    const dominio = location.hostname.replace(/^www\./, '');
-    for (const c of document.cookie.split(';')) {
-      const nome = c.split('=')[0].trim();
-      if (!nome.startsWith('_ga')) continue;
-      for (const d of ['', `; domain=.${dominio}`, `; domain=${location.hostname}`]) {
-        document.cookie = `${nome}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${d}`;
-      }
-    }
-  }
-
   function rastrear(evento: string, params: Params = {}) {
     if (ativo) w.gtag('event', evento, params);
   }
 
-  // Aviso de cookies
-  const mostrarAviso = (mostrar: boolean) => { aviso.hidden = !mostrar; };
-  aviso.addEventListener('click', (e) => {
-    const escolha = (e.target as Element).closest<HTMLElement>('[data-cookies]')?.dataset.cookies;
-    if (!escolha) return;
-    salvarEscolha(escolha);
-    mostrarAviso(false);
-    if (escolha === 'sim') carregar(); else desligar();
-  });
-  document.addEventListener('click', (e) => {
-    if ((e.target as Element).closest('[data-abrir-cookies]')) { e.preventDefault(); mostrarAviso(true); }
-  });
-
-  const escolha = lerEscolha();
-  if (escolha === 'sim') carregar();
-  else if (escolha !== 'nao' && oficial) mostrarAviso(true);
+  carregar();
 
   // Cliques em contato. "local" é a seção onde estava o link (ou topo, barra do celular, rodapé).
   const localDe = (el: Element) => {
@@ -138,22 +95,3 @@ const ID_GA = 'G-2GWF60PHEJ';
     document.querySelectorAll<HTMLElement>('main section[id], section#contato').forEach((s) => obs.observe(s));
   }
 </script>
-
-<style>
-  .cookies {
-    position: fixed; z-index: 40; left: 1rem; bottom: 1rem; max-width: 26rem;
-    background: #fff; color: var(--grafite); border: 1px solid var(--linha); border-radius: 8px;
-    box-shadow: 0 16px 40px rgba(15, 25, 56, .25); padding: 1.1rem 1.2rem;
-  }
-  .cookies[hidden] { display: none; }
-  .cookies p { margin: 0 0 0.9rem; font-size: 0.95rem; line-height: 1.5; }
-  .cookies-botoes { display: flex; gap: 0.6rem; }
-  .cookies-botoes .btn { padding: 0.6rem 1.2rem; font-size: 0.95rem; }
-  .btn-contorno-escuro { background: #fff; color: var(--azul); border: 2px solid var(--azul); }
-  .btn-contorno-escuro:hover { background: var(--aco); }
-  @media (max-width: 40rem) {
-    /* fica acima da barra fixa de WhatsApp/Ligar */
-    .cookies { left: 0.75rem; right: 0.75rem; bottom: calc(4.6rem + env(safe-area-inset-bottom)); max-width: none; }
-    .cookies-botoes .btn { flex: 1; justify-content: center; }
-  }
-</style>

@@ -22,7 +22,7 @@ const { naHome = false } = Astro.props;
   <div class="container fim">
     <img class="weg" src="/images/weg-cestari.png" alt="WEG-CESTARI" width="230" height="57" loading="lazy" />
     <p>Assistência técnica autorizada WEG-CESTARI. Em Belo Horizonte desde {empresa.fundacao}.</p>
-    <p class="direitos"><a href="#" data-abrir-cookies>Cookies</a> · © {new Date().getFullYear()} {site.nome}</p>
+    <p class="direitos">© {new Date().getFullYear()} {site.nome}</p>
   </div>
 </footer>
 
@@ -40,8 +40,6 @@ const { naHome = false } = Astro.props;
   .fim { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.4rem; padding-top: 1.3rem; border-top: 1px solid var(--azul-linha); font-size: 0.9rem; }
   .weg { height: 1.9rem; width: auto; background: #fff; padding: 0.3rem 0.55rem; border-radius: 4px; }
   .direitos { margin-left: auto; }
-  .direitos a { color: inherit; }
-  .direitos a:hover { color: #fff; }
   @media (max-width: 40rem) {
     .rodape { padding-bottom: 6rem; }
     .direitos { margin-left: 0; }
