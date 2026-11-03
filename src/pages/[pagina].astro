@@ -1,0 +1,33 @@
+---
+// Páginas de texto (src/content/paginas/). Ficam fora do menu, que leva às seções da página inicial:
+// servem a quem chega pelo Google e são ligadas pelos links "Saiba mais" da página inicial.
+import Base from '../layouts/Base.astro';
+import CabecalhoPagina from '../components/CabecalhoPagina.astro';
+import AcoesPagina from '../components/AcoesPagina.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  // Só as páginas que apareciam no Google; usados e peças continuam só como seções da página inicial
+  const PUBLICADAS = ['empresa', 'manutencao', 'aplicacoes', 'o-que-e-um-redutor-de-velocidade'];
+  const paginas = await getCollection('paginas', (p) => PUBLICADAS.includes(p.id));
+  return paginas.map((p) => ({ params: { pagina: p.id }, props: { p } }));
+}
+const { p } = Astro.props;
+const { Content } = await render(p);
+---
+<Base titulo={p.data.tituloSeo ?? p.data.titulo} descricao={p.data.descricao} imagem={p.data.imagem}>
+  <CabecalhoPagina titulo={p.data.titulo} />
+  <div class="container corpo">
+    <article class="prosa">
+      <Content />
+      <AcoesPagina />
+    </article>
+    {p.data.imagem && <img class="foto" src={p.data.imagem} alt="" loading="lazy" />}
+  </div>
+</Base>
+
+<style>
+  .corpo { display: grid; grid-template-columns: minmax(0, 40rem) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); padding-block: clamp(2.5rem, 6vw, 4rem); align-items: start; }
+  .foto { border-radius: 4px; border: 1px solid var(--linha); width: 100%; max-width: 26rem; justify-self: end; position: sticky; top: 6rem; }
+  @media (max-width: 52rem) { .corpo { grid-template-columns: 1fr; } .foto { justify-self: start; position: static; } }
+</style>

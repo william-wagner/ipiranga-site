@@ -13,13 +13,21 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
 - [x] **Site em uma página só** (30/10/2026): as páginas internas (A empresa, Aplicações, Manutenção, Usados,
   Peças e acoplamentos, "O que é um redutor", Produtos e cada produto, Contato) saíram do site. Os endereços
   delas e os do WordPress antigo vão em 301 para a seção correspondente da página inicial
-  (função do CloudFront em `infra/`).
-- [ ] **Pensar como incluir os textos mais longos** que saíram com as páginas internas, como o artigo
-  "O que é um redutor de velocidade?", as páginas de usados, de peças e de aplicações, e as fichas dos
-  produtos (WCR, WCG01, Magma K). Os textos continuam guardados em `src/content/paginas/` e
-  `src/content/produtos/` (fora do site e do painel de edição). Ideias: uma seção curta na página inicial
-  com "saiba mais" que abre o texto, uma área de artigos/blog ou voltar com algumas páginas só para o
-  Google. Pesar o ganho no Google contra o site ficar enxuto.
+  (função do CloudFront em `infra/`). Parte delas voltou em 03/11/2026 (item abaixo).
+- [x] **Textos mais longos de volta como páginas** (03/11/2026), decidido pelo Search Console e pelos sitelinks
+  do Google: A empresa, Manutenção, Aplicações, "O que é um redutor", Produtos e as fichas WCR, WCG01, Magma K e
+  Conimax (texto recuperado do git). Ficam fora do menu, com links "Saiba mais" na página inicial, botão do
+  WhatsApp e link para a página inicial no fim. Usados e Peças continuam só como seções (lista `PUBLICADAS` em
+  `src/pages/[pagina].astro`); os textos deles seguem em `src/content/paginas/`.
+- [ ] **Atualizar a função do CloudFront** (pilha `site-ipiranga`, `infra/site.yaml`) **depois** de publicar
+  o site com as páginas: até lá, `/manutencao/`, `/produtos/` etc. continuam indo para a página inicial.
+- [ ] **Search Console** depois da publicação: pedir indexação de `/produtos/conimax/`, `/manutencao/`,
+  `/empresa/`, `/aplicacoes/`, `/produtos/` e do artigo; reenviar o sitemap; acompanhar em 4 a 6 semanas a
+  busca "conimax" e as páginas antigas (`/redutor-de-velocidade-bh/`, `/2014/11/05/motorredutor-conimax/`).
+- [ ] **Decidir sobre Usados e Peças**: a busca "acoplamento" teve 19 impressões; conferir no Search Console
+  (as 11 páginas que não estavam no print) se vale publicar `/pecas-e-acoplamentos/` e `/usados/`.
+- [ ] **Foto do Conimax** em boa resolução: a atual (`public/images/produtos/foto-conimax.jpg`) é uma miniatura
+  do site antigo. Conferir também se o texto da ficha ainda vale (lojas vendem a linha como "Conimax WCG20").
 - [ ] **Logo em alta resolução** (vetor ou PNG grande, fundo transparente).
 - [ ] **Conferir textos que assumem coisas** sobre os usados: "revisão na nossa oficina" antes da entrega e
   que o estoque de usados muda com frequência (página inicial).
@@ -35,15 +43,9 @@ Relatório completo no artefato "Auditoria SEO Ipiranga Redutores"
 - [x] **Textos da página inicial** citam BH e a Grande BH, com "todo o Brasil" como complemento.
 - [x] **Título da home** com "motorredutores" e "manutenção"; **404** com `noindex` e sem canonical (03/11/2026).
 - [x] **Validar no Rich Results Test** o schema publicado (03/11/2026).
-- [ ] **Voltar com páginas próprias** para manutenção, usados, peças, aplicações, o artigo e os produtos
-  (é a correção que mais pesa; ver o item "Pensar como incluir os textos mais longos" acima). Junto com isso:
-  - cada página usa o `titulo` e a `descricao` do frontmatter; criar um campo opcional `tituloSeo` para os
-    títulos que não citam BH ("A empresa", "Redutores usados", "Peças e acoplamentos", "Manutenção");
-  - links "Saiba mais" na página inicial apontando para as páginas;
-  - na função do CloudFront (e na cópia em `infra/site.yaml`), mandar cada URL antiga para a página
-    equivalente em vez da página inicial;
-  - as imagens do frontmatter dessas páginas e produtos (`/images/empresa/*` e `/images/produtos/*`) foram
-    apagadas em 03/11/2026 porque nenhuma página as usava: recuperar do git ou usar as fotos novas.
+- [x] **Voltar com páginas próprias** (03/11/2026; ver "Textos mais longos de volta como páginas" acima):
+  campo opcional `tituloSeo`, links "Saiba mais" na página inicial, cada URL antiga em 301 para a página
+  equivalente e imagens recuperadas do git. Usados e peças ficaram de fora por enquanto.
 - [ ] **Serviços com mais texto**: cada serviço como H3 com descrição (três estão sem detalhe em
   `src/data/empresa.json`).
 - [x] **H1 sem BH e sem manutenção** (03/11/2026): decidido manter o H1 como está. O texto logo abaixo dele e o

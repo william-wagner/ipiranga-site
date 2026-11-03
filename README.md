@@ -17,13 +17,13 @@ Ao salvar, o site é publicado sozinho em 1 a 2 minutos.
 | Pasta | O que tem |
 |---|---|
 | `src/pages/index.astro` | A página inicial, com todas as seções do site |
-| `src/content/` | Textos das antigas páginas internas e dos produtos, guardados para uso futuro (fora do site) |
+| `src/content/` | Textos das páginas internas e fichas dos produtos (usados e peças ficam guardados, fora do site) |
 | `src/data/site.json` | Contatos e horário |
 | `public/images/` | Logo, fotos e favicon |
 | `src/pages/`, `src/layouts/`, `src/components/` | Layout e estrutura do site |
 | `.pages.yml` | Configuração do painel de edição |
 | `.github/workflows/publicar.yml` | Publicação automática na AWS |
-| `infra/cloudfront-function.js` | Redirects do www, do site antigo e das antigas páginas internas para as seções |
+| `infra/cloudfront-function.js` | Redirects do www e do site antigo para as páginas equivalentes (ou para as seções da página inicial) |
 | `infra/site.yaml` | Infraestrutura do site (CloudFormation, região us-east-1) |
 | `src/components/Analytics.astro` | Google Analytics (ID `G-2GWF60PHEJ`), aviso de cookies e eventos medidos |
 | `infra/contato.yaml` | Formulário de contato: Lambda + SES (CloudFormation, região sa-east-1) |

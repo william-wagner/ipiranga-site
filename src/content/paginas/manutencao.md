@@ -1,5 +1,6 @@
 ---
 titulo: "Manutenção de redutores"
+tituloSeo: "Manutenção de redutores em BH"
 descricao: "Assistência técnica autorizada WEG-CESTARI em Belo Horizonte: troca de rolamento, retentor, óleo, peças e pintura de redutores e motorredutores. Atendemos todo o Brasil."
 imagem: "/images/empresa/manutencao.jpg"
 ---

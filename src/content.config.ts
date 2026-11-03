@@ -20,6 +20,8 @@ const paginas = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/paginas' }),
   schema: z.object({
     titulo: z.string(),
+    // Título da aba e do Google, quando o título da página não cita BH ou o assunto principal
+    tituloSeo: z.string().optional(),
     descricao: z.string(),
     imagem: z.string().optional(),
   }),

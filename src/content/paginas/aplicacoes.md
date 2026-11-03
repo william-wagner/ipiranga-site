@@ -1,5 +1,6 @@
 ---
 titulo: "Aplicações"
+tituloSeo: "Aplicações de redutores e motorredutores"
 descricao: "Onde se usam redutores e motorredutores de velocidade, os tipos mais comuns e os acoplamentos WEG-CESTARI."
 imagem: "/images/empresa/redutor.jpg"
 ---

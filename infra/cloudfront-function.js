@@ -1,50 +1,54 @@
 // CloudFront Function (runtime cloudfront-js-2.0), evento "viewer request".
 // 1. Manda www.ipirangaredutores.com.br para o domínio sem www
 //    (o endereço *.cloudfront.net continua acessível para testes).
-// 2. Redireciona (301) os endereços do site antigo em WordPress e as antigas páginas internas para as seções da página inicial
-//    (/?secao=x: o site abre no topo e rola suave até a seção),
-//    preservando o posicionamento no Google.
+// 2. Redireciona (301) os endereços do site antigo em WordPress para a página equivalente do site novo
+//    e os que não têm equivalente para a seção da página inicial
+//    (/?secao=x: o site abre no topo e rola suave até a seção), preservando o posicionamento no Google.
 // 3. Converte /pagina/ em /pagina/index.html, que é como os arquivos estão no S3.
 
 var DOMINIO = 'ipirangaredutores.com.br';
 
 var REDIRECTS = {
-  // Endereços do site antigo em WordPress
-  '/2014/09/24/o-que-e-um-redutor-de-velocidade/': '/?secao=produtos',
-  '/2014/10/29/redutor-de-velocidade-esferico/': '/?secao=produtos',
-  '/2014/10/29/redutor-epicicloidal/': '/?secao=produtos',
-  '/2014/11/05/linha-de-redutores-alumag/': '/?secao=produtos',
-  '/2014/11/05/motorredutor-conimax/': '/?secao=produtos',
-  '/2014/11/05/motorredutor-magmax/': '/?secao=produtos',
-  '/2014/11/05/redutor-coaxial/': '/?secao=produtos',
-  '/2014/11/05/redutor-vertimax/': '/?secao=produtos',
-  '/2014/11/05/redutores-helimax-bipartido/': '/?secao=produtos',
-  '/2014/11/06/redutores-helimax-1-estagio/': '/?secao=produtos',
-  '/2014/11/06/redutores-helimax-monobloco/': '/?secao=produtos',
-  '/2014/11/07/redutor-de-velocidade-magma-k/': '/?secao=produtos',
-  '/2014/11/07/redutor-de-velocidade-magma-m/': '/?secao=produtos',
+  // Endereços do site antigo em WordPress: cada um vai para a página equivalente do site novo
+  '/2014/09/24/o-que-e-um-redutor-de-velocidade/': '/o-que-e-um-redutor-de-velocidade/',
+  '/2014/10/29/redutor-de-velocidade-esferico/': '/o-que-e-um-redutor-de-velocidade/',
+  '/2014/10/29/redutor-epicicloidal/': '/o-que-e-um-redutor-de-velocidade/',
+  '/2014/11/05/linha-de-redutores-alumag/': '/produtos/',
+  '/2014/11/05/motorredutor-conimax/': '/produtos/conimax/',
+  '/2014/11/05/motorredutor-magmax/': '/produtos/',
+  '/2014/11/05/redutor-coaxial/': '/produtos/',
+  '/2014/11/05/redutor-vertimax/': '/produtos/',
+  '/2014/11/05/redutores-helimax-bipartido/': '/produtos/',
+  '/2014/11/06/redutores-helimax-1-estagio/': '/produtos/',
+  '/2014/11/06/redutores-helimax-monobloco/': '/produtos/',
+  '/2014/11/07/redutor-de-velocidade-magma-k/': '/produtos/magma-k/',
+  '/2014/11/07/redutor-de-velocidade-magma-m/': '/produtos/',
   '/fale-com-a-ipiranga-redutores/': '/?secao=contato',
-  '/redutor-de-velocidade/': '/?secao=empresa',
-  '/redutor-de-velocidade-bh/': '/?secao=servicos',
-  '/redutores-de-velocidade/': '/?secao=produtos',
-  '/redutores-de-velocidade-bh/': '/?secao=empresa',
-  // Páginas internas que saíram em 30/10/2026: o site virou uma página só, com seções
-  '/empresa/': '/?secao=empresa',
-  '/aplicacoes/': '/?secao=empresa',
-  '/manutencao/': '/?secao=servicos',
+  '/redutor-de-velocidade/': '/empresa/',
+  '/redutor-de-velocidade-bh/': '/manutencao/',
+  '/redutores-de-velocidade/': '/produtos/',
+  '/redutores-de-velocidade-bh/': '/aplicacoes/',
+  // Páginas internas que não voltaram em 03/11/2026: vão para a seção da página inicial
   '/usados/': '/?secao=produtos',
   '/pecas-e-acoplamentos/': '/?secao=produtos',
-  '/o-que-e-um-redutor-de-velocidade/': '/?secao=produtos',
-  '/produtos/': '/?secao=produtos',
   '/contato/': '/?secao=contato',
+  // Linhas que tiveram página no site novo até 28/10/2026
+  '/produtos/alumag/': '/produtos/',
+  '/produtos/coaxial/': '/produtos/',
+  '/produtos/helimax-1-estagio/': '/produtos/',
+  '/produtos/helimax-bipartido/': '/produtos/',
+  '/produtos/helimax-monobloco/': '/produtos/',
+  '/produtos/magma-m/': '/produtos/',
+  '/produtos/magmax/': '/produtos/',
+  '/produtos/vertimax/': '/produtos/',
+  '/produtos/wcg20/': '/produtos/',
 };
 
-// Prefixos: páginas de cada produto e páginas automáticas do WordPress (categorias, tags, paginação, feed)
+// Prefixos: páginas automáticas do WordPress (categorias, tags, paginação, feed)
 var PREFIXOS = [
-  ['/produtos/', '/?secao=produtos'],
-  ['/category/', '/?secao=produtos'],
-  ['/tag/', '/?secao=produtos'],
-  ['/page/', '/?secao=produtos'],
+  ['/category/', '/produtos/'],
+  ['/tag/', '/produtos/'],
+  ['/page/', '/produtos/'],
   ['/author/', '/'],
   ['/feed/', '/'],
   ['/comments/', '/'],

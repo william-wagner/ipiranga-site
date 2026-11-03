@@ -90,7 +90,11 @@ const linhas = [
       <ul class="setores">
         {empresa.setores.map((s) => <li><IconeSetor nome={s.icone} />{s.nome}</li>)}
       </ul>
-      <p class="empresa-cta"><a class="link-seta" href="#produtos">Ver o que vendemos <span aria-hidden="true">→</span></a></p>
+      <p class="empresa-cta">
+        <a class="link-seta" href="#produtos">Ver o que vendemos <span aria-hidden="true">→</span></a>
+        <a class="link-seta" href="/empresa/">Conheça a nossa história <span aria-hidden="true">→</span></a>
+        <a class="link-seta" href="/aplicacoes/">Aplicações dos redutores <span aria-hidden="true">→</span></a>
+      </p>
     </div>
   </section>
 
@@ -113,6 +117,10 @@ const linhas = [
           </article>
         ))}
       </div>
+      <p class="saiba-mais">
+        <a class="link-seta" href="/produtos/">Linhas WEG-CESTARI e fichas técnicas <span aria-hidden="true">→</span></a>
+        <a class="link-seta" href="/o-que-e-um-redutor-de-velocidade/">O que é um redutor de velocidade? <span aria-hidden="true">→</span></a>
+      </p>
     </div>
   </section>
 
@@ -123,7 +131,10 @@ const linhas = [
         <ul class="servicos">
           {empresa.servicos.map((s) => <li><strong>{s.nome}</strong>{s.detalhe && <span>{s.detalhe}</span>}</li>)}
         </ul>
-        <BotaoWhatsapp mensagem="Olá! Vim pelo site e preciso de um orçamento de manutenção para um redutor." />
+        <div class="servicos-acoes">
+          <BotaoWhatsapp mensagem="Olá! Vim pelo site e preciso de um orçamento de manutenção para um redutor." />
+          <a class="link-seta" href="/manutencao/">Como funciona a manutenção <span aria-hidden="true">→</span></a>
+        </div>
       </div>
       <div class="servicos-imagem">
         {fotoServicos
@@ -189,7 +200,8 @@ const linhas = [
   .prod-grade :global(.btn) { width: 100%; }
 
   /* Serviços */
-  .empresa-cta { margin: 2rem 0 0; font-size: 1.1rem; }
+  .empresa-cta, .saiba-mais { display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; margin: 2rem 0 0; font-size: 1.1rem; }
+  .servicos-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; }
   .servicos-sec { padding-block: var(--secao); }
   .servicos-grade { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
   .servicos { list-style: none; padding: 0; margin: 1.4rem 0 2rem; border-top: 1px solid var(--linha); }

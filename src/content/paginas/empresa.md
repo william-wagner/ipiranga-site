@@ -1,5 +1,6 @@
 ---
 titulo: "A empresa"
+tituloSeo: "Redutores de velocidade em BH desde 1980"
 descricao: "Desde 1980 em Belo Horizonte, a Ipiranga Redutores vende e conserta redutores, motorredutores e acoplamentos, novos e usados. Assistência técnica autorizada WEG-CESTARI."
 imagem: "/images/empresa/estoque.jpg"
 ---
