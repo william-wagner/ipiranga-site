@@ -17,7 +17,7 @@ Os nomes descrevem a foto de propósito: o Google usa o nome do arquivo para ent
 Ao trocar uma foto, atualize em `src/pages/index.astro` a descrição dela (`alt`, o texto que o Google e os
 leitores de tela leem) e a largura e a altura, se mudarem.
 
-A imagem da prévia de link (`public/images/redutores-e-motorredutores-ipiranga.jpg`) é uma arte
+A imagem da prévia de link (`public/images/logos-ipiranga-redutores-weg-cestari.jpg`) é uma arte
 com logo e textos, não uma foto. O original em alta fica em `design/compartilhar-original.png`. Para trocar:
 1200 × 630 px, JPG com menos de 300 KB (o WhatsApp ignora imagens pesadas), logo e textos perto do centro e
 um nome de arquivo novo (o WhatsApp e o Facebook guardam a imagem antiga pelo endereço).
