@@ -9,9 +9,11 @@
   "bairro": "Carlos Prates",
   "cidade": "Belo Horizonte – MG",
   "cep": "30710-020",
+  "geo": { "latitude": "", "longitude": "" },
   "horario": {
     "semana": { "abre": "08:30", "fecha": "17:00" },
     "sabado": { "abre": "08:00", "fecha": "11:00" },
     "domingo": { "abre": "", "fecha": "" }
-  }
+  },
+  "perfis": []
 }

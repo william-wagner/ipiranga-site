@@ -67,6 +67,12 @@ content:
       - name: cep
         label: CEP
         type: string
+      - name: geo
+        label: "Coordenadas do Google Maps (clique com o botão direito no local e copie os números, ex. -19.91340 e -43.94740)"
+        type: object
+        fields:
+          - { name: latitude, label: Latitude, type: string }
+          - { name: longitude, label: Longitude, type: string }
       - name: horario
         label: Horário de funcionamento (formato 08:30; deixe vazio quando fechado)
         type: object
@@ -89,3 +95,7 @@ content:
             fields:
               - { name: abre, label: Abre, type: string }
               - { name: fecha, label: Fecha, type: string }
+      - name: perfis
+        label: "Perfis da empresa em outros sites (endereço completo: Google Maps, Instagram, LinkedIn…)"
+        type: string
+        list: true

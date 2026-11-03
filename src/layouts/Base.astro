@@ -5,7 +5,7 @@ import BotaoWhatsapp from '../components/BotaoWhatsapp.astro';
 import Contato from '../components/Contato.astro';
 import RodapeEnxuto from '../components/RodapeEnxuto.astro';
 import empresa from '../data/empresa.json';
-import { site, linkWhatsapp, linkTelefone } from '../lib/site';
+import { site, linkWhatsapp, linkTelefone, linkMapa } from '../lib/site';
 import { menu, hrefSecao } from '../lib/menu';
 
 // contato: título do bloco de contato no fim da página; false para não mostrar (página Contato)
@@ -18,28 +18,50 @@ const atual = Astro.url.pathname;
 const naHome = atual === '/';
 const ativo = (m: (typeof menu)[number]) => naHome && m.secao === 'inicio';
 
+// Dados estruturados (LocalBusiness). geo e sameAs só entram quando preenchidos em site.json.
+const servico = (nome: string, descricao?: string) => ({
+  '@type': 'Offer',
+  itemOffered: { '@type': 'Service', name: nome, ...(descricao && { description: descricao }) },
+});
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
+  '@id': new URL('/#empresa', Astro.site).toString(),
   name: site.nome,
-  description: 'Venda de redutores, motorredutores e acoplamentos novos e usados, peças e manutenção. Assistência técnica autorizada WEG-CESTARI.',
+  description: 'Venda de redutores, motorredutores e acoplamentos novos e usados, peças e manutenção em Belo Horizonte. Assistência técnica autorizada WEG-CESTARI.',
   foundingDate: String(empresa.fundacao),
   url: Astro.site?.toString(),
   telephone: `+55${site.telefone.replace(/\D/g, '')}`,
   email: site.email,
+  logo: new URL('/images/logo.png', Astro.site).toString(),
   image: new URL('/images/compartilhar.jpg', Astro.site).toString(),
   address: {
     '@type': 'PostalAddress',
-    streetAddress: site.endereco,
+    streetAddress: `${site.endereco} – ${site.bairro}`,
     addressLocality: 'Belo Horizonte',
     addressRegion: 'MG',
     postalCode: site.cep,
     addressCountry: 'BR',
   },
+  ...(site.geo.latitude && site.geo.longitude && {
+    geo: { '@type': 'GeoCoordinates', latitude: Number(site.geo.latitude), longitude: Number(site.geo.longitude) },
+  }),
+  hasMap: linkMapa,
+  areaServed: [
+    { '@type': 'City', name: 'Belo Horizonte' },
+    { '@type': 'AdministrativeArea', name: 'Região Metropolitana de Belo Horizonte' },
+    { '@type': 'Country', name: 'Brasil' },
+  ],
+  ...(site.perfis.length > 0 && { sameAs: site.perfis }),
   openingHoursSpecification: [
     site.horario.semana.abre && { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: site.horario.semana.abre, closes: site.horario.semana.fecha },
     site.horario.sabado.abre && { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: site.horario.sabado.abre, closes: site.horario.sabado.fecha },
   ].filter(Boolean),
+  makesOffer: [
+    servico('Venda de redutores e motorredutores novos e usados'),
+    servico('Peças de reposição e acoplamentos'),
+    ...empresa.servicos.map((s) => servico(s.nome, s.detalhe)),
+  ],
 };
 ---
 <!doctype html>
