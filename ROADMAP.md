@@ -66,8 +66,14 @@ Relatório completo no artefato "Auditoria SEO Ipiranga Redutores"
   `design/compartilhar-original.png`). Tirar o selo se a WEG não permitir (ver "Regras do selo WEG").
 - [ ] **Validar o compartilhamento** depois de publicar: colar o link no WhatsApp e no
   https://developers.facebook.com/tools/debug/ (o Facebook guarda a imagem antiga em cache; usar "Scrape again").
-- [ ] **Desempenho** (medir antes no PageSpeed Insights): reservar o espaço do "Aberto agora"; menos pesos de fonte; cache longo para `/_astro/*`
-  e `/images/*` no CloudFront; avaliar se o Lenis fica.
+- [ ] **Desempenho** (medir no PageSpeed Insights): falta cortar os pesos de fonte de seis para 3 ou 4
+  (`src/styles/global.css:1-6`).
+  - [x] **"Aberto agora" sem deslocar o layout** (03/11/2026): script inline logo após o elemento, que
+    preenche o texto antes de a página aparecer (`src/components/StatusAberto.astro`).
+  - [x] **Cache** (03/11/2026, `.github/workflows/publicar.yml`): `/_astro/*` com 1 ano (já estava),
+    `/images/*` com 1 dia, HTML e o resto com 5 min. Uma foto trocada **com o mesmo nome** leva até 24 h
+    para aparecer para quem já visitou o site; para ver na hora, trocar o nome do arquivo.
+  - [x] **Lenis**: decidido manter (03/11/2026).
 - [ ] **Search Console**: cadastrar o domínio, enviar o sitemap e acompanhar indexação e soft 404.
 
 ## Antes da virada

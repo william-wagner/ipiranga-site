@@ -46,9 +46,14 @@ jobs:
           aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}/" --delete \
             --exclude "*" --include "_astro/*" \
             --cache-control "public, max-age=31536000, immutable"
-          # O resto (HTML, imagens, sitemap) é revalidado com frequência
+          # Imagens não têm hash no nome: 1 dia de cache. Uma foto trocada
+          # com o mesmo nome aparece para todos em no máximo 24 h.
           aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}/" --delete \
-            --exclude "_astro/*" \
+            --exclude "*" --include "images/*" \
+            --cache-control "public, max-age=86400"
+          # O resto (HTML, sitemap, ícones) é revalidado com frequência
+          aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}/" --delete \
+            --exclude "_astro/*" --exclude "images/*" \
             --cache-control "public, max-age=300"
 
       - name: Limpar o cache do CloudFront
