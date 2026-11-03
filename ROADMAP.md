@@ -19,8 +19,8 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
   Conimax (texto recuperado do git). Ficam fora do menu, com links "Saiba mais" na página inicial, botão do
   WhatsApp e link para a página inicial no fim. Usados e Peças continuam só como seções (lista `PUBLICADAS` em
   `src/pages/[pagina].astro`); os textos deles seguem em `src/content/paginas/`.
-- [ ] **Atualizar a função do CloudFront** (pilha `site-ipiranga`, `infra/site.yaml`) **depois** de publicar
-  o site com as páginas: até lá, `/manutencao/`, `/produtos/` etc. continuam indo para a página inicial.
+- [x] **Atualizar a função do CloudFront** (pilha `site-ipiranga`, `infra/site.yaml`), feito em 03/11/2026:
+  cada endereço antigo vai em 301 para a página equivalente.
 - [ ] **Search Console** depois da publicação: pedir indexação de `/produtos/conimax/`, `/manutencao/`,
   `/empresa/`, `/aplicacoes/`, `/produtos/` e do artigo; reenviar o sitemap; acompanhar em 4 a 6 semanas a
   busca "conimax" e as páginas antigas (`/redutor-de-velocidade-bh/`, `/2014/11/05/motorredutor-conimax/`).
