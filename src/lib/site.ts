@@ -22,4 +22,5 @@ export const linkWhatsapp = whatsappCom(site.mensagemWhatsapp);
 export const linkTelefone = `tel:+55${site.telefone.replace(/\D/g, '')}`;
 export const enderecoCompleto = `${site.endereco} – ${site.bairro}, ${site.cidade}, ${site.cep}`;
 export const linkMapa = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`Ipiranga Redutores, ${enderecoCompleto}`)}`;
+export const arrobaInstagram = `@${site.instagram.split('/').filter(Boolean).pop()}`;
 export const embedMapa = `https://www.google.com/maps?q=${encodeURIComponent(enderecoCompleto)}&output=embed`;

@@ -1,6 +1,7 @@
 ---
 // Rodapé curto: logo e menu; embaixo, selo WEG, frase e direitos.
 // O contato completo fica na seção acima (Contato.astro).
+import Icone from './Icone.astro';
 import { site } from '../lib/site';
 import { menu, hrefSecao } from '../lib/menu';
 import empresa from '../data/empresa.json';
@@ -16,6 +17,7 @@ const { naHome = false } = Astro.props;
     <nav aria-label="Rodapé">
       <ul>{menu.map((m) => <li><a href={hrefSecao(m.secao, naHome)}>{m.label}</a></li>)}</ul>
     </nav>
+    <a class="insta" href={site.instagram} target="_blank" rel="noopener" aria-label={`Instagram da ${site.nome}`}><Icone nome="instagram" /></a>
   </div>
   <div class="container fim">
     <img class="weg" src="/images/weg-cestari.png" alt="WEG-CESTARI" width="230" height="57" loading="lazy" />
@@ -32,6 +34,9 @@ const { naHome = false } = Astro.props;
   ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.6rem; }
   ul a { color: #dbe4fb; text-decoration: none; text-transform: uppercase; letter-spacing: 0.02em; font-weight: 500; }
   ul a:hover { color: #fff; text-decoration: underline; }
+  .insta { display: inline-flex; color: #dbe4fb; }
+  .insta:hover { color: #fff; }
+  .insta :global(svg) { width: 1.5rem; height: 1.5rem; }
   .fim { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.4rem; padding-top: 1.3rem; border-top: 1px solid var(--azul-linha); font-size: 0.9rem; }
   .weg { height: 1.9rem; width: auto; background: #fff; padding: 0.3rem 0.55rem; border-radius: 4px; }
   .direitos { margin-left: auto; }

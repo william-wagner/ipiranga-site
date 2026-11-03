@@ -15,5 +15,6 @@
     "sabado": { "abre": "08:00", "fecha": "11:00" },
     "domingo": { "abre": "", "fecha": "" }
   },
-  "perfis": []
+  "instagram": "https://www.instagram.com/ipiranga_redutores/",
+  "perfis": ["https://www.instagram.com/ipiranga_redutores/"]
 }

@@ -2,7 +2,7 @@
 import Icone from './Icone.astro';
 import StatusAberto from './StatusAberto.astro';
 import BotaoWhatsapp from './BotaoWhatsapp.astro';
-import { site, horarios, linkTelefone, enderecoCompleto, linkMapa, embedMapa } from '../lib/site';
+import { site, arrobaInstagram, horarios, linkTelefone, enderecoCompleto, linkMapa, embedMapa } from '../lib/site';
 interface Props { titulo?: string; nivel?: 'h1' | 'h2'; texto?: string }
 const {
   titulo = 'Seu redutor parou? Fale com a gente.',
@@ -23,6 +23,7 @@ const H = nivel;
       <ul class="dados">
         <li><Icone nome="email" /><a href={`mailto:${site.email}`}>{site.email}</a></li>
         <li><Icone nome="local" /><a href={linkMapa} target="_blank" rel="noopener">{enderecoCompleto}</a></li>
+        <li><Icone nome="instagram" /><a href={site.instagram} target="_blank" rel="noopener">{arrobaInstagram}</a></li>
         <li><Icone nome="relogio" /><div>
           <StatusAberto />
           <dl>{horarios.map((h) => (<><dt>{h.dias}</dt><dd>{h.horas}</dd></>))}</dl>
