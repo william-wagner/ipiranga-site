@@ -7,11 +7,20 @@ import RodapeEnxuto from '../components/RodapeEnxuto.astro';
 import empresa from '../data/empresa.json';
 import { site, linkWhatsapp, linkTelefone, linkMapa } from '../lib/site';
 import { menu, hrefSecao } from '../lib/menu';
+import { foto } from '../lib/fotos';
+import { dimensoes } from '../lib/imagens';
 
 // contato: título do bloco de contato no fim da página; false para não mostrar (página Contato)
 // noindex: tira a página do Google e não publica canonical (ex.: 404)
-interface Props { titulo: string; descricao: string; imagem?: string; contato?: string | false; noindex?: boolean }
-const { titulo, descricao, imagem = '/images/empresa/estoque.jpg', contato = 'Seu redutor parou? Fale com a gente.', noindex = false } = Astro.props;
+// imagem/imagemAlt: foto que aparece ao compartilhar o link (WhatsApp, redes sociais); o ideal é 1200 × 630
+interface Props { titulo: string; descricao: string; imagem?: string; imagemAlt?: string; contato?: string | false; noindex?: boolean }
+const {
+  titulo, descricao,
+  imagem = '/images/ipiranga-redutores-belo-horizonte.jpg',
+  imagemAlt = 'Fachada da Ipiranga Redutores em Belo Horizonte, com as placas Ipiranga Redutores e WEG-CESTARI e um redutor sobre um caminhão',
+  contato = 'Seu redutor parou? Fale com a gente.', noindex = false,
+} = Astro.props;
+const tamanhoImagem = dimensoes(imagem);
 const tituloCompleto = titulo === site.nome ? `Redutores e motorredutores em BH – venda e manutenção | ${site.nome}` : `${titulo} | ${site.nome}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const atual = Astro.url.pathname;
@@ -35,7 +44,10 @@ const schema = {
   telephone: `+55${site.telefone.replace(/\D/g, '')}`,
   email: site.email,
   logo: new URL('/images/logo.png', Astro.site).toString(),
-  image: new URL('/images/compartilhar.jpg', Astro.site).toString(),
+  // Fotos da empresa em formatos diferentes (1200 × 630, 16:9 e 4:3), como o Google recomenda
+  image: ['/images/ipiranga-redutores-belo-horizonte.jpg', foto('fachada-ipiranga-redutores-belo-horizonte'), foto('fachada-antiga-ipiranga-redutores')]
+    .filter((f): f is string => !!f)
+    .map((f) => new URL(f, Astro.site).toString()),
   address: {
     '@type': 'PostalAddress',
     streetAddress: `${site.endereco} – ${site.bairro}`,
@@ -98,6 +110,10 @@ const schema = {
   <meta property="og:description" content={descricao} />
   {!noindex && <meta property="og:url" content={canonical} />}
   <meta property="og:image" content={new URL(imagem, Astro.site)} />
+  <meta property="og:image:alt" content={imagemAlt} />
+  {tamanhoImagem && <meta property="og:image:width" content={String(tamanhoImagem.largura)} />}
+  {tamanhoImagem && <meta property="og:image:height" content={String(tamanhoImagem.altura)} />}
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </head>

@@ -3,15 +3,17 @@
 // Cliente sem logo (ou com arquivo ainda não enviado) aparece com o nome.
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { dimensoes, type Dimensoes } from '../lib/imagens';
 interface Cliente { nome: string; logo?: string }
 interface Props { clientes: Cliente[]; minimo?: number }
 const { clientes, minimo = 8 } = Astro.props;
 
-// Espaços extras só para dar volume enquanto não há logos suficientes
+// Espaços extras só para dar volume enquanto não há logos suficientes.
+// width/height do logo vêm do próprio arquivo, para o navegador reservar o espaço antes de baixar.
 const extras = Math.max(0, minimo - clientes.length);
 const temArquivo = (logo?: string) => !!logo && existsSync(join(process.cwd(), 'public', logo));
-const itens: (Cliente & { reservado?: boolean })[] = [
-  ...clientes.map((c) => ({ ...c, logo: temArquivo(c.logo) ? c.logo : '' })),
+const itens: (Cliente & { tamanho?: Dimensoes; reservado?: boolean })[] = [
+  ...clientes.map((c) => (temArquivo(c.logo) ? { ...c, tamanho: dimensoes(c.logo) } : { ...c, logo: '' })),
   ...Array.from({ length: extras }, () => ({ nome: 'Logo de cliente', reservado: true })),
 ];
 ---
@@ -22,7 +24,7 @@ const itens: (Cliente & { reservado?: boolean })[] = [
         {itens.map((c) => (
           <li class:list={{ reservado: c.reservado || !c.logo }}>
             {c.logo
-              ? <img src={c.logo} alt={copia === 0 ? c.nome : ''} loading="lazy" />
+              ? <img src={c.logo} alt={copia === 0 ? c.nome : ''} width={c.tamanho?.largura} height={c.tamanho?.altura} loading="lazy" decoding="async" />
               : <span>{c.nome}</span>}
           </li>
         ))}

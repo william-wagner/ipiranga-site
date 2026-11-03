@@ -8,7 +8,8 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
 - [x] **Aprovar o novo visual** e juntar a branch na `main`: publicado em 30/10/2026, com os redirecionamentos (pilha `site-ipiranga`) e o formulário de contato.
 - [ ] **Fotos**: gerar as fotos pelos prompts do documento "Prompts das fotos do site" e salvar em
   `public/images/fotos/` com os nomes de `public/images/fotos/LEIA-ME.md`. Cada foto entra sozinha no site.
-  A da fachada (`empresa`) deve ser real.
+  A da fachada antiga (`fachada-antiga-ipiranga-redutores`) é real. Os nomes dos arquivos mudaram em
+  03/11/2026; conferir se o documento de prompts ainda cita os nomes antigos (`hero`, `empresa`, `produto-*`).
 - [x] **Site em uma página só** (30/10/2026): as páginas internas (A empresa, Aplicações, Manutenção, Usados,
   Peças e acoplamentos, "O que é um redutor", Produtos e cada produto, Contato) saíram do site. Os endereços
   delas e os do WordPress antigo vão em 301 para a seção correspondente da página inicial
@@ -23,6 +24,44 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
 - [ ] **Conferir textos que assumem coisas** sobre os usados: "revisão na nossa oficina" antes da entrega e
   que o estoque de usados muda com frequência (página inicial).
 - [ ] **Regras do selo WEG**: conferir com a WEG como o selo de autorizada pode aparecer.
+
+## SEO (auditoria de 03/11/2026)
+
+Relatório completo no artefato "Auditoria SEO Ipiranga Redutores"
+(https://claude.ai/artifact/JZP5NLJh9uYbTgW8FmZLPC).
+
+- [x] **Dados estruturados** (`LocalBusiness` em `src/layouts/Base.astro`): geo, área atendida, mapa, logo,
+  bairro e serviços. `geo` e `sameAs` só entram quando preenchidos em `src/data/site.json`.
+- [x] **Textos da página inicial** citam BH e a Grande BH, com "todo o Brasil" como complemento.
+- [x] **Título da home** com "motorredutores" e "manutenção"; **404** com `noindex` e sem canonical (03/11/2026).
+- [x] **Validar no Rich Results Test** o schema publicado (03/11/2026).
+- [ ] **Voltar com páginas próprias** para manutenção, usados, peças, aplicações, o artigo e os produtos
+  (é a correção que mais pesa; ver o item "Pensar como incluir os textos mais longos" acima). Junto com isso:
+  - cada página usa o `titulo` e a `descricao` do frontmatter; criar um campo opcional `tituloSeo` para os
+    títulos que não citam BH ("A empresa", "Redutores usados", "Peças e acoplamentos", "Manutenção");
+  - links "Saiba mais" na página inicial apontando para as páginas;
+  - na função do CloudFront (e na cópia em `infra/site.yaml`), mandar cada URL antiga para a página
+    equivalente em vez da página inicial;
+  - as imagens do frontmatter dessas páginas e produtos (`/images/empresa/*` e `/images/produtos/*`) foram
+    apagadas em 03/11/2026 porque nenhuma página as usava: recuperar do git ou usar as fotos novas.
+- [ ] **Serviços com mais texto**: cada serviço como H3 com descrição (três estão sem detalhe em
+  `src/data/empresa.json`). H1 sugerido: "Redutores e motorredutores novos e usados em BH".
+- [x] **Imagens para o Google** (03/11/2026): foto do topo como `<img>` com alt e prioridade (antes era fundo de
+  CSS, invisível para o Google Imagens); nomes de arquivo descritivos; alt da fachada antiga; imagem de
+  compartilhamento nova (recorte da fachada atual) com `og:image:alt`, largura e altura; `image` do schema
+  com três fotos; width/height nos logos de clientes; imagens sem uso apagadas.
+- [ ] **Fotos reais da empresa**: hoje as fotos de produtos, de manutenção e do topo parecem geradas por IA
+  (há textos sem sentido como "TILMARCON" e "STK" ao fundo). Fotografar a fachada atual, a oficina, o estoque
+  e a equipe e trocar os arquivos (nomes e passos em `public/images/fotos/LEIA-ME.md`). Depois:
+  - refazer a imagem de compartilhamento a partir da fachada real;
+  - rever os alts em `src/pages/index.astro` (o da manutenção cita um "técnico da Ipiranga");
+  - incluir as fotos reais da oficina no `image` do schema (`src/layouts/Base.astro`);
+  - subir as mesmas fotos no Perfil da Empresa no Google (ver "Depois da virada").
+- [ ] **Validar o compartilhamento** depois de publicar: colar o link no WhatsApp e no
+  https://developers.facebook.com/tools/debug/ (o Facebook guarda a imagem antiga em cache; usar "Scrape again").
+- [ ] **Desempenho** (medir antes no PageSpeed Insights): versão para celular da foto do topo (`srcset`); reservar o espaço do "Aberto agora"; menos pesos de fonte; cache longo para `/_astro/*`
+  e `/images/*` no CloudFront; avaliar se o Lenis fica.
+- [ ] **Search Console**: cadastrar o domínio, enviar o sitemap e acompanhar indexação e soft 404.
 
 ## Antes da virada
 

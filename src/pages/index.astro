@@ -14,16 +14,16 @@ import empresa from '../data/empresa.json';
 const anos = new Date().getFullYear() - empresa.fundacao;
 
 // Fotos entram sozinhas quando o arquivo existir em public/images/fotos/ (veja o LEIA-ME de lá)
-const fotoHero = foto('hero');
-const fotoEmpresa = foto('empresa');
-const fotoServicos = foto('manutencao');
+const fotoHero = foto('fachada-ipiranga-redutores-belo-horizonte');
+const fotoEmpresa = foto('fachada-antiga-ipiranga-redutores');
+const fotoServicos = foto('manutencao-de-redutores-bh');
 
 const linhas = [
   {
     titulo: 'Equipamentos novos',
     sub: 'Revenda e assistência técnica autorizada WEG-CESTARI',
     itens: ['Redutores', 'Motorredutores', 'Peças de reposição'],
-    foto: foto('produto-novos'),
+    foto: foto('redutores-de-velocidade-novos'),
     // Descrição da foto para o Google e leitores de tela: atualizar se a foto for trocada
     alt: 'Dois redutores de velocidade novos sobre a bancada, com o estoque ao fundo',
     largura: 1448, altura: 1086,
@@ -33,7 +33,7 @@ const linhas = [
     titulo: 'Equipamentos usados',
     sub: 'Diversas marcas e modelos',
     itens: ['Redutores de velocidade e motorredutores usados', 'SEW, Falk, Flender, Transmotécnica, Sumitomo, entre outros', 'Equipamentos fora de linha'],
-    foto: foto('produto-usados'),
+    foto: foto('motorredutor-usado'),
     alt: 'Motorredutor usado sobre um palete no galpão, com prateleiras de equipamentos usados ao fundo',
     largura: 1536, altura: 1024,
     mensagem: 'Olá! Vim pelo site e quero consultar equipamentos usados.',
@@ -42,16 +42,18 @@ const linhas = [
     titulo: 'Peças e acoplamentos',
     sub: 'Componentes para manutenção e reposição',
     itens: ['Acoplamentos diversos', 'Coroas, roscas sem-fim, flanges e cubos entalhados', 'Válvulas, eixos de entrada/saída e eixos vazados com coroa', 'Óleo específico para redutores, fracionado'],
-    foto: foto('produto-pecas'),
+    foto: foto('pecas-de-reposicao-e-acoplamentos'),
     alt: 'Peças de reposição e acoplamentos: rosca sem-fim, coroas, eixo, chavetas, anéis e acoplamentos elásticos',
     largura: 1448, altura: 1086,
     mensagem: 'Olá! Vim pelo site e procuro peças ou acoplamentos.',
   },
 ];
 ---
-<Base titulo={site.nome} descricao={`Redutores e motorredutores novos e usados, manutenção e peças de reposição em Belo Horizonte desde ${empresa.fundacao}. Assistência técnica autorizada WEG-CESTARI.`} imagem="/images/compartilhar.jpg">
+<Base titulo={site.nome} descricao={`Redutores e motorredutores novos e usados, manutenção e peças de reposição em Belo Horizonte desde ${empresa.fundacao}. Assistência técnica autorizada WEG-CESTARI.`}>
 
-  <section id="inicio" class:list={['hero', 'escuro', { 'com-foto': fotoHero }]} style={fotoHero ? `--foto: url(${fotoHero})` : undefined}>
+  <section id="inicio" class:list={['hero', 'escuro', { 'com-foto': fotoHero }]}>
+    {/* Foto como <img>, e não fundo de CSS, para o Google Imagens indexar; é a maior imagem da página, então vem com prioridade */}
+    {fotoHero && <img class="hero-foto" src={fotoHero} alt="Fachada da Ipiranga Redutores na Av. Nossa Senhora de Fátima, 2215, em Belo Horizonte, com um redutor Falk sobre um caminhão" width="1672" height="941" fetchpriority="high" decoding="async" />}
     <div class="container hero-grade">
       <div class="hero-texto">
         <p class="selo-weg">
@@ -79,7 +81,7 @@ const linhas = [
           <p>Sabemos que máquina parada significa prejuízo. Por isso, unimos experiência, agilidade e conhecimento técnico para encontrar soluções que atendam às necessidades de cada cliente, inclusive em situações de urgência, ajudando a reduzir o tempo de parada e a manter a produção em funcionamento.</p>
           <p class="assinatura">Ipiranga Redutores: experiência e agilidade para a indústria não parar.</p>
         </div>
-        {fotoEmpresa && <img class="empresa-foto" src={fotoEmpresa} alt="Fachada da Ipiranga Redutores, na Av. Nossa Senhora de Fátima, 2215" width="1100" height="788" loading="lazy" />}
+        {fotoEmpresa && <img class="empresa-foto" src={fotoEmpresa} alt="Fachada antiga da Ipiranga Redutores, na Av. Nossa Senhora de Fátima, 2215, em Belo Horizonte" width="1100" height="788" loading="lazy" />}
       </div>
       <p class="sub">Algumas das empresas que já atendemos</p>
       <FaixaClientes clientes={empresa.clientes} />
@@ -134,9 +136,11 @@ const linhas = [
 <style>
   /* Topo */
   .hero { padding: clamp(1.5rem, 3.2vw, 2.75rem) 0 clamp(2.5rem, 5vw, 4rem); }
-  .hero.com-foto {
-    background-image: linear-gradient(90deg, rgba(15, 25, 56, 0.94) 0%, rgba(15, 25, 56, 0.78) 45%, rgba(15, 25, 56, 0.25) 100%), var(--foto);
-    background-size: cover; background-position: center;
+  .hero.com-foto { position: relative; isolation: isolate; }
+  .hero-foto { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+  .hero.com-foto::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(90deg, rgba(15, 25, 56, 0.94) 0%, rgba(15, 25, 56, 0.78) 45%, rgba(15, 25, 56, 0.25) 100%);
   }
   .hero-grade { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
   .com-foto .hero-grade { grid-template-columns: 1fr; }
