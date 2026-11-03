@@ -1,0 +1,159 @@
+---
+// Google Analytics 4 com aviso de cookies (LGPD).
+//
+// Nada do Google é carregado antes de o visitante clicar em "Aceitar". A escolha fica guardada no
+// navegador dele e pode ser mudada pelo link "Cookies" no rodapé.
+// Só mede no domínio oficial: a prévia do artefato, o endereço de teste do CloudFront e o
+// "npm run dev" não entram nos números.
+//
+// Eventos enviados (aparecem em Relatórios > Engajamento > Eventos):
+//   clique_whatsapp   botão de orçamento (parâmetros: local = seção da página, item = card do produto)
+//   clique_telefone   link "Ligar"
+//   clique_email      link do e-mail
+//   clique_instagram  link do Instagram
+//   clique_mapa       "Abrir no Google Maps" ou o endereço
+//   generate_lead     formulário de contato enviado com sucesso
+//   ver_secao         seção que apareceu na tela (secao = inicio, empresa, produtos, servicos, contato)
+// Além desses, o GA4 já mede sozinho visualizações, rolagem até o fim e tempo de engajamento.
+const ID_GA = 'G-2GWF60PHEJ';
+---
+<div class="cookies" role="region" aria-label="Aviso de cookies" data-ga={ID_GA} hidden>
+  <p>
+    Usamos cookies do Google Analytics para contar as visitas e entender como o site é usado.
+    Os dados não são usados para propaganda.
+  </p>
+  <div class="cookies-botoes">
+    <button type="button" class="btn btn-azul" data-cookies="sim">Aceitar</button>
+    <button type="button" class="btn btn-contorno-escuro" data-cookies="nao">Recusar</button>
+  </div>
+</div>
+
+<script>
+  type Params = Record<string, string | number | undefined>;
+  type W = Window & { dataLayer: unknown[]; gtag: (...a: unknown[]) => void };
+  const w = window as unknown as W;
+
+  const aviso = document.querySelector<HTMLElement>('.cookies')!;
+  const id = aviso.dataset.ga!;
+  const CHAVE = 'cookies-analytics';
+  const oficial = /(^|\.)ipirangaredutores\.com\.br$/.test(location.hostname);
+
+  const lerEscolha = () => { try { return localStorage.getItem(CHAVE); } catch { return null; } };
+  const salvarEscolha = (v: string) => { try { localStorage.setItem(CHAVE, v); } catch { /* navegação privada */ } };
+
+  let ativo = false;
+
+  function carregar() {
+    if (ativo || !oficial) return;
+    ativo = true;
+    w.dataLayer = w.dataLayer || [];
+    w.gtag = function () { w.dataLayer.push(arguments); };
+    w.gtag('consent', 'default', {
+      analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+    });
+    w.gtag('js', new Date());
+    w.gtag('config', id, { allow_google_signals: false, allow_ad_personalization_signals: false });
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+    document.head.appendChild(s);
+    observarSecoes();
+  }
+
+  function desligar() {
+    if (ativo) w.gtag('consent', 'update', { analytics_storage: 'denied' });
+    ativo = false;
+    // Apaga os cookies do GA (_ga e _ga_XXXX) no domínio do site
+    const dominio = location.hostname.replace(/^www\./, '');
+    for (const c of document.cookie.split(';')) {
+      const nome = c.split('=')[0].trim();
+      if (!nome.startsWith('_ga')) continue;
+      for (const d of ['', `; domain=.${dominio}`, `; domain=${location.hostname}`]) {
+        document.cookie = `${nome}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${d}`;
+      }
+    }
+  }
+
+  function rastrear(evento: string, params: Params = {}) {
+    if (ativo) w.gtag('event', evento, params);
+  }
+
+  // Aviso de cookies
+  const mostrarAviso = (mostrar: boolean) => { aviso.hidden = !mostrar; };
+  aviso.addEventListener('click', (e) => {
+    const escolha = (e.target as Element).closest<HTMLElement>('[data-cookies]')?.dataset.cookies;
+    if (!escolha) return;
+    salvarEscolha(escolha);
+    mostrarAviso(false);
+    if (escolha === 'sim') carregar(); else desligar();
+  });
+  document.addEventListener('click', (e) => {
+    if ((e.target as Element).closest('[data-abrir-cookies]')) { e.preventDefault(); mostrarAviso(true); }
+  });
+
+  const escolha = lerEscolha();
+  if (escolha === 'sim') carregar();
+  else if (escolha !== 'nao' && oficial) mostrarAviso(true);
+
+  // Cliques em contato. "local" é a seção onde estava o link (ou topo, barra do celular, rodapé).
+  const localDe = (el: Element) => {
+    if (el.closest('.barra-movel')) return 'barra_celular';
+    if (el.closest('.topo')) return 'topo';
+    if (el.closest('.rodape')) return 'rodape';
+    return el.closest('section[id]')?.id ?? 'outro';
+  };
+  const itemDe = (el: Element) =>
+    el.closest('article, li, .card')?.querySelector('h3')?.textContent?.trim().slice(0, 100) || undefined;
+
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest<HTMLAnchorElement>('a[href]');
+    if (!a) return;
+    const href = a.href;
+    const base = { local: localDe(a) };
+    if (/wa\.me\/|api\.whatsapp\.com/.test(href)) rastrear('clique_whatsapp', { ...base, item: itemDe(a) });
+    else if (href.startsWith('tel:')) rastrear('clique_telefone', base);
+    else if (href.startsWith('mailto:')) rastrear('clique_email', base);
+    else if (/instagram\.com/.test(href)) rastrear('clique_instagram', base);
+    else if (/google\.[^/]+\/maps/.test(href)) rastrear('clique_mapa', base);
+  });
+
+  // Formulário de contato (Contato.astro avisa quando o envio deu certo)
+  window.addEventListener('ipiranga:formulario-enviado', () => rastrear('generate_lead', { form: 'contato' }));
+
+  // Seções vistas: conta uma vez por visita, quando a seção ocupa boa parte da tela
+  function observarSecoes() {
+    if (!('IntersectionObserver' in window)) return;
+    const vistas = new Set<string>();
+    const obs = new IntersectionObserver((entradas) => {
+      for (const en of entradas) {
+        const s = en.target as HTMLElement;
+        if (!en.isIntersecting || vistas.has(s.id)) continue;
+        const alvo = Math.min(window.innerHeight, en.boundingClientRect.height) * 0.5;
+        if (en.intersectionRect.height < alvo) continue;
+        vistas.add(s.id);
+        obs.unobserve(s);
+        rastrear('ver_secao', { secao: s.id });
+      }
+    }, { threshold: Array.from({ length: 11 }, (_, i) => i / 10) });
+    document.querySelectorAll<HTMLElement>('main section[id], section#contato').forEach((s) => obs.observe(s));
+  }
+</script>
+
+<style>
+  .cookies {
+    position: fixed; z-index: 40; left: 1rem; bottom: 1rem; max-width: 26rem;
+    background: #fff; color: var(--grafite); border: 1px solid var(--linha); border-radius: 8px;
+    box-shadow: 0 16px 40px rgba(15, 25, 56, .25); padding: 1.1rem 1.2rem;
+  }
+  .cookies[hidden] { display: none; }
+  .cookies p { margin: 0 0 0.9rem; font-size: 0.95rem; line-height: 1.5; }
+  .cookies-botoes { display: flex; gap: 0.6rem; }
+  .cookies-botoes .btn { padding: 0.6rem 1.2rem; font-size: 0.95rem; }
+  .btn-contorno-escuro { background: #fff; color: var(--azul); border: 2px solid var(--azul); }
+  .btn-contorno-escuro:hover { background: var(--aco); }
+  @media (max-width: 40rem) {
+    /* fica acima da barra fixa de WhatsApp/Ligar */
+    .cookies { left: 0.75rem; right: 0.75rem; bottom: calc(4.6rem + env(safe-area-inset-bottom)); max-width: none; }
+    .cookies-botoes .btn { flex: 1; justify-content: center; }
+  }
+</style>

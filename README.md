@@ -25,6 +25,7 @@ Ao salvar, o site é publicado sozinho em 1 a 2 minutos.
 | `.github/workflows/publicar.yml` | Publicação automática na AWS |
 | `infra/cloudfront-function.js` | Redirects do www, do site antigo e das antigas páginas internas para as seções |
 | `infra/site.yaml` | Infraestrutura do site (CloudFormation, região us-east-1) |
+| `src/components/Analytics.astro` | Google Analytics (ID `G-2GWF60PHEJ`), aviso de cookies e eventos medidos |
 | `infra/contato.yaml` | Formulário de contato: Lambda + SES (CloudFormation, região sa-east-1) |
 
 ## E-mail e cPanel

@@ -4,6 +4,7 @@ import Icone from '../components/Icone.astro';
 import BotaoWhatsapp from '../components/BotaoWhatsapp.astro';
 import Contato from '../components/Contato.astro';
 import RodapeEnxuto from '../components/RodapeEnxuto.astro';
+import Analytics from '../components/Analytics.astro';
 import empresa from '../data/empresa.json';
 import { site, linkWhatsapp, linkTelefone, linkMapa } from '../lib/site';
 import { menu, hrefSecao } from '../lib/menu';
@@ -151,6 +152,8 @@ const schema = {
     <a href={linkWhatsapp} class="wa" target="_blank" rel="noopener"><Icone nome="whatsapp" />Orçamento pelo WhatsApp</a>
     <a href={linkTelefone} aria-label={`Ligar ${site.telefone}`}><Icone nome="telefone" />Ligar</a>
   </nav>
+
+  <Analytics />
 
   <script>
     import Lenis from 'lenis';

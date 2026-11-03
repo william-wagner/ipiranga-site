@@ -115,6 +115,7 @@ const H = nivel;
         });
         if (!r.ok) throw new Error(String(r.status));
         f.reset();
+        window.dispatchEvent(new CustomEvent('ipiranga:formulario-enviado')); // contado no Analytics
         f.hidden = true;
         ok.hidden = false;
         ok.querySelector<HTMLButtonElement>('.form-outra')!.focus();

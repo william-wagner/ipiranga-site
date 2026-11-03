@@ -76,6 +76,21 @@ Relatório completo no artefato "Auditoria SEO Ipiranga Redutores"
   - [x] **Lenis**: decidido manter (03/11/2026).
 - [ ] **Search Console**: cadastrar o domínio, enviar o sitemap e acompanhar indexação e soft 404.
 
+## Indicadores (Google Analytics 4)
+
+- [x] **GA4 no site** (03/11/2026): propriedade "Site Ipiranga Redutores", ID `G-2GWF60PHEJ`, em
+  `src/components/Analytics.astro`. Só carrega depois de "Aceitar" no aviso de cookies (link "Cookies" no
+  rodapé reabre) e só no domínio oficial. Eventos: `clique_whatsapp`, `clique_telefone`, `clique_email`,
+  `clique_instagram`, `clique_mapa`, `generate_lead` (formulário enviado) e `ver_secao`.
+- [ ] No GA4, **Fluxos de dados → Medição otimizada → Visualizações de página → desligar "Mudanças de página
+  com base em eventos do histórico do navegador"** (o site troca o `#secao` do endereço ao rolar e isso
+  contaria visualizações falsas).
+- [ ] **Dimensões personalizadas** (Administrador → Definições personalizadas), escopo evento: `local`,
+  `item` e `secao`. Sem isso os parâmetros não aparecem nos relatórios.
+- [ ] **Eventos-chave**: marcar `clique_whatsapp`, `clique_telefone` e `generate_lead` depois que aparecerem.
+- [ ] Retenção de dados em 14 meses; vincular o Search Console.
+- [ ] Depois: Microsoft Clarity (mapas de calor e gravações), usando o mesmo aviso de cookies.
+
 ## Antes da virada
 
 - [ ] **Revisar o site novo** com a Ipiranga: fotos, contatos e navegação, também pelo celular.
