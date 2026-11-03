@@ -9,9 +9,10 @@ import { site, linkWhatsapp, linkTelefone, linkMapa } from '../lib/site';
 import { menu, hrefSecao } from '../lib/menu';
 
 // contato: título do bloco de contato no fim da página; false para não mostrar (página Contato)
-interface Props { titulo: string; descricao: string; imagem?: string; contato?: string | false }
-const { titulo, descricao, imagem = '/images/empresa/estoque.jpg', contato = 'Seu redutor parou? Fale com a gente.' } = Astro.props;
-const tituloCompleto = titulo === site.nome ? `${site.nome} – Redutores de velocidade em BH` : `${titulo} | ${site.nome}`;
+// noindex: tira a página do Google e não publica canonical (ex.: 404)
+interface Props { titulo: string; descricao: string; imagem?: string; contato?: string | false; noindex?: boolean }
+const { titulo, descricao, imagem = '/images/empresa/estoque.jpg', contato = 'Seu redutor parou? Fale com a gente.', noindex = false } = Astro.props;
+const tituloCompleto = titulo === site.nome ? `Redutores e motorredutores em BH – venda e manutenção | ${site.nome}` : `${titulo} | ${site.nome}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const atual = Astro.url.pathname;
 
@@ -86,7 +87,7 @@ const schema = {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{tituloCompleto}</title>
   <meta name="description" content={descricao} />
-  <link rel="canonical" href={canonical} />
+  {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
   <link rel="icon" href="/favicon.png" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <meta name="theme-color" content="#0f1938" />
@@ -95,7 +96,7 @@ const schema = {
   <meta property="og:site_name" content={site.nome} />
   <meta property="og:title" content={tituloCompleto} />
   <meta property="og:description" content={descricao} />
-  <meta property="og:url" content={canonical} />
+  {!noindex && <meta property="og:url" content={canonical} />}
   <meta property="og:image" content={new URL(imagem, Astro.site)} />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
