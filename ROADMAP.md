@@ -58,8 +58,8 @@ Relatório completo no artefato "Auditoria SEO Ipiranga Redutores"
   - subir as mesmas fotos no Perfil da Empresa no Google (ver "Depois da virada").
 - [x] **Arte da prévia de link** (03/11/2026): `og:image` passou a ser uma arte com logo, "Redutores e
   motorredutores", "Venda e manutenção em Belo Horizonte desde 1980" e selo WEG-CESTARI
-  (`public/images/compartilhar-ipiranga-redutores-bh.jpg`; fonte e passo a passo em `design/compartilhar.html`).
-  Refazer quando chegar o logo em alta resolução e tirar o selo se a WEG não permitir (ver "Regras do selo WEG").
+  (`public/images/ipiranga-redutores-venda-e-assistencia-tecnica.jpg`, feita pela Ipiranga; original em alta em
+  `design/compartilhar-original.png`). Tirar o selo se a WEG não permitir (ver "Regras do selo WEG").
 - [ ] **Validar o compartilhamento** depois de publicar: colar o link no WhatsApp e no
   https://developers.facebook.com/tools/debug/ (o Facebook guarda a imagem antiga em cache; usar "Scrape again").
 - [ ] **Desempenho** (medir antes no PageSpeed Insights): versão para celular da foto do topo (`srcset`); reservar o espaço do "Aberto agora"; menos pesos de fonte; cache longo para `/_astro/*`
