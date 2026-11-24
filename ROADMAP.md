@@ -24,7 +24,12 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
 - [ ] **Search Console** depois da publicação: pedir indexação de `/produtos/conimax/`, `/manutencao/`,
   `/empresa/`, `/aplicacoes/`, `/produtos/` e do artigo; reenviar o sitemap; acompanhar em 4 a 6 semanas a
   busca "conimax" e as páginas antigas (`/redutor-de-velocidade-bh/`, `/2014/11/05/motorredutor-conimax/`).
-- [ ] **Decidir sobre Usados e Peças**: em 24/11/2026 a busca "acoplamento" já somava 185 impressões em 20 dias
+- [ ] **Página `/pecas-e-acoplamentos/`** (branch `pecas-e-acoplamentos`, 24/11/2026): publicada no código, com
+  título "Acoplamentos e peças para redutores em BH", lista de peças unificada com o card da home e link "Peças e
+  acoplamentos" na seção Produtos. Depois de juntar na `main`, **atualizar a pilha `site-ipiranga`** (o 301 de
+  `/pecas-e-acoplamentos/` saiu de `infra/site.yaml`), pedir indexação no Search Console e confirmar com a
+  Ludmila se vendem acoplamentos usados e se há outros tipos além dos elásticos/flexíveis.
+- [ ] **Decidir sobre Usados** (Peças já decidido acima): em 24/11/2026 a busca "acoplamento" já somava 185 impressões em 20 dias
   (posição 4,7, nenhum clique), mais "acoplamentos industriais" e "acoplamento industrial"; pesa a favor de
   publicar `/pecas-e-acoplamentos/`. Antes, eram 19 impressões; conferir no Search Console
   (as 11 páginas que não estavam no print) se vale publicar `/pecas-e-acoplamentos/` e `/usados/`.

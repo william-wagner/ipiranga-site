@@ -192,7 +192,6 @@ Resources:
               '/redutores-de-velocidade-bh/': '/aplicacoes/',
               // Paginas internas que nao voltaram em 03/11/2026: vao para a secao da pagina inicial
               '/usados/': '/?secao=produtos',
-              '/pecas-e-acoplamentos/': '/?secao=produtos',
               '/contato/': '/?secao=contato',
               // Linhas que tiveram pagina no site novo ate 28/10/2026
               '/produtos/alumag/': '/produtos/',

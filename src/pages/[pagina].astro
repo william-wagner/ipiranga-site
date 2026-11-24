@@ -8,14 +8,14 @@ import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
   // Só as páginas que apareciam no Google; usados e peças continuam só como seções da página inicial
-  const PUBLICADAS = ['empresa', 'manutencao', 'aplicacoes', 'o-que-e-um-redutor-de-velocidade'];
+  const PUBLICADAS = ['empresa', 'manutencao', 'aplicacoes', 'o-que-e-um-redutor-de-velocidade', 'pecas-e-acoplamentos'];
   const paginas = await getCollection('paginas', (p) => PUBLICADAS.includes(p.id));
   return paginas.map((p) => ({ params: { pagina: p.id }, props: { p } }));
 }
 const { p } = Astro.props;
 const { Content } = await render(p);
 ---
-<Base titulo={p.data.tituloSeo ?? p.data.titulo} descricao={p.data.descricao} imagem={p.data.imagem}>
+<Base titulo={p.data.tituloSeo ?? p.data.titulo} descricao={p.data.descricao} imagem={p.data.imagem} imagemAlt={p.data.imagem && p.data.titulo}>
   <CabecalhoPagina titulo={p.data.titulo} />
   <div class="container corpo">
     <article class="prosa">
