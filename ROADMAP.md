@@ -24,7 +24,9 @@ Situação em 28/10/2026: o site novo está no ar em https://ipirangaredutores.c
 - [ ] **Search Console** depois da publicação: pedir indexação de `/produtos/conimax/`, `/manutencao/`,
   `/empresa/`, `/aplicacoes/`, `/produtos/` e do artigo; reenviar o sitemap; acompanhar em 4 a 6 semanas a
   busca "conimax" e as páginas antigas (`/redutor-de-velocidade-bh/`, `/2014/11/05/motorredutor-conimax/`).
-- [ ] **Decidir sobre Usados e Peças**: a busca "acoplamento" teve 19 impressões; conferir no Search Console
+- [ ] **Decidir sobre Usados e Peças**: em 24/11/2026 a busca "acoplamento" já somava 185 impressões em 20 dias
+  (posição 4,7, nenhum clique), mais "acoplamentos industriais" e "acoplamento industrial"; pesa a favor de
+  publicar `/pecas-e-acoplamentos/`. Antes, eram 19 impressões; conferir no Search Console
   (as 11 páginas que não estavam no print) se vale publicar `/pecas-e-acoplamentos/` e `/usados/`.
 - [ ] **Foto do Conimax** em boa resolução: a atual (`public/images/produtos/foto-conimax.jpg`) é uma miniatura
   do site antigo. Conferir também se o texto da ficha ainda vale (lojas vendem a linha como "Conimax WCG20").
@@ -76,7 +78,23 @@ Relatório completo no artefato "Auditoria SEO Ipiranga Redutores"
     `/images/*` com 1 dia, HTML e o resto com 5 min. Uma foto trocada **com o mesmo nome** leva até 24 h
     para aparecer para quem já visitou o site; para ver na hora, trocar o nome do arquivo.
   - [x] **Lenis**: decidido manter (03/11/2026).
-- [ ] **Search Console**: cadastrar o domínio, enviar o sitemap e acompanhar indexação e soft 404.
+- [x] **Search Console**: domínio cadastrado e sitemap enviado (30/10/2026; lido em 21/11 com as 10 páginas).
+  Os 404 e "não indexadas" são só URLs do WordPress antigo (inclusive posts de spam), sem ação necessária.
+
+## Resultados (checagem de 24/11/2026)
+
+Comparação de 04/11 a 23/11 (depois das mudanças de 03/11) com 15/10 a 03/11.
+
+- **Search Console**: impressões de 281 para 1.280; cliques de 25 para 52; CTR de 8,9% para 4,1%; posição de 4,9
+  para 5,6. As páginas que voltaram aparecem (artigo 178 impressões, Produtos 162, Aplicações 137, Manutenção 116,
+  Empresa 103, fichas 25 a 42). Os 301 funcionaram: `/redutor-de-velocidade-bh/` caiu de 41 para 1 e `/manutencao/`
+  assumiu; o Conimax antigo foi para `/produtos/conimax/`. Quase todos os cliques são da busca pelo nome
+  ("ipiranga redutores"); buscas genéricas ("acoplamento", "redutor", "motoredutor industrial") aparecem, mas
+  sem clique.
+- **GA4**: 159 usuários e 198 sessões; busca orgânica com 78 sessões e 72% de engajamento. **40 cliques no
+  WhatsApp de 38 pessoas** (cerca de 1 em cada 4 visitantes): topo/início 13, menu do topo 10, barra do celular 9,
+  produtos 5, contato 3. Formulário enviado 2 vezes, telefone 2. As sessões "Direto" (105, com 3 s e 16% de
+  engajamento) parecem robôs ou acessos internos.
 
 ## Indicadores (Google Analytics 4)
 
@@ -84,13 +102,14 @@ Relatório completo no artefato "Auditoria SEO Ipiranga Redutores"
   `src/components/Analytics.astro`. Carrega para todos os visitantes, só no domínio oficial. O aviso de
   cookies foi tirado em 03/11/2026 (decisão: medir todos, com base no legítimo interesse). Eventos: `clique_whatsapp`, `clique_telefone`, `clique_email`,
   `clique_instagram`, `clique_mapa`, `generate_lead` (formulário enviado) e `ver_secao`.
-- [ ] No GA4, **Fluxos de dados → Medição otimizada → Visualizações de página → desligar "Mudanças de página
+- [x] No GA4, **Fluxos de dados → Medição otimizada → Visualizações de página → desligar "Mudanças de página
   com base em eventos do histórico do navegador"** (o site troca o `#secao` do endereço ao rolar e isso
   contaria visualizações falsas).
-- [ ] **Dimensões personalizadas** (Administrador → Definições personalizadas), escopo evento: `local`,
+- [x] **Dimensões personalizadas** (Administrador → Definições personalizadas), escopo evento: `local`,
   `item` e `secao`. Sem isso os parâmetros não aparecem nos relatórios.
-- [ ] **Eventos-chave**: marcar `clique_whatsapp`, `clique_telefone` e `generate_lead` depois que aparecerem.
-- [ ] Retenção de dados em 14 meses; vincular o Search Console.
+- [ ] **Eventos-chave**: `clique_whatsapp` e `generate_lead` já marcados (conferido em 24/11/2026); falta
+  marcar `clique_telefone`.
+- [x] Retenção de dados em 14 meses; Search Console vinculado (03/11/2026).
 - [ ] **Página de política de privacidade** (LGPD), com link no rodapé: quem é a empresa (controladora) e o
   contato para falar de dados pessoais; que o site usa cookies do Google Analytics para medir visitas,
   com base no legítimo interesse, sem uso para anúncios; o que o formulário de contato coleta (nome,
@@ -118,8 +137,9 @@ Relatório completo no artefato "Auditoria SEO Ipiranga Redutores"
 
 ## Domínio (painel do Registro.br)
 
-- [ ] **Renovar o domínio**: vence em **29/11/2026**.
-- [ ] Trocar o **contato técnico**, que ainda é a "REALSITE WEBDESIGN" (provável autora do site antigo).
+- [x] **Renovar o domínio**: renovado; vence agora em **29/11/2028** (conferido no RDAP em 24/11/2026).
+- [x] **Contato técnico** trocado em 24/11/2026: era a "REALSITE WEBDESIGN" (`REWEB18`), agora é o William
+  (`WIWAG26`). Titular: Ipiranga Redutores (CNPJ); administrativo e cobrança: `IPR30`.
 
 ## Depois da virada
 
